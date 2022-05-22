@@ -1,0 +1,7 @@
+{
+    "files.exclude": {
+        "**/.build": true,
+        "**/.swiftpm": true,
+        "**/.docc-build": true
+    }
+}
