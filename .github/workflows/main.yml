@@ -61,14 +61,14 @@ jobs:
       run: npm run test
 
     - name: Swift Coverage Report
-      if: matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'ubuntu-latest' && github.event_name == 'push'
       uses: maxep/spm-lcov-action@0.3.1
       with:
         file-format: lcov
         output-file: ./coverage.lcov
 
     - name: Codecov upload
-      if: matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'ubuntu-latest' && github.event_name == 'push'
       uses: codecov/codecov-action@v2.1.0
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
@@ -113,6 +113,8 @@ jobs:
     if: github.event_name == 'push'
     needs: [analyze, swift-package-test, cocoapods-test]
     runs-on: ubuntu-latest
+    permissions: 
+      contents: write
     outputs:
       release: ${{ steps.check_version_bump.outputs.release_type != '' }}
 
@@ -124,6 +126,22 @@ jobs:
         github_token: ${{ github.token }}
         default_bump: false
         dry_run: true
+
+    - name: Build package documentation
+      if:  steps.check_version_bump.outputs.release_type == ''
+      run: |
+        npm run build
+        npm run build-doc
+        npm run serve-doc
+
+    - name: Update GitHub Pages
+      if:  steps.check_version_bump.outputs.release_type == ''
+      uses: JamesIves/github-pages-deploy-action@v4.3.3
+      with:
+          branch: gh-pages
+          folder: .docc-build
+          target-folder: docs
+          commit-message: 'chore(GitHub Pages): update site for commit ${{ github.sha }}'
 
   cd:
     name: Build and Publish
@@ -173,17 +191,12 @@ jobs:
     #     config-file-path: '.github/config/config.js'
     #     pre-commit: '.github/config/pre_commit_hook.js'
 
-    - name: Build package
-      if: steps.conventional_changelog.outputs.skipped == 'false'
-      run: npm run build
-
     - name: Build package documentation
       if: steps.conventional_changelog.outputs.skipped == 'false'
-      run: npm run build-doc
-
-    - name: Build package documentation for hosting
-      if: steps.conventional_changelog.outputs.skipped == 'false'
-      run: npm run serve-doc
+      run: |
+        npm run build
+        npm run build-doc
+        npm run serve-doc
 
     # - name: Create GitHub Release
     #   if: steps.conventional_changelog.outputs.skipped == 'false'

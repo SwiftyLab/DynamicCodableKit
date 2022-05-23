@@ -12,7 +12,6 @@ concurrency:
 jobs:
   analyze:
     name: Analyze
-    if: github.event.repository.private == 'false'
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -29,10 +28,12 @@ jobs:
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
+      if: github.event.repository.private == 'false'
       uses: github/codeql-action/init@v2
       with:
         languages: javascript
         # languages: ${{ matrix.language }}
 
     - name: Perform CodeQL Analysis
+      if: github.event.repository.private == 'false'
       uses: github/codeql-action/analyze@v2
