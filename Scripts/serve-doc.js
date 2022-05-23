@@ -2,7 +2,7 @@
 const { execSync } = require('node:child_process');
 
 execSync(
-  'swift package \
+  'swift package --verbose \
     --allow-writing-to-directory .docc-build \
     generate-documentation \
     --disable-indexing \

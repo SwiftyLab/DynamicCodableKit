@@ -2,7 +2,7 @@
 const { execSync } = require('node:child_process');
 
 execSync(
-  'swift package generate-documentation \
+  'swift package --verbose generate-documentation \
     --fallback-display-name DynamicCodableKit \
     --fallback-bundle-identifier com.example.DynamicCodableKit \
     --fallback-bundle-version 1 \

@@ -3,7 +3,7 @@ const { exec } = require('node:child_process');
 const open = require('open');
 
 const process = exec(
-  'swift package \
+  'swift package --verbose \
     --disable-sandbox preview-documentation \
     --fallback-display-name DynamicCodableKit \
     --fallback-bundle-identifier com.example.DynamicCodableKit \

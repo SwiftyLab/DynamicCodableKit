@@ -5,7 +5,7 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
-concurrency: 
+concurrency:
   group: scan-${{ github.ref }}
   cancel-in-progress: true
 

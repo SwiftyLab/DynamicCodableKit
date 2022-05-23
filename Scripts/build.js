@@ -4,7 +4,7 @@ const { execSync } = require('node:child_process');
 
 const args = process.argv.slice(2).join(' ')
 execSync(
-  `swift build ${args} \
+  `swift build ${args} --verbose \
     -Xswiftc \
     -emit-symbol-graph \
     -Xswiftc \
