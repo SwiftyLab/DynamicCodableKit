@@ -127,6 +127,16 @@ jobs:
         default_bump: false
         dry_run: true
 
+    - name: Setup node
+      if:  steps.check_version_bump.outputs.release_type == ''
+      uses: actions/setup-node@v3
+      with:
+        node-version: '17'
+
+    - name: Setup npm pacakges
+      if:  steps.check_version_bump.outputs.release_type == ''
+      run: npm install
+
     - name: Build package documentation
       if:  steps.check_version_bump.outputs.release_type == ''
       run: |
