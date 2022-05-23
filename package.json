@@ -1,0 +1,28 @@
+{
+    "name": "dynamic-codable-kit",
+    "version": "1.0.0",
+    "summary": "DynamicCodableKit helps you to implement dynamic JSON decoding.",
+    "description": "DynamicCodableKit helps you to implement dynamic JSON decoding within the constraints of Swift's sound type system by working on top of Swift's Codable implementations.",
+    "homepage": "https://github.com/SwiftyLab/dynamic-codable-kit",
+    "license": "MIT",
+    "author": {
+      "name" : "Soumya Ranjan Mahunt",
+      "email" : "soumya.mahunt@gmail.com",
+      "url" : "https://twitter.com/soumya_mahunt"
+    },
+    "repository": {
+      "type" : "git",
+      "url" : "https://github.com/SwiftyLab/dynamic-codable-kit.git"
+    },
+    "private": true,
+    "dependencies": {
+        "open": "^8.4.0"
+    },
+    "scripts": {
+      "build": "Scripts/build.js",
+      "test": "Scripts/test.js",
+      "preview-doc": "Scripts/preview-doc.js",
+      "build-doc": "Scripts/build-doc.js",
+      "serve-doc": "Scripts/serve-doc.js"
+    }
+  }
