@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "DynamicCodableKit",
+    name: "dynamic-codable-kit",
     platforms: [
         .iOS(.v8),
         .macOS(.v10_10),

@@ -35,16 +35,16 @@ final class DynamicDecodingCollectionWrapperTests: XCTestCase {
         XCTAssertEqual(postPage.content.map(\.type), [.text, .picture, .audio, .video])
     }
 
-    func testLossyDecodingPerformance() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
-        let data = try Data(contentsOf: url)
-        measure {
-            let decoder = JSONDecoder()
-            for _ in 0..<100 {
-                _ = try? decoder.decode(LossyPostPage.self, from: data)
-            }
-        }
-    }
+    // func testLossyDecodingPerformance() throws {
+    //     let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
+    //     let data = try Data(contentsOf: url)
+    //     measure {
+    //         let decoder = JSONDecoder()
+    //         for _ in 0..<100 {
+    //             _ = try? decoder.decode(LossyPostPage.self, from: data)
+    //         }
+    //     }
+    // }
 
     func testDecodingWithSet() throws {
         let url = Bundle.module.url(forResource: "identifier-decode", withExtension: "json")!
