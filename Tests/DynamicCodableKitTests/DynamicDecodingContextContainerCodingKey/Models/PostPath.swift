@@ -22,6 +22,11 @@ struct CommonPostPage: Decodable {
     @PostData var content: [PostType: [CommonPost]]
 }
 
+struct OptionalCommonPostPage: Decodable {
+    let next: URL
+    @OptionalPostData var content: [PostType: [OptionalTypeCommonPost]]
+}
+
 struct ThrowingCommonPostPage: Decodable {
     let next: URL
     var content: [String: [CommonPost]]
@@ -44,6 +49,22 @@ struct PostData: Decodable {
         let container = try decoder.container(keyedBy: PostType.self)
         self.wrappedValue = try container.allKeys.reduce(into: [:], { values, key in
             values[key] = try container.decode([CommonPost].self, forKey: key)
+        })
+    }
+}
+
+@propertyWrapper
+struct OptionalPostData: Decodable {
+    public var wrappedValue: [PostType: [OptionalTypeCommonPost]]
+
+    public init(wrappedValue: [PostType: [OptionalTypeCommonPost]]) {
+        self.wrappedValue = wrappedValue
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: PostType.self)
+        self.wrappedValue = try container.allKeys.reduce(into: [:], { values, key in
+            values[key] = try container.decode([OptionalTypeCommonPost].self, forKey: key)
         })
     }
 }
