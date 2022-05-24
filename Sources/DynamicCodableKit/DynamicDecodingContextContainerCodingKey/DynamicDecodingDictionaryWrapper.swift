@@ -40,3 +40,34 @@ public struct DynamicDecodingDictionaryWrapper<
         }
     }
 }
+
+/// A property wrapper type that strictly decodes a dictionary value of ``DynamicDecodingContextContainerCodingKey``
+/// coding key and their dynamic ``DynamicDecodingContextContainerCodingKey/Contained`` value and
+/// throws error if decoding fails.
+///
+/// `StrictDynamicDecodingDictionaryWrapper` is a type alias for
+/// ``DynamicDecodingDictionaryWrapper``,
+/// with ``DynamicDecodingCollectionConfigurationProvider`` as
+/// ``StrictCollectionConfiguration``
+public typealias StrictDynamicDecodingDictionaryWrapper<
+    ContainerCodingKey: DynamicDecodingContextContainerCodingKey
+> = DynamicDecodingDictionaryWrapper<
+    ContainerCodingKey,
+    StrictCollectionConfiguration
+> where ContainerCodingKey: Hashable
+
+/// A property wrapper type that decodes valid data into a dictionary value of
+/// ``DynamicDecodingContextContainerCodingKey`` coding key and
+/// their dynamic ``DynamicDecodingContextContainerCodingKey/Contained``
+/// value while ignoring invalid data.
+///
+/// `LossyDynamicDecodingDictionaryWrapper` is a type alias for
+/// ``DynamicDecodingDictionaryWrapper``,
+/// with ``DynamicDecodingCollectionConfigurationProvider`` as
+/// ``LossyCollectionConfiguration``
+public typealias LossyDynamicDecodingDictionaryWrapper<
+    ContainerCodingKey: DynamicDecodingContextContainerCodingKey
+> = DynamicDecodingDictionaryWrapper<
+    ContainerCodingKey,
+    LossyCollectionConfiguration
+> where ContainerCodingKey: Hashable

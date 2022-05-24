@@ -25,6 +25,26 @@ public struct PathCodingKeyWrapper<Key: CodingKey>: Decodable {
     }
 }
 
+public extension KeyedDecodingContainer {
+    /// Decodes a value of the type ``PathCodingKeyWrapper``
+    /// for the given `PathKey` coding key.
+    ///
+    /// - Parameters:
+    ///   - type: The type of value to decode.
+    ///   - key: The coding key.
+    ///
+    /// - Returns: A value of the type ``PathCodingKeyWrapper``
+    ///            for the given `PathKey` coding key.
+    func decode<PathKey: CodingKey>(
+        _ type: PathCodingKeyWrapper<PathKey>.Type,
+        forKey key: K
+    ) throws -> PathCodingKeyWrapper<PathKey> {
+        return try .init(
+            wrappedValue: self.codingKeyFromPath(ofType: PathKey.self)
+        )
+    }
+}
+
 public extension KeyedDecodingContainerProtocol {
     /// Decodes a value of the type ``PathCodingKeyWrapper``
     /// for the given `PathKey` coding key.
