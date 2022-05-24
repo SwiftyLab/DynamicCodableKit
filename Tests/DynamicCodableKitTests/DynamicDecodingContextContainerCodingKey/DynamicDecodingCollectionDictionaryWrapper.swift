@@ -50,18 +50,3 @@ final class DynamicDecodingCollectionDictionaryWrapperTests: XCTestCase {
         }
     }
 }
-
-struct ThrowingKeyedPostPageCollection: Decodable {
-    let next: URL
-    @StrictDynamicDecodingArrayDictionaryWrapper<PostType> var content: [PostType: [Post]]
-}
-
-struct DefaultValueKeyedPostPageCollection: Decodable {
-    let next: URL
-    @DefaultValueDynamicDecodingArrayDictionaryWrapper<PostType> var content: [PostType: [Post]]
-}
-
-struct LossyKeyedPostPageCollection: Decodable {
-    let next: URL
-    @LossyDynamicDecodingArrayDictionaryWrapper<PostType> var content: [PostType: [Post]]
-}

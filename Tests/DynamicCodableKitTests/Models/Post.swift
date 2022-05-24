@@ -75,18 +75,3 @@ enum PostCodingKey: String, DynamicDecodingContextIdentifierCodingKey {
     case type
     static var identifierCodingKey: Self { .type }
 }
-
-struct ThrowingPostPage: Decodable {
-    let next: URL
-    @StrictDynamicDecodingArrayWrapper<PostCodingKey> var content: [Post]
-}
-
-struct DefaultPostPage: Decodable {
-    let next: URL
-    @DefaultValueDynamicDecodingArrayWrapper<PostCodingKey> var content: [Post]
-}
-
-struct LossyPostPage: Decodable {
-    let next: URL
-    @LossyDynamicDecodingArrayWrapper<PostCodingKey> var content: [Post]
-}

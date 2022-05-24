@@ -1,12 +1,13 @@
 import XCTest
 @testable import DynamicCodableKit
 
-final class DynamicDecodingWrapperTests: XCTestCase {
+final class DynamicDecodingContextBasedWrapperTests: XCTestCase {
     func testDecoding() throws {
         let url = Bundle.module.url(forResource: "identifier-decode", withExtension: "json")!
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
-        let postPage = try decoder.decode(SinglePostPage.self, from: data)
+        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: VideoPost.self)
+        let postPage = try decoder.decode(ProviderBasedSinglePostPage.self, from: data)
         XCTAssertEqual(postPage.content.type, .video)
         XCTAssertEqual(postPage.content.likes, 2345)
     }
@@ -15,7 +16,8 @@ final class DynamicDecodingWrapperTests: XCTestCase {
         let url = Bundle.module.url(forResource: "identifier-decode", withExtension: "json")!
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
-        let postPage = try decoder.decode(OptionalSinglePostPage.self, from: data)
+        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: VideoPost.self)
+        let postPage = try decoder.decode(ProviderBasedOptionalSinglePostPage.self, from: data)
         XCTAssertEqual(postPage.content?.type, .video)
         XCTAssertEqual(postPage.content?.likes, 2345)
     }
@@ -24,14 +26,14 @@ final class DynamicDecodingWrapperTests: XCTestCase {
         let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
-        XCTAssertThrowsError(try decoder.decode(SinglePostPage.self, from: data))
+        XCTAssertThrowsError(try decoder.decode(ProviderBasedSinglePostPage.self, from: data))
     }
 
     func testInvalidDataDecodingWithDefaultConfig() throws {
         let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
-        let postPage = try decoder.decode(OptionalSinglePostPage.self, from: data)
+        let postPage = try decoder.decode(ProviderBasedOptionalSinglePostPage.self, from: data)
         XCTAssertNil(postPage.content)
     }
 }

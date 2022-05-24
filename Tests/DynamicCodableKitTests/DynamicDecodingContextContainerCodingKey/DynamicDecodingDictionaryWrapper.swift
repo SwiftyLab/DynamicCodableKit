@@ -29,13 +29,3 @@ final class DynamicDecodingDictionaryWrapperTests: XCTestCase {
         postPage.content.forEach { XCTAssertEqual($1.type, $0) }
     }
 }
-
-struct ThrowingKeyedPostPage: Decodable {
-    let next: URL
-    @StrictDynamicDecodingDictionaryWrapper<PostType> var content: [PostType: Post]
-}
-
-struct LossyKeyedPostPage: Decodable {
-    let next: URL
-    @LossyDynamicDecodingDictionaryWrapper<PostType> var content: [PostType: Post]
-}

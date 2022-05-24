@@ -64,18 +64,3 @@ enum PostSetCodingKey: String, DynamicDecodingContextIdentifierCodingKey {
     case type
     static var identifierCodingKey: Self { .type }
 }
-
-struct ThrowingPostPageSet: Decodable {
-    let next: URL
-    @StrictDynamicDecodingCollectionWrapper<PostSetCodingKey, Set<AnyPost<Post>>> var content: Set<AnyPost<Post>>
-}
-
-struct DefaultPostPageSet: Decodable {
-    let next: URL
-    @DefaultValueDynamicDecodingCollectionWrapper<PostSetCodingKey, Set<AnyPost<Post>>> var content: Set<AnyPost<Post>>
-}
-
-struct LossyPostPageSet: Decodable {
-    let next: URL
-    @LossyDynamicDecodingCollectionWrapper<PostSetCodingKey, Set<AnyPost<Post>>> var content: Set<AnyPost<Post>>
-}
