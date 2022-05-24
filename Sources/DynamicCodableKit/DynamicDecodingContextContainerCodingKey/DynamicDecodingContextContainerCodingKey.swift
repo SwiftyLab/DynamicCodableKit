@@ -148,10 +148,12 @@ public extension KeyedDecodingContainerProtocol
       where Value.Element == Key.Contained {
         return self.allKeys.reduce(into: [:]) { values, key in
             guard
-                let decoder = try? self.superDecoder(forKey: key)
+                let decoder = try? self.superDecoder(forKey: key),
+                case let items = key.containedContext.decodeLossyArrayFrom(
+                    decoder
+                ),
+                !items.isEmpty
             else { return }
-            let items = key.containedContext.decodeLossyArrayFrom(decoder)
-            if items.isEmpty { return }
             values[key] = .init(items)
         }
     }

@@ -34,6 +34,7 @@ let package = Package(
             resources: [
                 .process("DynamicDecodingContextCodingKey/JSONs"),
                 .process("DynamicDecodingContextContainerCodingKey/JSONs"),
+                .process("DynamicDecodingContextProvider/JSONs"),
             ]
         ),
     ],

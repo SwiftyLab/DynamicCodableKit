@@ -37,6 +37,10 @@ final class DynamicDecodableTests: XCTestCase {
         XCTAssertEqual(set, [5] as Set)
     }
 
+    func testDefaultCollectionCastingForSingleValueFailure() throws {
+        XCTAssertThrowsError(try 5.castAs(type: [String].self, codingPath: []))
+    }
+
     func testDefaultCollectionDownCastingFailure() throws {
         XCTAssertThrowsError(try [5, 6, 7].castAs(type: [String].self, codingPath: []))
     }

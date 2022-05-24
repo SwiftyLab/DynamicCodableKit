@@ -6,13 +6,7 @@ public extension KeyedDecodingContainerProtocol {
     ///
     /// - Returns: The value not found decoding error.
     func keyNotFound<K: CodingKey>(ofType type: K.Type) -> DecodingError {
-        return .valueNotFound(
-            type,
-            .init(
-                codingPath: self.codingPath,
-                debugDescription: "CodingKey of type \(type) not found in coding path"
-            )
-        )
+        return .keyNotFound(ofType: K.self, codingPath: codingPath)
     }
     /// Returns coding key of provided type from `codingPath`.
     ///

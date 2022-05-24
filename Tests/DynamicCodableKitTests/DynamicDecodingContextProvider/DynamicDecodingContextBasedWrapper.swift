@@ -36,4 +36,14 @@ final class DynamicDecodingContextBasedWrapperTests: XCTestCase {
         let postPage = try decoder.decode(ProviderBasedOptionalSinglePostPage.self, from: data)
         XCTAssertNil(postPage.content)
     }
+
+    func testIdentifierKeyContextDecoding() throws {
+        let url = Bundle.module.url(forResource: "identifier-decode", withExtension: "json")!
+        let data = try Data(contentsOf: url)
+        let decoder = JSONDecoder()
+        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(withKey: PostCodingKey.self)
+        let postPage = try decoder.decode(ProviderBasedSinglePostPage.self, from: data)
+        XCTAssertEqual(postPage.content.type, .video)
+        XCTAssertEqual(postPage.content.likes, 2345)
+    }
 }

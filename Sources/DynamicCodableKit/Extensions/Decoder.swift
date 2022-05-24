@@ -45,7 +45,7 @@ extension Decoder {
     func codingKeyFromPath<K: CodingKey>(ofType type: K.Type) throws -> K {
         guard
             let key = self.codingPath.first(where: { $0 is K }) as? K
-        else { throw self.typeMismatch(K.self) }
+        else { throw self.keyNotFound(ofType: K.self) }
         return key
     }
 }
