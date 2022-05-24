@@ -48,7 +48,7 @@ public struct DynamicDecodingCollectionWrapper<
 }
 
 public extension KeyedDecodingContainerProtocol
-  where Key: DynamicDecodingContextIdentifierCodingKey {
+  where Key: DynamicDecodingContextCodingKey {
     /// Decodes a value of dynamic ``DynamicDecodingCollectionWrapper``
     /// type for the given coding key.
     ///
