@@ -121,6 +121,24 @@ public extension KeyedDecodingContainerProtocol
     }
     /// Decodes a dictionary of ``DynamicDecodingContextContainerCodingKey`` key
     /// and dynamic ``DynamicDecodingContextContainerCodingKey/Contained``
+    /// collection value from the container. Ignores keys with invalid data instead of throwing error.
+    ///
+    /// - Returns: A dictionary of keyed by ``DynamicDecodingContextContainerCodingKey``
+    ///            and ``DynamicDecodingContextContainerCodingKey/Contained``
+    ///            collection value.
+    func decodeValidContainers<Value: SequenceInitializable>() -> [Key: Value]
+      where Value.Element == Key.Contained {
+        return self.allKeys.reduce(into: [:]) { values, key in
+            guard
+                let decoder = try? self.superDecoder(forKey: key),
+                let items = try? key.containedContext.decodeArrayFrom(decoder),
+                !items.isEmpty
+            else { return }
+            values[key] = .init(items)
+        }
+    }
+    /// Decodes a dictionary of ``DynamicDecodingContextContainerCodingKey`` key
+    /// and dynamic ``DynamicDecodingContextContainerCodingKey/Contained``
     /// collection value from the container. Ignores invalid data instead of throwing error.
     ///
     /// - Returns: A dictionary of keyed by ``DynamicDecodingContextContainerCodingKey``
