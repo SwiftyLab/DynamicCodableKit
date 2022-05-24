@@ -121,6 +121,15 @@ jobs:
           target-folder: docs
           commit-message: 'chore(GitHub Pages): update site for commit ${{ github.sha }}'
 
+    - name: Update GitHub Pages for verion
+      if:  steps.check_version_bump.outputs.release_type == ''
+      uses: JamesIves/github-pages-deploy-action@v4.3.3
+      with:
+          branch: gh-pages
+          folder: .docc-build
+          target-folder: docs/${{ steps.check_version_bump.outputs.previous_version }}
+          commit-message: 'chore(GitHub Pages): update versioned site for commit ${{ github.sha }}'
+
   cd:
     name: Build and Publish
     if: (github.event_name == 'push' && needs.ci.outputs.release == 'true') || (github.event_name == 'workflow_dispatch' && github.event.inputs.release == 'true')
@@ -155,6 +164,24 @@ jobs:
         npm run build
         npm run build-doc
         npm run serve-doc
+
+    - name: Release GitHub Pages
+      if: steps.conventional_changelog.outputs.skipped == 'false'
+      uses: JamesIves/github-pages-deploy-action@v4.3.3
+      with:
+          branch: gh-pages
+          folder: .docc-build
+          target-folder: docs
+          commit-message: 'chore(GitHub Pages): release site for tag ${{ steps.conventional_changelog.outputs.tag }}'
+
+    - name: Release GitHub Pages for version
+      if: steps.conventional_changelog.outputs.skipped == 'false'
+      uses: JamesIves/github-pages-deploy-action@v4.3.3
+      with:
+          branch: gh-pages
+          folder: .docc-build
+          target-folder: docs/${{ steps.conventional_changelog.outputs.version }}
+          commit-message: 'chore(GitHub Pages): release versioned site for tag ${{ steps.conventional_changelog.outputs.tag }}'
 
     # - name: Create GitHub Release
     #   if: steps.conventional_changelog.outputs.skipped == 'false'
