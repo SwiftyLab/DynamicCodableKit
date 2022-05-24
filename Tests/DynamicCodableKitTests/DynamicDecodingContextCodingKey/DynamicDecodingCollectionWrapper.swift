@@ -3,7 +3,7 @@ import XCTest
 
 final class DynamicDecodingCollectionWrapperTests: XCTestCase {
     func testDecoding() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode", withExtension: "json")!
+        let url = Bundle.module.url(forResource: "identifier-collection-decode", withExtension: "json")!
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(ThrowingPostPage.self, from: data)
@@ -12,14 +12,14 @@ final class DynamicDecodingCollectionWrapperTests: XCTestCase {
     }
 
     func testInvalidDataDecodingWithThrowConfig() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
+        let url = Bundle.module.url(forResource: "identifier-collection-decode-with-invalid-data", withExtension: "json")!
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
         XCTAssertThrowsError(try decoder.decode(ThrowingPostPage.self, from: data))
     }
 
     func testInvalidDataDecodingWithDefaultConfig() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
+        let url = Bundle.module.url(forResource: "identifier-collection-decode-with-invalid-data", withExtension: "json")!
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(DefaultPostPage.self, from: data)
@@ -27,7 +27,7 @@ final class DynamicDecodingCollectionWrapperTests: XCTestCase {
     }
 
     func testInvalidDataDecodingWithLossyConfig() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
+        let url = Bundle.module.url(forResource: "identifier-collection-decode-with-invalid-data", withExtension: "json")!
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(LossyPostPage.self, from: data)
@@ -36,7 +36,7 @@ final class DynamicDecodingCollectionWrapperTests: XCTestCase {
     }
 
     // func testLossyDecodingPerformance() throws {
-    //     let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
+    //     let url = Bundle.module.url(forResource: "identifier-collection-decode-with-invalid-data", withExtension: "json")!
     //     let data = try Data(contentsOf: url)
     //     measure {
     //         let decoder = JSONDecoder()
@@ -47,7 +47,7 @@ final class DynamicDecodingCollectionWrapperTests: XCTestCase {
     // }
 
     func testDecodingWithSet() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode", withExtension: "json")!
+        let url = Bundle.module.url(forResource: "identifier-collection-decode", withExtension: "json")!
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(ThrowingPostPageSet.self, from: data)
@@ -58,14 +58,14 @@ final class DynamicDecodingCollectionWrapperTests: XCTestCase {
     }
 
     func testInvalidDataDecodingWithThrowConfigWithSet() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
+        let url = Bundle.module.url(forResource: "identifier-collection-decode-with-invalid-data", withExtension: "json")!
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
         XCTAssertThrowsError(try decoder.decode(ThrowingPostPageSet.self, from: data))
     }
 
     func testInvalidDataDecodingWithDefaultConfigWithSet() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
+        let url = Bundle.module.url(forResource: "identifier-collection-decode-with-invalid-data", withExtension: "json")!
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(DefaultPostPageSet.self, from: data)
@@ -73,7 +73,7 @@ final class DynamicDecodingCollectionWrapperTests: XCTestCase {
     }
 
     func testInvalidDataDecodingWithLossyConfigWithSet() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
+        let url = Bundle.module.url(forResource: "identifier-collection-decode-with-invalid-data", withExtension: "json")!
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(LossyPostPageSet.self, from: data)
