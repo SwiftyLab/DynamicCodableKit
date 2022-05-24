@@ -41,21 +41,8 @@ jobs:
         # os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Setup swift
-      uses: swift-actions/setup-swift@v1.15.0
-      with:
-        swift-version: '5.6'
-
-    - name: Setup node
-      uses: actions/setup-node@v3
-      with:
-        node-version: '17'
-
-    - name: Setup npm pacakges
-      run: npm install
+    - name: Setup repository
+      uses: ./.github/actions/setup
 
     - name: Run tests
       run: npm run test
@@ -79,31 +66,10 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Setup swift
-      uses: swift-actions/setup-swift@v1.15.0
+    - name: Setup repository
+      uses: ./.github/actions/setup
       with:
-        swift-version: '5.6'
-
-    - name: Setup Xcode version
-      uses: maxim-lobanov/setup-xcode@v1.4.1
-      with:
-        xcode-version: latest-stable
-
-    - name: Setup Cocoapods
-      uses: maxim-lobanov/setup-cocoapods@v1
-      with:
-        version: latest
-
-    - name: Setup node
-      uses: actions/setup-node@v3
-      with:
-        node-version: '17'
-
-    - name: Setup npm pacakges
-      run: npm install
+        cocoapods: true
 
     - name: Run tests
       run: npm run pod-lint
@@ -119,13 +85,8 @@ jobs:
       release: ${{ steps.check_version_bump.outputs.release_type != '' }}
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Setup swift
-      uses: swift-actions/setup-swift@v1.15.0
-      with:
-        swift-version: '5.6'
+    - name: Setup repository
+      uses: ./.github/actions/setup
 
     - name: Check version bump
       id: check_version_bump
@@ -134,16 +95,6 @@ jobs:
         github_token: ${{ github.token }}
         default_bump: false
         dry_run: true
-
-    - name: Setup node
-      if:  steps.check_version_bump.outputs.release_type == ''
-      uses: actions/setup-node@v3
-      with:
-        node-version: '17'
-
-    - name: Setup npm pacakges
-      if:  steps.check_version_bump.outputs.release_type == ''
-      run: npm install
 
     - name: Build package documentation
       if:  steps.check_version_bump.outputs.release_type == ''
@@ -168,33 +119,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    - name: Setup repository
+      uses: ./.github/actions/setup
       with:
-        fetch-depth: 0
-
-    - name: Setup swift
-      uses: swift-actions/setup-swift@v1.15.0
-      with:
-        swift-version: '5.6'
-
-    - name: Setup Xcode version
-      uses: maxim-lobanov/setup-xcode@v1.4.1
-      with:
-        xcode-version: latest-stable
-
-    - name: Setup Cocoapods
-      uses: maxim-lobanov/setup-cocoapods@v1
-      with:
-        version: latest
-
-    - name: Setup node
-      uses: actions/setup-node@v3
-      with:
-        node-version: '17'
-
-    - name: Setup npm pacakges
-      run: npm install
+        cocoapods: true
 
     # - name: Conventional Changelog Action
     #   id: conventional_changelog
