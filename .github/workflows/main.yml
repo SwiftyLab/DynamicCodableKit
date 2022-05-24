@@ -113,12 +113,20 @@ jobs:
     if: github.event_name == 'push'
     needs: [analyze, swift-package-test, cocoapods-test]
     runs-on: ubuntu-latest
-    permissions: 
+    permissions:
       contents: write
     outputs:
       release: ${{ steps.check_version_bump.outputs.release_type != '' }}
 
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup swift
+      uses: swift-actions/setup-swift@v1.15.0
+      with:
+        swift-version: '5.6'
+
     - name: Check version bump
       id: check_version_bump
       uses: mathieudutour/github-tag-action@v6.0

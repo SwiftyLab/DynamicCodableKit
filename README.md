@@ -10,7 +10,7 @@
 [![CodeQL](https://github.com/SwiftyLab/dynamic-codable-kit/actions/workflows/codeql-analysis.yml/badge.svg?event=push)](https://github.com/SwiftyLab/dynamic-codable-kit/actions/workflows/codeql-analysis.yml)
 [![codecov](https://codecov.io/gh/SwiftyLab/dynamic-codable-kit/branch/main/graph/badge.svg?token=QIM4SKWNCS)](https://codecov.io/gh/SwiftyLab/dynamic-codable-kit)
 
-DynamicCodableKit helps you to implement dynamic JSON decoding within the constraints of Swift's sound type system by working on top of Swift's Codable implementations.
+**DynamicCodableKit** helps you to implement dynamic JSON decoding within the constraints of Swift's sound type system by working on top of Swift's Codable implementations.
 
 ## Features
 
@@ -43,18 +43,18 @@ pod 'DynamicCodableKit'
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate `DynamicCodableKit` into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "SwiftyLab/DynamicCodableKit"
+github "SwiftyLab/dynamic-codable-kit"
 ```
 
 ### Swift Package Manager
 
-The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler. 
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler.
 
 Once you have your Swift package set up, adding `DynamicCodableKit` as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/SwiftyLab/DynamicCodableKit.git", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/SwiftyLab/dynamic-codable-kit.git", .upToNextMajor(from: "1.0.0"))
 ]
 ```
 
