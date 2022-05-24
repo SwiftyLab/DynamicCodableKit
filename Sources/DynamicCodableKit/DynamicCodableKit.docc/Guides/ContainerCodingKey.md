@@ -112,7 +112,9 @@ struct PostPage: Decodable {
 ### Type Aliases
 
 - ``StrictDynamicDecodingArrayDictionaryWrapper``
+- ``DefaultValueDynamicDecodingArrayDictionaryWrapper``
 - ``LossyDynamicDecodingArrayDictionaryWrapper``
 - ``StrictDynamicDecodingCollectionDictionaryWrapper``
+- ``DefaultValueDynamicDecodingCollectionDictionaryWrapper``
 - ``LossyDynamicDecodingCollectionDictionaryWrapper``
 - ``OptionalPathCodingKeyWrapper``
