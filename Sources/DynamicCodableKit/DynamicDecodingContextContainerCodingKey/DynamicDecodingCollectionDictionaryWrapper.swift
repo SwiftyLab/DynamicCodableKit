@@ -32,6 +32,9 @@ public struct DynamicDecodingCollectionDictionaryWrapper<
         case .throw:
             let container = try decoder.container(keyedBy: ContainerCodingKey.self)
             self.wrappedValue = try container.decode()
+        case .deafult:
+            let container = try? decoder.container(keyedBy: ContainerCodingKey.self)
+            self.wrappedValue = container?.decodeValidContainers() ?? .init()
         default:
             guard
                 let container = try? decoder.container(
@@ -43,9 +46,10 @@ public struct DynamicDecodingCollectionDictionaryWrapper<
     }
 }
 
-/// A property wrapper type that strictly decodes a dictionary value of ``DynamicDecodingContextContainerCodingKey``
-/// coding key and their dynamic ``DynamicDecodingContextContainerCodingKey/Contained`` array value and
-/// throws error if decoding fails.
+/// A property wrapper type that strictly decodes a dictionary value of
+/// ``DynamicDecodingContextContainerCodingKey`` coding key
+/// and their dynamic ``DynamicDecodingContextContainerCodingKey/Contained``
+/// array value and throws error if decoding fails.
 ///
 /// `StrictDynamicDecodingArrayDictionaryWrapper` is a type alias for
 /// ``DynamicDecodingCollectionDictionaryWrapper``, with collection type
@@ -57,6 +61,23 @@ public typealias StrictDynamicDecodingArrayDictionaryWrapper<
     ContainerCodingKey,
     Array<ContainerCodingKey.Contained>,
     StrictCollectionConfiguration
+> where ContainerCodingKey: Hashable
+
+/// A property wrapper type that decodes valid data associated to key into a dictionary value of
+/// ``DynamicDecodingContextContainerCodingKey`` coding key and their dynamic
+/// ``DynamicDecodingContextContainerCodingKey/Contained`` array value while
+/// ignoring keys that contain invalid data.
+///
+/// `DefaultValueDynamicDecodingArrayDictionaryWrapper` is a type alias for
+/// ``DynamicDecodingCollectionDictionaryWrapper``, with collection type
+/// `Array` and ``DynamicDecodingCollectionConfigurationProvider`` as
+/// ``DefaultValueCollectionConfiguration``
+public typealias DefaultValueDynamicDecodingArrayDictionaryWrapper<
+    ContainerCodingKey: DynamicDecodingContextContainerCodingKey
+> = DynamicDecodingCollectionDictionaryWrapper<
+    ContainerCodingKey,
+    Array<ContainerCodingKey.Contained>,
+    DefaultValueCollectionConfiguration
 > where ContainerCodingKey: Hashable
 
 /// A property wrapper type that decodes valid data into a dictionary value of
@@ -76,9 +97,10 @@ public typealias LossyDynamicDecodingArrayDictionaryWrapper<
     LossyCollectionConfiguration
 > where ContainerCodingKey: Hashable
 
-/// A property wrapper type that strictly decodes a dictionary value of ``DynamicDecodingContextContainerCodingKey``
-/// coding key and their dynamic ``DynamicDecodingContextContainerCodingKey/Contained`` collection value
-/// and throws error if decoding fails.
+/// A property wrapper type that strictly decodes a dictionary value of
+/// ``DynamicDecodingContextContainerCodingKey`` coding key
+/// and their dynamic ``DynamicDecodingContextContainerCodingKey/Contained``
+/// collection value and throws error if decoding fails.
 ///
 /// `StrictDynamicDecodingCollectionDictionaryWrapper` is a type alias for
 /// ``DynamicDecodingCollectionDictionaryWrapper``, with
@@ -91,6 +113,25 @@ public typealias StrictDynamicDecodingCollectionDictionaryWrapper<
     ContainerCodingKey,
     DynamicCollection,
     StrictCollectionConfiguration
+> where ContainerCodingKey: Hashable,
+        DynamicCollection.Element == ContainerCodingKey.Contained
+
+/// A property wrapper type that decodes valid data associated to key into a dictionary value of
+/// ``DynamicDecodingContextContainerCodingKey`` coding key and their dynamic
+/// ``DynamicDecodingContextContainerCodingKey/Contained`` collection value
+/// while ignoring keys that contain invalid data.
+///
+/// `DefaultValueDynamicDecodingCollectionDictionaryWrapper` is a type alias for
+/// ``DynamicDecodingCollectionDictionaryWrapper``, with
+/// ``DynamicDecodingCollectionConfigurationProvider`` as
+/// ``DefaultValueCollectionConfiguration``
+public typealias DefaultValueDynamicDecodingCollectionDictionaryWrapper<
+    ContainerCodingKey: DynamicDecodingContextContainerCodingKey,
+    DynamicCollection: SequenceInitializable
+> = DynamicDecodingCollectionDictionaryWrapper<
+    ContainerCodingKey,
+    DynamicCollection,
+    DefaultValueCollectionConfiguration
 > where ContainerCodingKey: Hashable,
         DynamicCollection.Element == ContainerCodingKey.Contained
 
