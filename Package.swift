@@ -33,6 +33,7 @@ let package = Package(
             dependencies: ["DynamicCodableKit"],
             resources: [
                 .process("DynamicDecodingContextCodingKey/JSONs"),
+                .process("DynamicDecodingContextContainerCodingKey/JSONs"),
             ]
         ),
     ],

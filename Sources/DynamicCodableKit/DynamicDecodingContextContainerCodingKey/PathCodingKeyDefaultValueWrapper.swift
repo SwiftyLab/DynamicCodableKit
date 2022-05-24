@@ -11,7 +11,7 @@
 @propertyWrapper
 public struct PathCodingKeyDefaultValueWrapper<
     Value: DynamicDecodingDefaultValueProvider
-> where Value.Wrapped: CodingKey {
+>: Decodable where Value.Wrapped: CodingKey {
     /// The underlying ``DynamicDecodingDefaultValueProvider``
     /// that wraps coding key value referenced.
     public var wrappedValue: Value
@@ -36,6 +36,27 @@ public struct PathCodingKeyDefaultValueWrapper<
             let value = decoder.codingKeyFromPath(ofType: Value.Wrapped.self)
         else { self.wrappedValue = .default; return }
         self.wrappedValue = .init(value)
+    }
+}
+
+public extension KeyedDecodingContainer {
+    /// Decodes a value of the type ``DynamicDecodingDefaultValueProvider``
+    /// for the given ``DynamicDecodingDefaultValueProvider`` type.
+    ///
+    /// - Parameters:
+    ///   - type: The type of value to decode.
+    ///   - key: The coding key.
+    ///
+    /// - Returns: A value of the type ``DynamicDecodingDefaultValueProvider``
+    ///            for the given ``DynamicDecodingDefaultValueProvider`` type.
+    func decode<Value: DynamicDecodingDefaultValueProvider>(
+        _ type: PathCodingKeyDefaultValueWrapper<Value>.Type,
+        forKey key: K
+    ) -> PathCodingKeyDefaultValueWrapper<Value> {
+        guard
+            let value = self.codingKeyFromPath(ofType: Value.Wrapped.self)
+        else { return .init(wrappedValue: .default) }
+        return .init(wrappedValue: .init(value))
     }
 }
 

@@ -1,7 +1,10 @@
 import XCTest
 @testable import DynamicCodableKit
 
-enum PostType: String, Hashable, DynamicDecodingContextIdentifierKey {
+enum PostType: String,
+               Hashable,
+               DynamicDecodingContextIdentifierKey,
+               DynamicDecodingContextContainerCodingKey {
     case text, picture, audio, video
 
     var associatedContext: DynamicDecodingContext<Post> {
@@ -28,42 +31,42 @@ protocol Post: DynamicDecodable {
 
 struct TextPost: Post, Hashable {
     let id: UUID
-    let type: PostType
     let author: UUID
     let likes: Int
     let createdAt: String
     let text: String
+    var type: PostType { .text }
 }
 
 struct PicturePost: Post, Hashable {
     let id: UUID
-    let type: PostType
     let author: UUID
     let likes: Int
     let createdAt: String
     let url: URL
     let caption: String
+    var type: PostType { .picture }
 }
 
 struct AudioPost: Post, Hashable {
     let id: UUID
-    let type: PostType
     let author: UUID
     let likes: Int
     let createdAt: String
     let url: URL
     let duration: Int
+    var type: PostType { .audio }
 }
 
 struct VideoPost: Post, Hashable {
     let id: UUID
-    let type: PostType
     let author: UUID
     let likes: Int
     let createdAt: String
     let url: URL
     let duration: Int
     let thumbnail: URL
+    var type: PostType { .video }
 }
 
 enum PostCodingKey: String, DynamicDecodingContextIdentifierCodingKey {

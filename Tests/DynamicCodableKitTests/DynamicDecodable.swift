@@ -8,36 +8,42 @@ final class DynamicDecodableTests: XCTestCase {
         let value: Decodable = try 5.castAs(type: Decodable.self, codingPath: [])
         XCTAssertEqual(value as? Int, 5)
     }
+
     func testDefaultDownCastingFailure() throws {
         XCTAssertThrowsError(try 5.castAs(type: String.self, codingPath: []))
     }
+
     func testDefaultOptionalDownCasting() throws {
         let value: Decodable? = 5.castAs(type: Decodable?.self, codingPath: [])
         XCTAssertEqual(value as? Int, 5)
     }
+
     func testDefaultOptionalDownCastingFailure() throws {
         let value: String? = 5.castAs(type: String?.self, codingPath: [])
         XCTAssertNil(value)
     }
+
     func testDefaultCollectionDownCasting() throws {
         let value: [Decodable] = try [5, 6, 7].castAs(type: [Decodable].self, codingPath: [])
         XCTAssertEqual(value as! Array<Int>, [5, 6, 7])
         let set: Set<AnyHashable> = try ([5, 6, 7] as Set).castAs(type: Set<AnyHashable>.self, codingPath: [])
         XCTAssertEqual(set, [5, 6, 7] as Set)
     }
+
     func testDefaultCollectionCastingForSingleValue() throws {
         let value: [Decodable] = try 5.castAs(type: [Decodable].self, codingPath: [])
         XCTAssertEqual(value as! Array<Int>, [5])
         let set: Set<AnyHashable> = try 5.castAs(type: Set<AnyHashable>.self, codingPath: [])
         XCTAssertEqual(set, [5] as Set)
     }
+
     func testDefaultCollectionDownCastingFailure() throws {
         XCTAssertThrowsError(try [5, 6, 7].castAs(type: [String].self, codingPath: []))
     }
+
     func testCastingToExistential() throws {
         let textPost = TextPost(
             id: UUID(),
-            type: .text,
             author: UUID(),
             likes: 78,
             createdAt: "2021-07-23T07:36:43Z",
@@ -46,10 +52,10 @@ final class DynamicDecodableTests: XCTestCase {
         let post = try textPost.castAs(type: Post.self, codingPath: [])
         XCTAssertEqual(post.type, .text)
     }
+
     func testCastingToBoxType() throws {
         let textPost = TextPost(
             id: UUID(),
-            type: .text,
             author: UUID(),
             likes: 78,
             createdAt: "2021-07-23T07:36:43Z",
@@ -58,10 +64,10 @@ final class DynamicDecodableTests: XCTestCase {
         let post = try textPost.castAs(type: AnyPost<Post>.self, codingPath: [])
         XCTAssertEqual(post.type, .text)
     }
+
     func testOptionalCastingToExistential() throws {
         let textPost = TextPost(
             id: UUID(),
-            type: .text,
             author: UUID(),
             likes: 78,
             createdAt: "2021-07-23T07:36:43Z",
@@ -70,10 +76,10 @@ final class DynamicDecodableTests: XCTestCase {
         let post = textPost.castAs(type: Post?.self, codingPath: [])
         XCTAssertEqual(post?.type, .text)
     }
+
     func testOptionalCastingToBoxType() throws {
         let textPost = TextPost(
             id: UUID(),
-            type: .text,
             author: UUID(),
             likes: 78,
             createdAt: "2021-07-23T07:36:43Z",
@@ -82,11 +88,11 @@ final class DynamicDecodableTests: XCTestCase {
         let post = textPost.castAs(type: AnyPost<Post>?.self, codingPath: [])
         XCTAssertEqual(post?.type, .text)
     }
+
     func testArrayCastingToExistentialArray() throws {
         let textPosts = Array(
             repeating: TextPost(
                 id: UUID(),
-                type: .text,
                 author: UUID(),
                 likes: 78,
                 createdAt: "2021-07-23T07:36:43Z",
@@ -97,11 +103,11 @@ final class DynamicDecodableTests: XCTestCase {
         let posts = try textPosts.castAs(type: [Post].self, codingPath: [])
         posts.forEach { XCTAssertEqual($0.type, .text) }
     }
+
     func testArrayCastingToBoxTypeArray() throws {
         let textPosts = Array(
             repeating: TextPost(
                 id: UUID(),
-                type: .text,
                 author: UUID(),
                 likes: 78,
                 createdAt: "2021-07-23T07:36:43Z",
@@ -112,11 +118,11 @@ final class DynamicDecodableTests: XCTestCase {
         let posts = try textPosts.castAs(type: [AnyPost<Post>].self, codingPath: [])
         posts.forEach { XCTAssertEqual($0.type, .text) }
     }
+
     func testSetCastingToBoxTypeSet() throws {
         let textPosts: Set<TextPost> = [
             TextPost(
                 id: UUID(),
-                type: .text,
                 author: UUID(),
                 likes: 78,
                 createdAt: "2021-07-23T07:36:43Z",
@@ -124,7 +130,6 @@ final class DynamicDecodableTests: XCTestCase {
             ),
             TextPost(
                 id: UUID(),
-                type: .text,
                 author: UUID(),
                 likes: 88,
                 createdAt: "2021-06-23T07:36:43Z",
@@ -132,7 +137,6 @@ final class DynamicDecodableTests: XCTestCase {
             ),
             TextPost(
                 id: UUID(),
-                type: .text,
                 author: UUID(),
                 likes: 887,
                 createdAt: "2021-06-28T07:36:43Z",
