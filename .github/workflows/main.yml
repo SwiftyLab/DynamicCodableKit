@@ -32,13 +32,13 @@ jobs:
 
   swift-package-test:
     name: Run Swift Package Tests with swift version ${{ matrix.swift }}
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        swift: ['5.1', '5.6']
+        swift: ['5.2', '5.6']
         # TODO: Enable windows when `swift-actions/setup-swift`
         # supports windows
-        # os: [ubuntu-18.04, windows-latest]
+        # os: [ubuntu-latest, windows-latest]
 
     steps:
     - name: Checkout repository
