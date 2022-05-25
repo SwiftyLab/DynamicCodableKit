@@ -18,7 +18,7 @@ xcframeworkGlobberer.on(
     archive.glob(`${xcframework}/**/*`);
     archive.file('package.json');
     archive.file('LICENSE');
-    archive.file(`Release/${name}.podspec`, { name: `${name}.podspec` });
+    archive.file(`Helpers/${name}.podspec`, { name: `${name}.podspec` });
     archive.pipe(output);
     archive.finalize();
     const archivePath = path.normalize(path.join(process.cwd(), output.path));

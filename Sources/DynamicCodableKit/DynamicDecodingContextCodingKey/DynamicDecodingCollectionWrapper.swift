@@ -47,6 +47,54 @@ public struct DynamicDecodingCollectionWrapper<
     }
 }
 
+public extension KeyedDecodingContainer
+  where K: DynamicDecodingContextCodingKey {
+    /// Decodes a value of dynamic ``DynamicDecodingCollectionWrapper``
+    /// type for the given coding key.
+    ///
+    /// - Parameters:
+    ///   - type: The type of value to decode.
+    ///   - key: The coding key.
+    ///
+    /// - Returns: A dynamic collection value wrapped in ``DynamicDecodingCollectionWrapper``.
+    ///
+    /// - Throws: `DecodingError` if ``DynamicDecodingCollectionConfigurationProvider/failConfig``
+    ///            is ``CollectionDecodeFailConfiguration/throw`` and data is invalid or corrupt.
+    func decode<DynamicCollection, Config>(
+        _ type: DynamicDecodingCollectionWrapper<K, DynamicCollection, Config>.Type,
+        forKey key: K
+    ) throws -> DynamicDecodingCollectionWrapper<K, DynamicCollection, Config> {
+        switch Config.failConfig {
+        case .throw, .deafult:
+            do {
+                let decoder = try self.superDecoder(forKey: key)
+                let value = try DynamicCollection.init(
+                    K.context(forContainer: self).decodeArrayFrom(decoder)
+                )
+                return DynamicDecodingCollectionWrapper(wrappedValue: value)
+            } catch {
+                if Config.failConfig == .throw { throw error }
+                return DynamicDecodingCollectionWrapper(wrappedValue: .init())
+            }
+        case .lossy:
+            guard
+                let decoder = try? self.superDecoder(forKey: key)
+            else {
+                return DynamicDecodingCollectionWrapper(wrappedValue: .init())
+            }
+            return DynamicDecodingCollectionWrapper(
+                wrappedValue: .init(
+                    (
+                        try? K.context(
+                            forContainer: self
+                        ).decodeLossyArrayFrom(decoder)
+                    ) ?? .init()
+                )
+            )
+        }
+    }
+}
+
 public extension KeyedDecodingContainerProtocol
   where Key: DynamicDecodingContextCodingKey {
     /// Decodes a value of dynamic ``DynamicDecodingCollectionWrapper``
@@ -69,9 +117,7 @@ public extension KeyedDecodingContainerProtocol
             do {
                 let decoder = try self.superDecoder(forKey: key)
                 let value = try DynamicCollection.init(
-                    DynamicDecodingContext(
-                        withKey: Key.self
-                    ).decodeArrayFrom(decoder)
+                    Key.context(forContainer: self).decodeArrayFrom(decoder)
                 )
                 return DynamicDecodingCollectionWrapper(wrappedValue: value)
             } catch {
@@ -86,9 +132,11 @@ public extension KeyedDecodingContainerProtocol
             }
             return DynamicDecodingCollectionWrapper(
                 wrappedValue: .init(
-                    DynamicDecodingContext(
-                        withKey: Key.self
-                    ).decodeLossyArrayFrom(decoder)
+                    (
+                        try? Key.context(
+                            forContainer: self
+                        ).decodeLossyArrayFrom(decoder)
+                    ) ?? .init()
                 )
             )
         }

@@ -1,8 +1,6 @@
 import XCTest
 @testable import DynamicCodableKit
 
-extension Int: DynamicDecodable {}
-
 final class DynamicDecodableTests: XCTestCase {
     func testDefaultDownCasting() throws {
         let value: Decodable = try 5.castAs(type: Decodable.self, codingPath: [])
