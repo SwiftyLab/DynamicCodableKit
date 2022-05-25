@@ -12,6 +12,8 @@
 
 **DynamicCodableKit** helps you to implement dynamic JSON decoding within the constraints of Swift's sound type system by working on top of Swift's Codable implementations.
 
+The data types, protocols, and property wrappers defined by **DynamicCodableKit** can be used to provide dynamic decoding functionality to swift's `Decodable` types.
+
 ## Features
 
 - Decode dynamic type based on JSON keys.

@@ -17,11 +17,13 @@
     "private": true,
     "dependencies": {
         "open": "^8.4.0",
+        "archiver": "^5.3.1",
         "conventional-changelog-conventionalcommits": "^4.6.3"
     },
     "scripts": {
       "build": "Scripts/build.js",
       "test": "Scripts/test.js",
+      "archive": "Scripts/archive.js",
       "pod-lint": "Scripts/pod-lint.js",
       "preview-doc": "Scripts/preview-doc.js",
       "build-doc": "Scripts/build-doc.js",

@@ -106,6 +106,8 @@ iOSInjectionProject/
 
 # Built Products
 *.xcframework*
+*.zip
+*.tar*
 
 ## Node-Js ignores
 # Logs
