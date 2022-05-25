@@ -3,8 +3,7 @@ import XCTest
 
 final class DynamicDecodingWrapperTests: XCTestCase {
     func testDecoding() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = identifierDecode
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(SinglePostPage.self, from: data)
         XCTAssertEqual(postPage.content.type, .video)
@@ -12,8 +11,7 @@ final class DynamicDecodingWrapperTests: XCTestCase {
     }
 
     func testOptionalDecoding() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = identifierDecode
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(OptionalSinglePostPage.self, from: data)
         XCTAssertEqual(postPage.content?.type, .video)
@@ -21,15 +19,13 @@ final class DynamicDecodingWrapperTests: XCTestCase {
     }
 
     func testInvalidDataDecodingWithThrowConfig() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = identifierDecodeWithInvalidData
         let decoder = JSONDecoder()
         XCTAssertThrowsError(try decoder.decode(SinglePostPage.self, from: data))
     }
 
     func testInvalidDataDecodingWithDefaultConfig() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = identifierDecodeWithInvalidData
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(OptionalSinglePostPage.self, from: data)
         XCTAssertNil(postPage.content)

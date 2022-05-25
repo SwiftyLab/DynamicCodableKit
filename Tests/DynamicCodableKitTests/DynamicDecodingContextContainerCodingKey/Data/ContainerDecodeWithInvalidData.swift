@@ -1,3 +1,5 @@
+let containerDecodeWithInvalidData =
+"""
 {
   "content": {
     "text": {
@@ -16,12 +18,11 @@
       "caption": "Lorem Ipsium"
     },
     "audio": {
-      "id": "64475bcb-caff-48c1-bb53-8376628b350b",
-      "author": "4c17c269-1c56-45ab-8863-d8924ece1d0b",
+      "id": "4c76f901-3c4f-482c-8663-600a73416773",
+      "author": "026d7a8a-12b1-4193-8a0d-415bc8f80c1a",
       "likes": 25,
       "createdAt": "2021-07-23T09:33:48Z",
-      "url": "https://a.url.com/to/a/audio.aac",
-      "duration": 60
+      "url": "https://a.url.com/to/a/audio.aac"
     },
     "video": {
       "id": "98765432-abcd-efab-0123-456789abcdef",
@@ -35,3 +36,4 @@
   },
   "next": "https://a.url.com/to/next/page"
 }
+""".data(using: .utf8)!

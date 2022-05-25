@@ -21,6 +21,10 @@ let package = Package(
             name: "DynamicCodableKit",
             dependencies: []
         ),
+        .testTarget(
+            name: "DynamicCodableKitTests",
+            dependencies: ["DynamicCodableKit"]
+        ),
     ],
     swiftLanguageVersions: [.v5]
 )

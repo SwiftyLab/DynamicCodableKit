@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
   s.source_files = "Sources/#{s.name}/**/*.swift"
   s.preserve_paths = "{Sources,Tests}/#{s.name}*/**/*", "*.md"
   s.test_spec do |ts|
-    ts.source_files = "Tests/#{s.name}Tests/**/*.swift", "Tests/*.swift"
+    ts.source_files = "Tests/#{s.name}Tests/**/*.swift"
     ts.resources = "Tests/#{s.name}Tests/**/*.json"
   end
 end
