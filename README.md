@@ -7,7 +7,7 @@
 [![Swift](https://img.shields.io/badge/Swift-5-orange)](https://img.shields.io/badge/Swift-5-DE5D43)
 [![Platforms](https://img.shields.io/badge/Platforms-all-sucess)](https://img.shields.io/badge/Platforms-all-sucess)
 [![CI/CD](https://github.com/SwiftyLab/dynamic-codable-kit/actions/workflows/main.yml/badge.svg?event=push)](https://github.com/SwiftyLab/dynamic-codable-kit/actions/workflows/main.yml)
-[![CodeQL](https://github.com/SwiftyLab/dynamic-codable-kit/actions/workflows/codeql-analysis.yml/badge.svg?event=push)](https://github.com/SwiftyLab/dynamic-codable-kit/actions/workflows/codeql-analysis.yml)
+[![CodeQL](https://github.com/SwiftyLab/dynamic-codable-kit/actions/workflows/codeql-analysis.yml/badge.svg?event=schedule)](https://github.com/SwiftyLab/dynamic-codable-kit/actions/workflows/codeql-analysis.yml)
 [![codecov](https://codecov.io/gh/SwiftyLab/dynamic-codable-kit/branch/main/graph/badge.svg?token=QIM4SKWNCS)](https://codecov.io/gh/SwiftyLab/dynamic-codable-kit)
 
 **DynamicCodableKit** helps you to implement dynamic JSON decoding within the constraints of Swift's sound type system by working on top of Swift's Codable implementations.
