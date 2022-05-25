@@ -1,15 +1,6 @@
-// swift-tools-version: 5.5
+// swift-tools-version:5.1
 
 import PackageDescription
-
-let dependencies: [Package.Dependency]
-#if compiler(>=5.6)
-dependencies = [
-    .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
-]
-#else
-dependencies = []
-#endif
 
 let package = Package(
     name: "dynamic-codable-kit",
@@ -17,8 +8,7 @@ let package = Package(
         .iOS(.v8),
         .macOS(.v10_10),
         .tvOS(.v9),
-        .watchOS(.v2),
-        .macCatalyst(.v13)
+        .watchOS(.v2)
     ],
     products: [
         .library(
@@ -26,7 +16,6 @@ let package = Package(
             targets: ["DynamicCodableKit"]
         ),
     ],
-    dependencies: dependencies,
     targets: [
         .target(
             name: "DynamicCodableKit",

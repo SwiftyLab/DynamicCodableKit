@@ -1,6 +1,10 @@
 name: Setup action for Swift library
 description: Setup action for Swift library `dynamic-codable-kit`
 inputs:
+  swift:
+    description: Swift version to use
+    required: false
+    default: '5.6'
   cocoapods:
     description: Whether to setup for CocoaPods
     required: false
@@ -11,7 +15,7 @@ runs:
     - name: Setup swift
       uses: swift-actions/setup-swift@v1.15.0
       with:
-        swift-version: '5.6'
+        swift-version: inputs.swift
 
     - name: Setup Xcode version
       if: inputs.cocoapods == 'true'
