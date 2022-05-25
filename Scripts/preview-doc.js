@@ -6,7 +6,7 @@ const process = exec(
   'swift package --verbose \
     --disable-sandbox preview-documentation \
     --fallback-display-name DynamicCodableKit \
-    --fallback-bundle-identifier com.example.DynamicCodableKit \
+    --fallback-bundle-identifier com.SwiftyLab.DynamicCodableKit \
     --fallback-bundle-version 1 \
     --additional-symbol-graph-dir .build', {
     encoding: 'utf-8'
