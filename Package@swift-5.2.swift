@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.2
 
 import PackageDescription
 
@@ -20,15 +20,6 @@ let package = Package(
         .target(
             name: "DynamicCodableKit",
             dependencies: []
-        ),
-        .testTarget(
-            name: "DynamicCodableKitTests",
-            dependencies: ["DynamicCodableKit"],
-            resources: [
-                .process("DynamicDecodingContextCodingKey/JSONs"),
-                .process("DynamicDecodingContextContainerCodingKey/JSONs"),
-                .process("DynamicDecodingContextProvider/JSONs"),
-            ]
         ),
     ],
     swiftLanguageVersions: [.v5]
