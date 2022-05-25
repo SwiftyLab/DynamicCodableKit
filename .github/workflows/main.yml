@@ -36,6 +36,13 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
+        include:
+          - swift: '5.6'
+            os: macos-latest
+          - swift: '5.6'
+            os: ubuntu-latest
+          - swift: '5.1.0'
+            os: ubuntu-latest
         # TODO: Enable windows when `swift-actions/setup-swift`
         # supports windows
         # os: [ubuntu-latest, macos-latest, windows-latest]
@@ -46,6 +53,8 @@ jobs:
 
     - name: Setup repository
       uses: ./.github/actions/setup
+      with:
+        swift: ${{ matrix.swift }}
 
     - name: Run tests
       run: npm run test
@@ -64,21 +73,21 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         fail_ci_if_error: true
 
-  cocoapods-test:
-    name: Run CocoaPods Tests
-    runs-on: macos-latest
+  # cocoapods-test:
+  #   name: Run CocoaPods Tests
+  #   runs-on: macos-latest
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v3
 
-    - name: Setup repository
-      uses: ./.github/actions/setup
-      with:
-        cocoapods: 'true'
+  #   - name: Setup repository
+  #     uses: ./.github/actions/setup
+  #     with:
+  #       cocoapods: 'true'
 
-    - name: Run tests
-      run: npm run pod-lint
+  #   - name: Run tests
+  #     run: npm run pod-lint
 
   ci:
     name: Check if release needed
@@ -121,7 +130,7 @@ jobs:
           target-folder: docs
           commit-message: 'chore(GitHub Pages): update site for commit ${{ github.sha }}'
 
-    - name: Update GitHub Pages for verion
+    - name: Update GitHub Pages for version
       if:  steps.check_version_bump.outputs.release_type == ''
       uses: JamesIves/github-pages-deploy-action@v4.3.3
       with:
@@ -191,3 +200,8 @@ jobs:
     #     tag: ${{ steps.conventional_changelog.outputs.tag }}
     #     body: ${{ steps.conventional_changelog.outputs.changelog }}
     #     artifacts: '**/*.doccarchive'
+
+    # - name: Swift Package Registry
+    #   if: steps.conventional_changelog.outputs.skipped == 'false'
+    #   uses: twodayslate/swift-package-registry@v0.0.2
+
