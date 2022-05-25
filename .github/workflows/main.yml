@@ -38,7 +38,7 @@ jobs:
         os: [ubuntu-latest, macos-latest]
         swift: ['5.3', '5.6']
         exclude:
-          - os: macos-latest
+          - os: ubuntu-latest
             swift: '5.3'
         # TODO: Enable windows when `swift-actions/setup-swift`
         # supports windows
