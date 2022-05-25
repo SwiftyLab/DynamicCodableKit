@@ -29,24 +29,49 @@ enum DynamicBaseDataTypeCollectionCodingKeys: String, CodingKey, DynamicDecoding
 struct VariableBaseDataTypeContainer: Decodable {
     typealias CodingKeys = DynamicBaseDataTypeCodingKeys
     @DynamicDecodingWrapper<CodingKeys> var value: Decodable
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self._value = try container.decode(DynamicDecodingWrapper<CodingKeys>.self, forKey: .value)
+    }
 }
 
 struct OptionalVariableBaseDataTypeContainer: Decodable {
     typealias CodingKeys = DynamicBaseDataTypeCodingKeys
     @OptionalDynamicDecodingWrapper<CodingKeys> var value: Decodable?
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self._value = container.decode(OptionalDynamicDecodingWrapper<CodingKeys>.self, forKey: .value)
+    }
 }
 
 struct StrictVariableBaseDataTypeContainer: Decodable {
     typealias CodingKeys = DynamicBaseDataTypeCollectionCodingKeys
     @StrictDynamicDecodingArrayWrapper<CodingKeys> var values: [Decodable]
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self._values = try container.decode(StrictDynamicDecodingArrayWrapper<CodingKeys>.self, forKey: .values)
+    }
 }
 
 struct DefaultVariableBaseDataTypeContainer: Decodable {
     typealias CodingKeys = DynamicBaseDataTypeCollectionCodingKeys
     @DefaultValueDynamicDecodingArrayWrapper<CodingKeys> var values: [Decodable]
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self._values = try container.decode(DefaultValueDynamicDecodingArrayWrapper<CodingKeys>.self, forKey: .values)
+    }
 }
 
 struct LossyVariableBaseDataTypeContainer: Decodable {
     typealias CodingKeys = DynamicBaseDataTypeCollectionCodingKeys
     @LossyDynamicDecodingArrayWrapper<CodingKeys> var values: [Decodable]
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self._values = try container.decode(LossyDynamicDecodingArrayWrapper<CodingKeys>.self, forKey: .values)
+    }
 }
