@@ -2,22 +2,23 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const process = require('node:process');
+const semver = require('semver');
 const archiver = require('archiver');
 const readdirGlob = require('readdir-glob');
 const { execSync } = require('node:child_process');
 
+const args = process.argv.slice(2).join(' ');
 execSync(
-  'swift package --verbose generate-documentation \
+  `swift package --verbose generate-documentation \
     --fallback-display-name DynamicCodableKit \
-    --fallback-bundle-identifier com.example.DynamicCodableKit \
-    --fallback-bundle-version 1 \
-    --additional-symbol-graph-dir .build', {
+    --fallback-bundle-identifier com.SwiftyLab.DynamicCodableKit \
+    --fallback-bundle-version ${semver.valid(args) ?? 1} \
+    --additional-symbol-graph-dir .build`, {
     stdio: ['inherit', 'inherit', 'inherit'],
     encoding: 'utf-8'
   }
 );
 
-const args = process.argv.slice(2).join(' ');
 const doccGlobberer = readdirGlob('.', { pattern: '.build/plugins/Swift-DocC/outputs/*.doccarchive' });
 doccGlobberer.on(
   'match',
