@@ -73,4 +73,31 @@ final class DynamicDecodingCollectionWrapperTests: XCTestCase {
         let expectedPostTypes: Set<PostType> = [.text, .picture, .audio, .video]
         XCTAssertEqual(decodedPostTypes, expectedPostTypes)
     }
+
+    func testDynamicTypeDecodingWithSelfCodingKeyContext() throws {
+        let data = #"{"values": [86, 46, 94]}"#.data(using: .utf8)!
+        let decoder = JSONDecoder()
+        let container = try decoder.decode(StrictVariableBaseDataTypeContainer.self, from: data)
+        XCTAssertEqual(container.values as? [Int], [86, 46, 94])
+    }
+
+    func testInvalidDataDynamicTypeDecodingWithSelfCodingKeyContextWithThrowConfig() throws {
+        let data = #"{"values": [86.89, 46, 94]}"#.data(using: .utf8)!
+        let decoder = JSONDecoder()
+        XCTAssertThrowsError(try decoder.decode(StrictVariableBaseDataTypeContainer.self, from: data))
+    }
+
+    func testInvalidDataDynamicTypeDecodingWithSelfCodingKeyContextWithDefaultConfig() throws {
+        let data = #"{"values": [86.89, 46, 94]}"#.data(using: .utf8)!
+        let decoder = JSONDecoder()
+        let container = try decoder.decode(DefaultVariableBaseDataTypeContainer.self, from: data)
+        XCTAssertEqual(container.values.count, 0)
+    }
+
+    func testInvalidDataDynamicTypeDecodingWithSelfCodingKeyContextWithLossyConfig() throws {
+        let data = #"{"values": [86.89, 46, 94]}"#.data(using: .utf8)!
+        let decoder = JSONDecoder()
+        let container = try decoder.decode(LossyVariableBaseDataTypeContainer.self, from: data)
+        XCTAssertEqual(container.values.count, 2)
+    }
 }

@@ -43,6 +43,33 @@ public struct DynamicDecodingDefaultValueWrapper<
     }
 }
 
+public extension KeyedDecodingContainer
+  where K: DynamicDecodingContextCodingKey {
+    /// Decodes a value of dynamic ``DynamicDecodingDefaultValueWrapper``
+    /// type for the given coding key.
+    ///
+    /// - Parameters:
+    ///   - type: The type of value to decode.
+    ///   - key: The coding key.
+    ///
+    /// - Returns: A dynamic value wrapped in ``DynamicDecodingDefaultValueWrapper``
+    ///            or a default value provided by ``DynamicDecodingDefaultValueProvider``
+    ///            if decoding fails.
+    func decode<Wrapped>(
+        _ type: DynamicDecodingDefaultValueWrapper<K, Wrapped>.Type,
+        forKey key: K
+    ) -> DynamicDecodingDefaultValueWrapper<K, Wrapped> {
+        guard
+            let context = try? K.context(forContainer: self),
+            let decoder = try? self.superDecoder(forKey: key),
+            let value = try? context.decodeFrom(decoder)
+        else {
+            return DynamicDecodingDefaultValueWrapper(wrappedValue: .default)
+        }
+        return DynamicDecodingDefaultValueWrapper(wrappedValue: .init(value))
+    }
+}
+
 public extension KeyedDecodingContainerProtocol
   where Key: DynamicDecodingContextCodingKey {
     /// Decodes a value of dynamic ``DynamicDecodingDefaultValueWrapper``
