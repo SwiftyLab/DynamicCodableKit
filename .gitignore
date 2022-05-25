@@ -102,6 +102,10 @@ iOSInjectionProject/
 # DocC
 .netrc
 .docc-build
+*.doccarchive*
+
+# Built Products
+*.xcframework*
 
 ## Node-Js ignores
 # Logs

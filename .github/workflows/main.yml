@@ -31,7 +31,7 @@ jobs:
       security-events: write
 
   swift-package-test:
-    name: Run Swift Package Tests on ${{ matrix.os }}
+    name: Run Swift Package Tests on ${{ matrix.os }} with swift version ${{ matrix.swift }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -140,16 +140,17 @@ jobs:
   #   name: Build and Publish
   #   if: (github.event_name == 'push' && needs.ci.outputs.release == 'true') || (github.event_name == 'workflow_dispatch' && github.event.inputs.release == 'true')
   #   needs: [ci, analyze, swift-package-test, cocoapods-test]
-  #   runs-on: ubuntu-latest
+  #   runs-on: macos-latest
 
   #   steps:
   #   - name: Checkout repository
   #     uses: actions/checkout@v3
 
-  #   - name: Setup repository
-  #     uses: ./.github/actions/setup
-  #     with:
-  #       cocoapods: 'true'
+    # - name: Setup repository
+    #   uses: ./.github/actions/setup
+    #   with:
+    #     cocoapods: 'true'
+    #     xcode: '13.2.0'
 
     # - name: Conventional Changelog Action
     #   id: conventional_changelog
@@ -163,6 +164,9 @@ jobs:
     #     release-count: 0
     #     config-file-path: '.github/config/config.js'
     #     pre-commit: '.github/config/pre_commit_hook.js'
+
+    # - name: Create XCFramework
+    #   uses: unsignedapps/swift-create-xcframework@v2
 
     # - name: Build package documentation
     #   if: steps.conventional_changelog.outputs.skipped == 'false'
