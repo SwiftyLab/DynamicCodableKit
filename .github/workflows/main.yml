@@ -31,18 +31,14 @@ jobs:
       security-events: write
 
   swift-package-test:
-    name: Run Swift Package Tests on ${{ matrix.os }} with swift version ${{ matrix.swift }}
-    runs-on: ${{ matrix.os }}
+    name: Run Swift Package Tests with swift version ${{ matrix.swift }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        swift: ['5.3', '5.6']
-        exclude:
-          - os: macos-latest
-            swift: '5.3'
+        swift: ['5.2', '5.6']
         # TODO: Enable windows when `swift-actions/setup-swift`
         # supports windows
-        # os: [ubuntu-latest, macos-latest, windows-latest]
+        # os: [ubuntu-latest, windows-latest]
 
     steps:
     - name: Checkout repository
@@ -57,14 +53,14 @@ jobs:
       run: npm run test
 
     - name: Swift Coverage Report
-      if: matrix.os == 'ubuntu-latest' && github.event_name == 'push'
+      if: matrix.swift == '5.6' && github.event_name == 'push'
       uses: maxep/spm-lcov-action@0.3.1
       with:
         file-format: lcov
         output-file: ./coverage.lcov
 
     - name: Codecov upload
-      if: matrix.os == 'ubuntu-latest' && github.event_name == 'push'
+      if: matrix.swift == '5.6' && github.event_name == 'push'
       uses: codecov/codecov-action@v3.1.0
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
