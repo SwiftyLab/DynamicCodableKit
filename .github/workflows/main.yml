@@ -89,70 +89,70 @@ jobs:
   #   - name: Run tests
   #     run: npm run pod-lint
 
-  ci:
-    name: Check if release needed
-    if: github.event_name == 'push'
-    needs: [analyze, swift-package-test, cocoapods-test]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    outputs:
-      release: ${{ steps.check_version_bump.outputs.release_type != '' }}
+  # ci:
+  #   name: Check if release needed
+  #   if: github.event_name == 'push'
+  #   needs: [analyze, swift-package-test, cocoapods-test]
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: write
+  #   outputs:
+  #     release: ${{ steps.check_version_bump.outputs.release_type != '' }}
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v3
 
-    - name: Setup repository
-      uses: ./.github/actions/setup
+  #   - name: Setup repository
+  #     uses: ./.github/actions/setup
 
-    - name: Check version bump
-      id: check_version_bump
-      uses: mathieudutour/github-tag-action@v6.0
-      with:
-        github_token: ${{ github.token }}
-        default_bump: false
-        dry_run: true
+  #   - name: Check version bump
+  #     id: check_version_bump
+  #     uses: mathieudutour/github-tag-action@v6.0
+  #     with:
+  #       github_token: ${{ github.token }}
+  #       default_bump: false
+  #       dry_run: true
 
-    - name: Build package documentation
-      if:  steps.check_version_bump.outputs.release_type == ''
-      run: |
-        npm run build
-        npm run build-doc
-        npm run serve-doc
+  #   - name: Build package documentation
+  #     if:  steps.check_version_bump.outputs.release_type == ''
+  #     run: |
+  #       npm run build
+  #       npm run build-doc
+  #       npm run serve-doc
 
-    - name: Update GitHub Pages
-      if:  steps.check_version_bump.outputs.release_type == ''
-      uses: JamesIves/github-pages-deploy-action@v4.3.3
-      with:
-          branch: gh-pages
-          folder: .docc-build
-          target-folder: docs
-          commit-message: 'chore(GitHub Pages): update site for commit ${{ github.sha }}'
+  #   - name: Update GitHub Pages
+  #     if:  steps.check_version_bump.outputs.release_type == ''
+  #     uses: JamesIves/github-pages-deploy-action@v4.3.3
+  #     with:
+  #         branch: gh-pages
+  #         folder: .docc-build
+  #         target-folder: docs
+  #         commit-message: 'chore(GitHub Pages): update site for commit ${{ github.sha }}'
 
-    - name: Update GitHub Pages for version
-      if:  steps.check_version_bump.outputs.release_type == ''
-      uses: JamesIves/github-pages-deploy-action@v4.3.3
-      with:
-          branch: gh-pages
-          folder: .docc-build
-          target-folder: docs/${{ steps.check_version_bump.outputs.previous_version }}
-          commit-message: 'chore(GitHub Pages): update versioned site for commit ${{ github.sha }}'
+  #   - name: Update GitHub Pages for version
+  #     if:  steps.check_version_bump.outputs.release_type == ''
+  #     uses: JamesIves/github-pages-deploy-action@v4.3.3
+  #     with:
+  #         branch: gh-pages
+  #         folder: .docc-build
+  #         target-folder: docs/${{ steps.check_version_bump.outputs.previous_version }}
+  #         commit-message: 'chore(GitHub Pages): update versioned site for commit ${{ github.sha }}'
 
-  cd:
-    name: Build and Publish
-    if: (github.event_name == 'push' && needs.ci.outputs.release == 'true') || (github.event_name == 'workflow_dispatch' && github.event.inputs.release == 'true')
-    needs: [ci, analyze, swift-package-test, cocoapods-test]
-    runs-on: ubuntu-latest
+  # cd:
+  #   name: Build and Publish
+  #   if: (github.event_name == 'push' && needs.ci.outputs.release == 'true') || (github.event_name == 'workflow_dispatch' && github.event.inputs.release == 'true')
+  #   needs: [ci, analyze, swift-package-test, cocoapods-test]
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v3
 
-    - name: Setup repository
-      uses: ./.github/actions/setup
-      with:
-        cocoapods: 'true'
+  #   - name: Setup repository
+  #     uses: ./.github/actions/setup
+  #     with:
+  #       cocoapods: 'true'
 
     # - name: Conventional Changelog Action
     #   id: conventional_changelog
@@ -167,30 +167,30 @@ jobs:
     #     config-file-path: '.github/config/config.js'
     #     pre-commit: '.github/config/pre_commit_hook.js'
 
-    - name: Build package documentation
-      if: steps.conventional_changelog.outputs.skipped == 'false'
-      run: |
-        npm run build
-        npm run build-doc
-        npm run serve-doc
+    # - name: Build package documentation
+    #   if: steps.conventional_changelog.outputs.skipped == 'false'
+    #   run: |
+    #     npm run build
+    #     npm run build-doc
+    #     npm run serve-doc
 
-    - name: Release GitHub Pages
-      if: steps.conventional_changelog.outputs.skipped == 'false'
-      uses: JamesIves/github-pages-deploy-action@v4.3.3
-      with:
-          branch: gh-pages
-          folder: .docc-build
-          target-folder: docs
-          commit-message: 'chore(GitHub Pages): release site for tag ${{ steps.conventional_changelog.outputs.tag }}'
+    # - name: Release GitHub Pages
+    #   if: steps.conventional_changelog.outputs.skipped == 'false'
+    #   uses: JamesIves/github-pages-deploy-action@v4.3.3
+    #   with:
+    #       branch: gh-pages
+    #       folder: .docc-build
+    #       target-folder: docs
+    #       commit-message: 'chore(GitHub Pages): release site for tag ${{ steps.conventional_changelog.outputs.tag }}'
 
-    - name: Release GitHub Pages for version
-      if: steps.conventional_changelog.outputs.skipped == 'false'
-      uses: JamesIves/github-pages-deploy-action@v4.3.3
-      with:
-          branch: gh-pages
-          folder: .docc-build
-          target-folder: docs/${{ steps.conventional_changelog.outputs.version }}
-          commit-message: 'chore(GitHub Pages): release versioned site for tag ${{ steps.conventional_changelog.outputs.tag }}'
+    # - name: Release GitHub Pages for version
+    #   if: steps.conventional_changelog.outputs.skipped == 'false'
+    #   uses: JamesIves/github-pages-deploy-action@v4.3.3
+    #   with:
+    #       branch: gh-pages
+    #       folder: .docc-build
+    #       target-folder: docs/${{ steps.conventional_changelog.outputs.version }}
+    #       commit-message: 'chore(GitHub Pages): release versioned site for tag ${{ steps.conventional_changelog.outputs.tag }}'
 
     # - name: Create GitHub Release
     #   if: steps.conventional_changelog.outputs.skipped == 'false'
