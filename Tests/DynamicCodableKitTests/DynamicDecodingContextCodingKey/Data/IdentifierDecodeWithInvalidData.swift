@@ -1,3 +1,5 @@
+let identifierDecodeWithInvalidData =
+"""
 {
   "content": {
     "id": "4c76f901-3c4f-482c-8663-600a73416773",
@@ -10,3 +12,4 @@
   },
   "next": "https://a.url.com/to/next/page"
 }
+""".data(using: .utf8)!

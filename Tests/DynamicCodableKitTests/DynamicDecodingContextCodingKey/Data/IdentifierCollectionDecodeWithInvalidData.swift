@@ -1,3 +1,5 @@
+let identifierCollectionDecodeWithInvalidData =
+"""
 {
   "content": [
     {
@@ -56,3 +58,4 @@
   ],
   "next": "https://a.url.com/to/next/page"
 }
+""".data(using: .utf8)!

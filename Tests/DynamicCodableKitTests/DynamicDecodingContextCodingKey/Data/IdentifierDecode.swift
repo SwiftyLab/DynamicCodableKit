@@ -1,3 +1,5 @@
+let identifierDecode =
+"""
 {
   "content": {
     "id": "98765432-abcd-efab-0123-456789abcdef",
@@ -11,3 +13,4 @@
   },
   "next": "https://a.url.com/to/next/page"
 }
+""".data(using: .utf8)!

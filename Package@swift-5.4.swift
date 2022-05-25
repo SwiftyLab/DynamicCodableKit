@@ -23,12 +23,7 @@ let package = Package(
         ),
         .testTarget(
             name: "DynamicCodableKitTests",
-            dependencies: ["DynamicCodableKit"],
-            resources: [
-                .process("DynamicDecodingContextCodingKey/JSONs"),
-                .process("DynamicDecodingContextContainerCodingKey/JSONs"),
-                .process("DynamicDecodingContextProvider/JSONs"),
-            ]
+            dependencies: ["DynamicCodableKit"]
         ),
     ],
     swiftLanguageVersions: [.v5]

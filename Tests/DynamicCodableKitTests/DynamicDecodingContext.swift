@@ -3,8 +3,7 @@ import XCTest
 
 final class DynamicDecodingContextTests: XCTestCase {
     func testFallbackDecodingWithPrimarySucess() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = identifierDecode
         let decoder = JSONDecoder()
         decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: VideoPost.self, fallback: TextPost.self)
         let postPage = try decoder.decode(ProviderBasedSinglePostPage.self, from: data)
@@ -13,8 +12,7 @@ final class DynamicDecodingContextTests: XCTestCase {
     }
 
     func testFallbackDecodingWithFallbackSucess() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = identifierDecode
         let decoder = JSONDecoder()
         decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: TextPost.self, fallback: VideoPost.self)
         let postPage = try decoder.decode(ProviderBasedSinglePostPage.self, from: data)
@@ -23,8 +21,7 @@ final class DynamicDecodingContextTests: XCTestCase {
     }
 
     func testFallbackArrayDecoding() throws {
-        let url = Bundle.module.url(forResource: "provider-collection-decode", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = providerCollectionDecode
         let decoder = JSONDecoder()
         decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: TextPost.self, fallback: VideoPost.self)
         let postPage = try decoder.decode(ProviderBasedThrowingPostPage.self, from: data)
@@ -32,16 +29,14 @@ final class DynamicDecodingContextTests: XCTestCase {
     }
 
     func testInvalidDataDecodingWithThrowConfig() throws {
-        let url = Bundle.module.url(forResource: "provider-collection-decode-with-invalid-data", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = providerCollectionDecodeWithInvalidData
         let decoder = JSONDecoder()
         decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: TextPost.self, fallback: VideoPost.self)
         XCTAssertThrowsError(try decoder.decode(ProviderBasedThrowingPostPage.self, from: data))
     }
 
     func testInvalidDataDecodingWithDefaultConfig() throws {
-        let url = Bundle.module.url(forResource: "provider-collection-decode-with-invalid-data", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = providerCollectionDecodeWithInvalidData
         let decoder = JSONDecoder()
         decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: TextPost.self, fallback: VideoPost.self)
         let postPage = try decoder.decode(ProviderBasedDefaultPostPage.self, from: data)
@@ -49,8 +44,7 @@ final class DynamicDecodingContextTests: XCTestCase {
     }
 
     func testInvalidDataDecodingWithLossyConfig() throws {
-        let url = Bundle.module.url(forResource: "provider-collection-decode-with-invalid-data", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = providerCollectionDecodeWithInvalidData
         let decoder = JSONDecoder()
         decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: TextPost.self, fallback: VideoPost.self)
         let postPage = try decoder.decode(ProviderBasedLossyPostPage.self, from: data)

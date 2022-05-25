@@ -3,8 +3,7 @@ import XCTest
 
 final class DynamicDecodingDictionaryWrapperTests: XCTestCase {
     func testDecoding() throws {
-        let url = Bundle.module.url(forResource: "container-decode", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = containerDecode
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(ThrowingKeyedPostPage.self, from: data)
         XCTAssertEqual(postPage.content.count, 4)
@@ -13,15 +12,13 @@ final class DynamicDecodingDictionaryWrapperTests: XCTestCase {
     }
 
     func testInvalidDataDecodingWithThrowConfig() throws {
-        let url = Bundle.module.url(forResource: "container-decode-with-invalid-data", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = containerDecodeWithInvalidData
         let decoder = JSONDecoder()
         XCTAssertThrowsError(try decoder.decode(ThrowingKeyedPostPage.self, from: data))
     }
 
     func testInvalidDataDecodingWithLossyConfig() throws {
-        let url = Bundle.module.url(forResource: "container-decode-with-invalid-data", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = containerDecodeWithInvalidData
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(LossyKeyedPostPage.self, from: data)
         XCTAssertEqual(postPage.content.count, 3)

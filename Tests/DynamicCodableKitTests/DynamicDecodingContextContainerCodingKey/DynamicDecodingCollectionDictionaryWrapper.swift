@@ -3,8 +3,7 @@ import XCTest
 
 final class DynamicDecodingCollectionDictionaryWrapperTests: XCTestCase {
     func testDecoding() throws {
-        let url = Bundle.module.url(forResource: "container-collection-decode", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = containerCollectionDecode
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(ThrowingKeyedPostPageCollection.self, from: data)
         XCTAssertEqual(postPage.content.count, 4)
@@ -15,15 +14,13 @@ final class DynamicDecodingCollectionDictionaryWrapperTests: XCTestCase {
     }
 
     func testInvalidDataDecodingWithThrowConfig() throws {
-        let url = Bundle.module.url(forResource: "container-collection-decode-with-invalid-data", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = containerCollectionDecodeWithInvalidData
         let decoder = JSONDecoder()
         XCTAssertThrowsError(try decoder.decode(ThrowingKeyedPostPageCollection.self, from: data))
     }
 
     func testInvalidDataDecodingWithDefaultConfig() throws {
-        let url = Bundle.module.url(forResource: "container-collection-decode-with-invalid-data", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = containerCollectionDecodeWithInvalidData
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(DefaultValueKeyedPostPageCollection.self, from: data)
         XCTAssertEqual(postPage.content.count, 2)
@@ -34,8 +31,7 @@ final class DynamicDecodingCollectionDictionaryWrapperTests: XCTestCase {
     }
 
     func testInvalidDataDecodingWithLossyConfig() throws {
-        let url = Bundle.module.url(forResource: "container-collection-decode-with-invalid-data", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = containerCollectionDecodeWithInvalidData
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(LossyKeyedPostPageCollection.self, from: data)
         XCTAssertEqual(postPage.content.count, 4)

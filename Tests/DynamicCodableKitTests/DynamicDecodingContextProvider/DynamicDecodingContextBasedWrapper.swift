@@ -3,8 +3,7 @@ import XCTest
 
 final class DynamicDecodingContextBasedWrapperTests: XCTestCase {
     func testDecoding() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = identifierDecode
         let decoder = JSONDecoder()
         decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: VideoPost.self)
         let postPage = try decoder.decode(ProviderBasedSinglePostPage.self, from: data)
@@ -13,8 +12,7 @@ final class DynamicDecodingContextBasedWrapperTests: XCTestCase {
     }
 
     func testOptionalDecoding() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = identifierDecode
         let decoder = JSONDecoder()
         decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: VideoPost.self)
         let postPage = try decoder.decode(ProviderBasedOptionalSinglePostPage.self, from: data)
@@ -23,23 +21,20 @@ final class DynamicDecodingContextBasedWrapperTests: XCTestCase {
     }
 
     func testInvalidDataDecodingWithThrowConfig() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = identifierDecodeWithInvalidData
         let decoder = JSONDecoder()
         XCTAssertThrowsError(try decoder.decode(ProviderBasedSinglePostPage.self, from: data))
     }
 
     func testInvalidDataDecodingWithDefaultConfig() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode-with-invalid-data", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = identifierDecodeWithInvalidData
         let decoder = JSONDecoder()
         let postPage = try decoder.decode(ProviderBasedOptionalSinglePostPage.self, from: data)
         XCTAssertNil(postPage.content)
     }
 
     func testIdentifierKeyContextDecoding() throws {
-        let url = Bundle.module.url(forResource: "identifier-decode", withExtension: "json")!
-        let data = try Data(contentsOf: url)
+        let data = identifierDecode
         let decoder = JSONDecoder()
         decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(withKey: PostCodingKey.self)
         let postPage = try decoder.decode(ProviderBasedSinglePostPage.self, from: data)
