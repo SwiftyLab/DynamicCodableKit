@@ -36,10 +36,10 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        swift: ['5.1.0', '5.6']
+        swift: ['5.1', '5.6']
         exclude:
           - os: macos-latest
-            swift: '5.1.0'
+            swift: '5.1'
         # TODO: Enable windows when `swift-actions/setup-swift`
         # supports windows
         # os: [ubuntu-latest, macos-latest, windows-latest]
@@ -115,7 +115,6 @@ jobs:
   #     if:  steps.check_version_bump.outputs.release_type == ''
   #     run: |
   #       npm run build
-  #       npm run build-doc
   #       npm run serve-doc
 
   #   - name: Update GitHub Pages
@@ -168,12 +167,15 @@ jobs:
     # - name: Create XCFramework
     #   uses: unsignedapps/swift-create-xcframework@v2
 
-    # - name: Build package documentation
+    # - name: Build package products and documentation
     #   if: steps.conventional_changelog.outputs.skipped == 'false'
     #   run: |
     #     npm run build
-    #     npm run build-doc
     #     npm run serve-doc
+    #     npm run archive -- $VERSION
+    #     npm run build-doc -- $VERSION
+    #   env:
+    #     VERSION: ${{ steps.conventional_changelog.outputs.version }}
 
     # - name: Release GitHub Pages
     #   if: steps.conventional_changelog.outputs.skipped == 'false'
@@ -200,9 +202,8 @@ jobs:
     #     token: ${{ github.token }}
     #     tag: ${{ steps.conventional_changelog.outputs.tag }}
     #     body: ${{ steps.conventional_changelog.outputs.changelog }}
-    #     artifacts: '**/*.doccarchive'
+    #     artifacts: '*.zip'
 
     # - name: Swift Package Registry
     #   if: steps.conventional_changelog.outputs.skipped == 'false'
     #   uses: twodayslate/swift-package-registry@v0.0.2
-
