@@ -87,8 +87,6 @@ jobs:
     if: github.event_name == 'push'
     needs: [analyze, swift-package-test, cocoapods-test]
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     outputs:
       release: ${{ steps.check_version_bump.outputs.release_type != '' }}
 
