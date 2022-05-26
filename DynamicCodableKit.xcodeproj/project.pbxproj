@@ -20,10 +20,10 @@
          productRefGroup = "OBJ_73";
          projectDirPath = ".";
          targets = (
-            "dynamic-codable-kit::DynamicCodableKit",
-            "dynamic-codable-kit::SwiftPMPackageDescription",
-            "dynamic-codable-kit::DynamicCodableKitPackageTests::ProductTarget",
-            "dynamic-codable-kit::DynamicCodableKitTests"
+            "dynamiccodablekit::DynamicCodableKit",
+            "dynamiccodablekit::SwiftPMPackageDescription",
+            "dynamiccodablekit::DynamicCodableKitPackageTests::ProductTarget",
+            "dynamiccodablekit::DynamicCodableKitTests"
          );
       };
       "OBJ_10" = {
@@ -183,7 +183,7 @@
       };
       "OBJ_124" = {
          isa = "PBXTargetDependency";
-         target = "dynamic-codable-kit::DynamicCodableKitTests";
+         target = "dynamiccodablekit::DynamicCodableKitTests";
       };
       "OBJ_126" = {
          isa = "XCConfigurationList";
@@ -439,11 +439,11 @@
       };
       "OBJ_158" = {
          isa = "PBXBuildFile";
-         fileRef = "dynamic-codable-kit::DynamicCodableKit::Product";
+         fileRef = "dynamiccodablekit::DynamicCodableKit::Product";
       };
       "OBJ_159" = {
          isa = "PBXTargetDependency";
-         target = "dynamic-codable-kit::DynamicCodableKit";
+         target = "dynamiccodablekit::DynamicCodableKit";
       };
       "OBJ_16" = {
          isa = "PBXFileReference";
@@ -950,8 +950,8 @@
       "OBJ_73" = {
          isa = "PBXGroup";
          children = (
-            "dynamic-codable-kit::DynamicCodableKit::Product",
-            "dynamic-codable-kit::DynamicCodableKitTests::Product"
+            "dynamiccodablekit::DynamicCodableKit::Product",
+            "dynamiccodablekit::DynamicCodableKitTests::Product"
          );
          name = "Products";
          path = "";
@@ -1185,7 +1185,7 @@
          isa = "PBXBuildFile";
          fileRef = "OBJ_16";
       };
-      "dynamic-codable-kit::DynamicCodableKit" = {
+      "dynamiccodablekit::DynamicCodableKit" = {
          isa = "PBXNativeTarget";
          buildConfigurationList = "OBJ_89";
          buildPhases = (
@@ -1196,15 +1196,15 @@
          );
          name = "DynamicCodableKit";
          productName = "DynamicCodableKit";
-         productReference = "dynamic-codable-kit::DynamicCodableKit::Product";
+         productReference = "dynamiccodablekit::DynamicCodableKit::Product";
          productType = "com.apple.product-type.framework";
       };
-      "dynamic-codable-kit::DynamicCodableKit::Product" = {
+      "dynamiccodablekit::DynamicCodableKit::Product" = {
          isa = "PBXFileReference";
          path = "DynamicCodableKit.framework";
          sourceTree = "BUILT_PRODUCTS_DIR";
       };
-      "dynamic-codable-kit::DynamicCodableKitPackageTests::ProductTarget" = {
+      "dynamiccodablekit::DynamicCodableKitPackageTests::ProductTarget" = {
          isa = "PBXAggregateTarget";
          buildConfigurationList = "OBJ_121";
          buildPhases = (
@@ -1215,7 +1215,7 @@
          name = "DynamicCodableKitPackageTests";
          productName = "DynamicCodableKitPackageTests";
       };
-      "dynamic-codable-kit::DynamicCodableKitTests" = {
+      "dynamiccodablekit::DynamicCodableKitTests" = {
          isa = "PBXNativeTarget";
          buildConfigurationList = "OBJ_126";
          buildPhases = (
@@ -1227,15 +1227,15 @@
          );
          name = "DynamicCodableKitTests";
          productName = "DynamicCodableKitTests";
-         productReference = "dynamic-codable-kit::DynamicCodableKitTests::Product";
+         productReference = "dynamiccodablekit::DynamicCodableKitTests::Product";
          productType = "com.apple.product-type.bundle.unit-test";
       };
-      "dynamic-codable-kit::DynamicCodableKitTests::Product" = {
+      "dynamiccodablekit::DynamicCodableKitTests::Product" = {
          isa = "PBXFileReference";
          path = "DynamicCodableKitTests.xctest";
          sourceTree = "BUILT_PRODUCTS_DIR";
       };
-      "dynamic-codable-kit::SwiftPMPackageDescription" = {
+      "dynamiccodablekit::SwiftPMPackageDescription" = {
          isa = "PBXNativeTarget";
          buildConfigurationList = "OBJ_115";
          buildPhases = (
