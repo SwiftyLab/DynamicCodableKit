@@ -66,6 +66,34 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         fail_ci_if_error: true
 
+  test-cd:
+    name: Run test framework generation
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup repository
+      uses: ./.github/actions/setup
+      with:
+        swift: '5.1'
+        cocoapods: 'true'
+        xcode: '13.2.0'
+
+    - name: Create XCFramework
+      uses: unsignedapps/swift-create-xcframework@v2
+
+    - name: Build package products and documentation
+      if: steps.conventional_changelog.outputs.skipped == 'false'
+      run: |
+        npm run build
+        npm run serve-doc
+        npm run archive -- $VERSION
+        npm run build-doc -- $VERSION
+      env:
+        VERSION: '1.0.0'
+
   # cocoapods-test:
   #   name: Run CocoaPods Tests
   #   runs-on: macos-latest
