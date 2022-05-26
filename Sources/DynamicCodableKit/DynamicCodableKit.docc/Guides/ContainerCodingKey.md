@@ -111,6 +111,8 @@ struct PostPage: Decodable {
 
 ### Type Aliases
 
+- ``StrictDynamicDecodingDictionaryWrapper``
+- ``LossyDynamicDecodingDictionaryWrapper``
 - ``StrictDynamicDecodingArrayDictionaryWrapper``
 - ``DefaultValueDynamicDecodingArrayDictionaryWrapper``
 - ``LossyDynamicDecodingArrayDictionaryWrapper``
