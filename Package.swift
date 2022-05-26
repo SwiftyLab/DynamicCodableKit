@@ -12,7 +12,7 @@ dependencies = []
 #endif
 
 let package = Package(
-    name: "dynamic-codable-kit",
+    name: "DynamicCodableKit",
     platforms: [
         .iOS(.v8),
         .macOS(.v10_10),
