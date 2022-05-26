@@ -82,7 +82,6 @@ jobs:
         xcode: '13.2.0'
 
     - name: Build package products and documentation
-      if: steps.conventional_changelog.outputs.skipped == 'false'
       run: |
         npm run build
         npm run create-xcframework
