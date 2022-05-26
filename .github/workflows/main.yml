@@ -84,9 +84,8 @@ jobs:
     - name: Build package products and documentation
       run: |
         npm run build
-        npm run create-xcframework
-        npm run archive -- $VERSION
         npm run serve-doc
+        npm run archive -- $VERSION
         npm run build-doc -- $VERSION
       env:
         VERSION: '1.0.0'
@@ -184,9 +183,6 @@ jobs:
     #     release-count: 0
     #     config-file-path: '.github/config/config.js'
     #     pre-commit: '.github/config/pre_commit_hook.js'
-
-    # - name: Create XCFramework
-    #   uses: unsignedapps/swift-create-xcframework@v2
 
     # - name: Build package products and documentation
     #   if: steps.conventional_changelog.outputs.skipped == 'false'

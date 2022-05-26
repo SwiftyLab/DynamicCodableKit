@@ -26,7 +26,7 @@
       "test": "Scripts/test.js",
       "archive": "Scripts/archive.js",
       "pod-lint": "Scripts/pod-lint.js",
-      "create-xcframework": "Scripts/create-xcframework.js",
+      "generate-xcodeproj": "Scripts/generate-xcodeproj.js",
       "preview-doc": "Scripts/preview-doc.js",
       "build-doc": "Scripts/build-doc.js",
       "serve-doc": "Scripts/serve-doc.js"
