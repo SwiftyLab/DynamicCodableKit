@@ -50,7 +50,6 @@ playground.xcworkspace
 Packages/
 Package.pins
 Package.resolved
-# *.xcodeproj
 
 # Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
 # hence it is not needed unless you have added a package configuration file to your project
@@ -67,7 +66,7 @@ Package.resolved
 Pods/
 #
 # Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
+*.xcworkspace
 
 # Carthage
 #
