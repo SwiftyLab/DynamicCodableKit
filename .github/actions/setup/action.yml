@@ -1,5 +1,5 @@
 name: Setup action for Swift library
-description: Setup action for Swift library `dynamic-codable-kit`
+description: Setup action for Swift library `DynamicCodableKit`
 inputs:
   swift:
     description: Swift version to use

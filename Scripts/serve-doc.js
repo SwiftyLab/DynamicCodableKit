@@ -7,7 +7,7 @@ execSync(
     generate-documentation \
     --disable-indexing \
     --transform-for-static-hosting \
-    --hosting-base-path dynamic-codable-kit \
+    --hosting-base-path DynamicCodableKit \
     --output-path .docc-build', {
     stdio: ['inherit', 'inherit', 'inherit'],
     encoding: 'utf-8'

@@ -32,7 +32,7 @@ pod 'DynamicCodableKit'
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate `DynamicCodableKit` into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "SwiftyLab/dynamic-codable-kit"
+github "SwiftyLab/DynamicCodableKit"
 ```
 
 ### Swift Package Manager
@@ -43,7 +43,7 @@ Once you have your Swift package set up, adding `DynamicCodableKit` as a depende
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/SwiftyLab/dynamic-codable-kit.git", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/SwiftyLab/DynamicCodableKit.git", .upToNextMajor(from: "1.0.0"))
 ]
 ```
 
