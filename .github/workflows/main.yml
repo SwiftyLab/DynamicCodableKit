@@ -81,15 +81,13 @@ jobs:
         cocoapods: 'true'
         xcode: '13.2.0'
 
-    - name: Create XCFramework
-      uses: philprime/swift-create-xcframework@main
-
     - name: Build package products and documentation
       if: steps.conventional_changelog.outputs.skipped == 'false'
       run: |
         npm run build
-        npm run serve-doc
+        npm run create-xcframework
         npm run archive -- $VERSION
+        npm run serve-doc
         npm run build-doc -- $VERSION
       env:
         VERSION: '1.0.0'
