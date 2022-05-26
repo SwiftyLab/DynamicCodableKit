@@ -82,7 +82,7 @@ jobs:
         xcode: '13.2.0'
 
     - name: Create XCFramework
-      uses: unsignedapps/swift-create-xcframework@v2.1.0
+      uses: philprime/swift-create-xcframework@main
 
     - name: Build package products and documentation
       if: steps.conventional_changelog.outputs.skipped == 'false'
