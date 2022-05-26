@@ -16,6 +16,9 @@ let package = Package(
             targets: ["DynamicCodableKit"]
         ),
     ],
+    dependencies: [
+        .package(url: "https://github.com/yonaskolb/Mint.git", from: "0.15.0"),
+    ],
     targets: [
         .target(
             name: "DynamicCodableKit",

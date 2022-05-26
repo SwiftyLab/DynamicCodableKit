@@ -2,7 +2,7 @@
 const process = require('node:process');
 const { execSync } = require('node:child_process');
 
-const args = process.argv.slice(2).join(' ')
+const args = process.argv.slice(2).join(' ');
 execSync(
   `swift build ${args} --verbose \
     -Xswiftc \
