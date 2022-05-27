@@ -109,7 +109,9 @@ jobs:
       if:  steps.check_version_bump.outputs.release_type == ''
       run: |
         npm run build
-        npm run serve-doc
+        npm run serve-doc -- $VERSION
+      env:
+        VERSION: ${{ steps.check_version_bump.outputs.previous_version }}
 
     - name: Update GitHub Pages
       if:  steps.check_version_bump.outputs.release_type == ''
@@ -119,15 +121,6 @@ jobs:
           folder: .docc-build
           target-folder: docs
           commit-message: 'chore(GitHub Pages): update site for commit ${{ github.sha }}'
-
-    - name: Update GitHub Pages for version
-      if:  steps.check_version_bump.outputs.release_type == ''
-      uses: JamesIves/github-pages-deploy-action@v4.3.3
-      with:
-          branch: gh-pages
-          folder: .docc-build
-          target-folder: docs/${{ steps.check_version_bump.outputs.previous_version }}
-          commit-message: 'chore(GitHub Pages): update versioned site for commit ${{ github.sha }}'
 
   cd:
     name: Build and Publish
@@ -161,7 +154,7 @@ jobs:
       if: steps.conventional_changelog.outputs.skipped == 'false'
       run: |
         npm run build
-        npm run serve-doc
+        npm run serve-doc -- $VERSION
         npm run archive -- $VERSION
         npm run build-doc -- $VERSION
       env:
@@ -176,16 +169,6 @@ jobs:
           folder: .docc-build
           target-folder: docs
           commit-message: 'chore(GitHub Pages): release site for tag ${{ steps.conventional_changelog.outputs.tag }}'
-
-    - name: Release GitHub Pages for version
-      if: steps.conventional_changelog.outputs.skipped == 'false'
-      continue-on-error: true
-      uses: JamesIves/github-pages-deploy-action@v4.3.3
-      with:
-          branch: gh-pages
-          folder: .docc-build
-          target-folder: docs/${{ steps.conventional_changelog.outputs.version }}
-          commit-message: 'chore(GitHub Pages): release versioned site for tag ${{ steps.conventional_changelog.outputs.tag }}'
 
     - name: Create GitHub Release
       if: steps.conventional_changelog.outputs.skipped == 'false'

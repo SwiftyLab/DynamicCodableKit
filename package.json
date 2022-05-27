@@ -19,6 +19,7 @@
         "open": "^8.4.0",
         "archiver": "^5.3.1",
         "semver": "^7.3.7",
+        "@actions/core": "^1.2.6",
         "conventional-changelog-conventionalcommits": "^4.6.3"
     },
     "scripts": {

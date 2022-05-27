@@ -5,6 +5,7 @@ const process = require('node:process');
 const { execSync } = require('node:child_process');
 const archiver = require('archiver');
 const readdirGlob = require('readdir-glob');
+const core = require('@actions/core');
 
 try {
   execSync(
@@ -13,14 +14,17 @@ try {
     }
   );
 } catch (error) {
+  core.startGroup(`Installing Carthage with Homebrew`);
   execSync(
     `brew install carthage`, {
       stdio: ['inherit', 'inherit', 'inherit'],
       encoding: 'utf-8'
     }
   );
+  core.endGroup();
 }
 
+core.startGroup(`Building XCFramework with Carthage`);
 execSync(
   `carthage build \
     --no-skip-current \
@@ -30,12 +34,14 @@ execSync(
     encoding: 'utf-8'
   }
 );
+core.endGroup();
 
 const args = process.argv.slice(2).join(' ');
 const xcframeworkGlobberer = readdirGlob('.', { pattern: 'Carthage/Build/*.xcframework' });
 xcframeworkGlobberer.on(
   'match',
   m => {
+    core.startGroup(`Zipping XCFramework`);
     const xcframework = path.basename(m.relative);
     const name = path.basename(xcframework, path.extname(xcframework));
     const archiveName = [name, args].filter(x => typeof x === 'string' && x.length > 0).join('-');
@@ -48,13 +54,9 @@ xcframeworkGlobberer.on(
     archive.pipe(output);
     archive.finalize();
     const archivePath = path.normalize(path.join(process.cwd(), output.path));
-    console.log(`Created archive '${archivePath}'`);
+    core.info(`Created archive '${archivePath}'`);
+    core.endGroup();
   }
 );
 
-xcframeworkGlobberer.on(
-  'error',
-  err => {
-    console.error('fatal error', err);
-  }
-);
+xcframeworkGlobberer.on('error', err => { core.error(err); });
