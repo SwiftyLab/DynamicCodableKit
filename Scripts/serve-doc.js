@@ -27,7 +27,7 @@ core.endGroup();
 const version = process.argv.slice(2).at(0);
 if (!version) return;
 const hostingVersionedDocGenCommand = hostingDocGenCommandFormat(
-  version,
+  `DynamicCodableKit/${version}`,
   `.docc-build/${version}`
 );
 
