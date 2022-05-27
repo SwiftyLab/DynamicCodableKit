@@ -2,7 +2,7 @@
 const { execSync } = require('node:child_process');
 
 execSync(
-  `swift package --verbose generate-xcodeproj \
+  `swift package generate-xcodeproj \
     --xcconfig-overrides Helpers/DynamicCodableKit.xcconfig \
     --skip-extra-files`, {
     stdio: ['inherit', 'inherit', 'inherit'],
