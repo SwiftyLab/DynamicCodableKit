@@ -16,6 +16,9 @@ on:
         required: false
         type: boolean
 
+env:
+  RUBY_VER: 2.7
+
 concurrency:
   group: ci/cd-${{ github.ref }}
   cancel-in-progress: true
@@ -82,10 +85,49 @@ jobs:
     - name: Run tests
       run: npm run pod-lint
 
+  xcode-test:
+    name: Run Xcode Build for platform ${{ matrix.platform }}
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        platform: [macOS, watchOS, tvOS, iOS, mac-catalyst]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Build with Xcode
+      uses: mxcl/xcodebuild@v1
+      with:
+        xcode: '11.3.1'
+        platform: ${{ matrix.platform }}
+        action: build
+        configuration: debug
+
+  test-proj-gen:
+    name: Run Xcode Build for platform ${{ matrix.platform }}
+    runs-on: macos-latest
+
+    steps:
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ env.RUBY_VER }}
+
+    - name: Setup repository
+      uses: ./.github/actions/setup
+      with:
+        cocoapods: 'true'
+
+    - name: Build package documentation
+      if:  steps.check_version_bump.outputs.release_type == ''
+      run: |
+        npm run generate
+
   ci:
     name: Check if release needed
     if: github.event_name == 'push'
-    needs: [analyze, swift-package-test, cocoapods-test]
+    needs: [analyze, swift-package-test, xcode-test, cocoapods-test]
     runs-on: ubuntu-latest
     outputs:
       release: ${{ steps.check_version_bump.outputs.release_type != '' }}
@@ -124,12 +166,17 @@ jobs:
   cd:
     name: Build and Publish
     if: (github.event_name == 'push' && needs.ci.outputs.release == 'true') || (github.event_name == 'workflow_dispatch' && github.event.inputs.release == 'true')
-    needs: [ci, analyze, swift-package-test, cocoapods-test]
+    needs: [ci, analyze, swift-package-test, xcode-test, cocoapods-test]
     runs-on: macos-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ env.RUBY_VER }}
 
     - name: Setup repository
       uses: ./.github/actions/setup

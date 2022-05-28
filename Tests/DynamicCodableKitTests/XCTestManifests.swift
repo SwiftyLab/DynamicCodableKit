@@ -154,7 +154,11 @@ extension PathCodingKeyWrapperTests {
         ("testDecoding", testDecoding),
         ("testInvalidDataDecodingWithDefaultConfig", testInvalidDataDecodingWithDefaultConfig),
         ("testInvalidDataDecodingWithThrowConfig", testInvalidDataDecodingWithThrowConfig),
+        ("testInvalidOptionalPathCodingKeyWrapperDecoding", testInvalidOptionalPathCodingKeyWrapperDecoding),
+        ("testInvalidPathCodingKeyWrapperDecoding", testInvalidPathCodingKeyWrapperDecoding),
         ("testOptionalDecoding", testOptionalDecoding),
+        ("testOptionalPathCodingKeyWrapperDecoding", testOptionalPathCodingKeyWrapperDecoding),
+        ("testPathCodingKeyWrapperDecoding", testPathCodingKeyWrapperDecoding),
     ]
 }
 
