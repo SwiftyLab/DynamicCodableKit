@@ -99,16 +99,19 @@ jobs:
     - name: Build with Xcode
       uses: mxcl/xcodebuild@v1
       with:
-        xcode: '11.3.1'
+        xcode: '12.4'
         platform: ${{ matrix.platform }}
         action: build
         configuration: debug
 
   test-proj-gen:
-    name: Run Xcode Build for platform ${{ matrix.platform }}
+    name: Test xcode proj gen
     runs-on: macos-latest
 
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
