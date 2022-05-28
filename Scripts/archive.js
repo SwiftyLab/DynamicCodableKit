@@ -36,7 +36,7 @@ execSync(
 );
 core.endGroup();
 
-const args = process.argv.slice(2).join(' ');
+const package = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 const xcframeworkGlobberer = readdirGlob('.', { pattern: 'Carthage/Build/*.xcframework' });
 xcframeworkGlobberer.on(
   'match',
@@ -44,7 +44,7 @@ xcframeworkGlobberer.on(
     core.startGroup(`Zipping XCFramework`);
     const xcframework = path.basename(m.relative);
     const name = path.basename(xcframework, path.extname(xcframework));
-    const archiveName = [name, args].filter(x => typeof x === 'string' && x.length > 0).join('-');
+    const archiveName = [name, package.version].join('-');
     const output = fs.createWriteStream(`${archiveName}.xcframework.zip`);
     const archive = archiver('zip');
     archive.directory(m.absolute, xcframework);
