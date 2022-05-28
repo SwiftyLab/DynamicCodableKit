@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const fs = require('node:fs');
 const { execSync } = require('node:child_process');
 const core = require('@actions/core');
 
@@ -24,14 +25,13 @@ execSync(hostingDocGenCommand, {
 );
 core.endGroup();
 
-const version = process.argv.slice(2).at(0);
-if (!version) return;
+const package = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 const hostingVersionedDocGenCommand = hostingDocGenCommandFormat(
-  `DynamicCodableKit/${version}`,
-  `.docc-build/${version}`
+  `DynamicCodableKit/${package.version}`,
+  `.docc-build/${package.version}`
 );
 
-core.startGroup(`Generating ${version} Specific Documentation for Hosting Online`);
+core.startGroup(`Generating ${package.version} Specific Documentation for Hosting Online`);
 execSync(hostingVersionedDocGenCommand, {
     stdio: ['inherit', 'inherit', 'inherit'],
     encoding: 'utf-8'
