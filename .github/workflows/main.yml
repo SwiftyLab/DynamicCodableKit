@@ -118,10 +118,8 @@ jobs:
           branch: gh-pages
           folder: .docc-build
           target-folder: docs
+          clean: false
           commit-message: 'chore(GitHub Pages): update site for commit ${{ github.sha }}'
-          clean-exclude: |
-            *.*.*
-            docs/*.*.*
 
   cd:
     name: Build and Publish
