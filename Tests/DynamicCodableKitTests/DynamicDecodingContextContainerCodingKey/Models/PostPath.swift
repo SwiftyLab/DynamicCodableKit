@@ -72,13 +72,24 @@ struct OptionalPostData: Decodable {
 struct ContainedPathCodingKeyWrapper: Decodable {
     let text: [PathCodingKeyWrapper<CodingKeys>]
 
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.text = try container.decode([PathCodingKeyWrapper<CodingKeys>].self, forKey: .text)
+    }
+
     enum CodingKeys: String, CodingKey {
         case text
     }
 }
 
 struct ContainedInvalidPathCodingKeyWrapper: Decodable {
-    let text: [PathCodingKeyWrapper<ContainedPathCodingKeyWrapper.CodingKeys>]
+    typealias Value = [PathCodingKeyWrapper<ContainedPathCodingKeyWrapper.CodingKeys>]
+    let text: Value
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.text = try container.decode(Value.self, forKey: .text)
+    }
 
     enum CodingKeys: String, CodingKey {
         case text
@@ -86,7 +97,13 @@ struct ContainedInvalidPathCodingKeyWrapper: Decodable {
 }
 
 struct ContainedOptionalPathCodingKeyWrapper: Decodable {
-    let text: [OptionalPathCodingKeyWrapper<CodingKeys>]
+    typealias Value = [OptionalPathCodingKeyWrapper<CodingKeys>]
+    let text: Value
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.text = try container.decode(Value.self, forKey: .text)
+    }
 
     enum CodingKeys: String, CodingKey {
         case text
@@ -94,7 +111,13 @@ struct ContainedOptionalPathCodingKeyWrapper: Decodable {
 }
 
 struct ContainedInvalidOptionalPathCodingKeyWrapper: Decodable {
+    typealias Value = [OptionalPathCodingKeyWrapper<ContainedOptionalPathCodingKeyWrapper.CodingKeys>]
     let text: [OptionalPathCodingKeyWrapper<ContainedOptionalPathCodingKeyWrapper.CodingKeys>]
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.text = try container.decode(Value.self, forKey: .text)
+    }
 
     enum CodingKeys: String, CodingKey {
         case text
