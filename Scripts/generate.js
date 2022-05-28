@@ -14,7 +14,7 @@ execSync(
 );
 core.endGroup();
 
-core.startGroup(`Generating XCode project for swift package`);
+core.startGroup(`Generating Xcode project for swift package`);
 execSync(
   `swift package generate-xcodeproj \
     --xcconfig-overrides Helpers/DynamicCodableKit.xcconfig \
@@ -22,6 +22,28 @@ execSync(
     stdio: ['inherit', 'inherit', 'inherit'],
     encoding: 'utf-8'
   }
+);
+core.endGroup();
+
+core.startGroup(`Adding documentation catalogue to Xcode project`);
+const rubyCommand = `"require 'xcodeproj'
+project = Xcodeproj::Project.open('DynamicCodableKit.xcodeproj')
+project_changed = false
+['DynamicCodableKit'].each do |p_target|
+  target = project.native_targets.find { |target| target.display_name == p_target }
+  group = project[\\"Sources/#{p_target}\\"]
+
+  docc_file = \\"#{p_target}.docc\\"
+  file_create = lambda { project_changed = true; group.new_reference(\\"#{p_target}.docc\\") }
+  file = group.files.find { |file| File.basename(file.path) == docc_file } || file_create.call
+  build_file_create = lambda { project_changed = true; target.add_file_references([file]) }
+  build_file = target.source_build_phase.files.find { |build_file| build_file.file_ref == file } || build_file_create.call
+end
+project.save() if project_changed"`;
+execSync(`ruby -e ${rubyCommand}`, {
+  stdio: ['inherit', 'inherit', 'inherit'],
+  encoding: 'utf-8'
+}
 );
 core.endGroup();
 
