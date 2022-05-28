@@ -29,7 +29,7 @@ protocol Post: DynamicDecodable {
     var createdAt: String { get }
 }
 
-struct TextPost: Post, Hashable {
+struct TextPost: Post, Hashable, DynamicCodable {
     let id: UUID
     let author: UUID
     let likes: Int
@@ -38,7 +38,7 @@ struct TextPost: Post, Hashable {
     var type: PostType { .text }
 }
 
-struct PicturePost: Post, Hashable {
+struct PicturePost: Post, Hashable, Encodable {
     let id: UUID
     let author: UUID
     let likes: Int

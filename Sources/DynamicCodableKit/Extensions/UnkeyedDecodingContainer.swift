@@ -10,15 +10,6 @@ extension UnkeyedDecodingContainer {
         catch { _ = try? self.decode(AnyDecodableValue.self) }
         return nil
     }
-    /// Returns decoding error for type mismatch.
-    ///
-    /// - Parameters:
-    ///   - type: The mismatching type.
-    ///
-    /// - Returns: The type mismatch decoding error.
-    func typeMismatch<T>(_ type: T.Type) -> DecodingError {
-       .typeMismatch(type, codingPath: codingPath)
-    }
 }
 
 /// Any value decodable type.

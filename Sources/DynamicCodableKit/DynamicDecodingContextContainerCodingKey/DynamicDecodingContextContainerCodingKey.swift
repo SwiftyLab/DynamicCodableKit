@@ -83,8 +83,7 @@ public extension KeyedDecodingContainerProtocol
     /// - Throws: `DecodingError` if invalid or corrupt data.
     func decode() throws -> [Key: Key.Contained] {
         return try self.allKeys.reduce(into: [:]) { values, key in
-            let decoder = try self.superDecoder(forKey: key)
-            values[key] = try key.containedContext.decodeFrom(decoder)
+            values[key] = try self.decode(Key.Contained.self, forKey: key)
         }
     }
     /// Decodes a dictionary of ``DynamicDecodingContextContainerCodingKey`` key
@@ -95,9 +94,7 @@ public extension KeyedDecodingContainerProtocol
     ///            and ``DynamicDecodingContextContainerCodingKey/Contained`` value.
     func lossyDecode() -> [Key: Key.Contained] {
         return self.allKeys.reduce(into: [:]) { values, key in
-            guard
-                let decoder = try? self.superDecoder(forKey: key),
-                let value = try? key.containedContext.decodeFrom(decoder)
+            guard let value = try? self.decode(Key.Contained.self, forKey: key)
             else { return }
             values[key] = value
         }
@@ -114,9 +111,7 @@ public extension KeyedDecodingContainerProtocol
     func decode<Value: SequenceInitializable>() throws -> [Key: Value]
       where Value.Element == Key.Contained {
         return try self.allKeys.reduce(into: [:]) { values, key in
-            let decoder = try self.superDecoder(forKey: key)
-            let items = try key.containedContext.decodeArrayFrom(decoder)
-            values[key] = .init(items)
+            values[key] = try self.decode(Value.self, forKey: key)
         }
     }
     /// Decodes a dictionary of ``DynamicDecodingContextContainerCodingKey`` key
@@ -130,8 +125,7 @@ public extension KeyedDecodingContainerProtocol
       where Value.Element == Key.Contained {
         return self.allKeys.reduce(into: [:]) { values, key in
             guard
-                let decoder = try? self.superDecoder(forKey: key),
-                let items = try? key.containedContext.decodeArrayFrom(decoder),
+                let items = try? self.decode(Value.self, forKey: key),
                 !items.isEmpty
             else { return }
             values[key] = .init(items)
@@ -148,10 +142,7 @@ public extension KeyedDecodingContainerProtocol
       where Value.Element == Key.Contained {
         return self.allKeys.reduce(into: [:]) { values, key in
             guard
-                let decoder = try? self.superDecoder(forKey: key),
-                case let items = key.containedContext.decodeLossyArrayFrom(
-                    decoder
-                ),
+                case let items = self.lossyDecode(Value.self, forKey: key),
                 !items.isEmpty
             else { return }
             values[key] = .init(items)

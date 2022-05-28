@@ -40,4 +40,26 @@ final class PathCodingKeyWrapperTests: XCTestCase {
             posts.forEach { XCTAssertNil($0.type) }
         }
     }
+
+    func testPathCodingKeyWrapperDecoding() throws {
+        let value = try JSONDecoder().decode(ContainedPathCodingKeyWrapper.self, from: pathCodingKeyData)
+        XCTAssertEqual(value.text.count, 1)
+        XCTAssertEqual(value.text.first?.wrappedValue, .text)
+    }
+
+    func testOptionalPathCodingKeyWrapperDecoding() throws {
+        let value = try JSONDecoder().decode(ContainedOptionalPathCodingKeyWrapper.self, from: pathCodingKeyData)
+        XCTAssertEqual(value.text.count, 1)
+        XCTAssertEqual(value.text.first?.wrappedValue, .text)
+    }
+
+    func testInvalidPathCodingKeyWrapperDecoding() throws {
+        XCTAssertThrowsError(try JSONDecoder().decode(ContainedInvalidPathCodingKeyWrapper.self, from: pathCodingKeyData))
+    }
+
+    func testInvalidOptionalPathCodingKeyWrapperDecoding() throws {
+        let value = try JSONDecoder().decode(ContainedInvalidOptionalPathCodingKeyWrapper.self, from: pathCodingKeyData)
+        XCTAssertEqual(value.text.count, 1)
+        XCTAssertNil(value.text.first?.wrappedValue)
+    }
 }

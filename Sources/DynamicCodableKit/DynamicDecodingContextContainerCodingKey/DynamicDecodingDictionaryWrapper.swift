@@ -5,7 +5,7 @@
 public struct DynamicDecodingDictionaryWrapper<
     ContainerCodingKey: DynamicDecodingContextContainerCodingKey,
     Config: DynamicDecodingCollectionConfigurationProvider
->: Decodable where ContainerCodingKey: Hashable {
+>: PropertyWrapperCodable where ContainerCodingKey: Hashable {
     /// The underlying dictionary of ``DynamicDecodingContextContainerCodingKey`` key
     /// and dynamic ``DynamicDecodingContextContainerCodingKey/Contained`` value.
     public var wrappedValue: [ContainerCodingKey: ContainerCodingKey.Contained]

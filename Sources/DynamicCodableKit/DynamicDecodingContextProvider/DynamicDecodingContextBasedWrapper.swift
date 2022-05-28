@@ -4,7 +4,7 @@
 @propertyWrapper
 public struct DynamicDecodingContextBasedWrapper<
     Provider: DynamicDecodingContextProvider
->: Decodable {
+>: PropertyWrapperCodable {
     /// The underlying dynamic value referenced.
     public var wrappedValue: Provider.Identified
 

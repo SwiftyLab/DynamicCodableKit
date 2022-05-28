@@ -12,7 +12,7 @@ const command = `swift build ${args} --verbose \
   -Xswiftc .build`;
 
 const buildMsg = 'Building package'
-core.startGroup(args ? `${buildMsg} with arguments \`${args}\``: buildMsg);
+core.startGroup(args ? `${buildMsg} with arguments \`${args}\`` : buildMsg);
 execSync(command, {
     stdio: ['inherit', 'inherit', 'inherit'],
     encoding: 'utf-8'

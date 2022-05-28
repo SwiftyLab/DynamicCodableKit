@@ -1,42 +1,42 @@
 import XCTest
 @testable import DynamicCodableKit
 
-struct SinglePostPage: Decodable {
+struct SinglePostPage: Codable {
     let next: URL
     @DynamicDecodingWrapper<PostCodingKey> var content: Post
 }
 
-struct OptionalSinglePostPage: Decodable {
+struct OptionalSinglePostPage: Codable {
     let next: URL
     @OptionalDynamicDecodingWrapper<PostCodingKey> var content: Post?
 }
 
-struct ThrowingPostPage: Decodable {
+struct ThrowingPostPage: Codable {
     let next: URL
     @StrictDynamicDecodingArrayWrapper<PostCodingKey> var content: [Post]
 }
 
-struct DefaultPostPage: Decodable {
+struct DefaultPostPage: Codable {
     let next: URL
     @DefaultValueDynamicDecodingArrayWrapper<PostCodingKey> var content: [Post]
 }
 
-struct LossyPostPage: Decodable {
+struct LossyPostPage: Codable {
     let next: URL
     @LossyDynamicDecodingArrayWrapper<PostCodingKey> var content: [Post]
 }
 
-struct ThrowingPostPageSet: Decodable {
+struct ThrowingPostPageSet: Codable {
     let next: URL
     @StrictDynamicDecodingCollectionWrapper<PostSetCodingKey, Set<AnyPost<Post>>> var content: Set<AnyPost<Post>>
 }
 
-struct DefaultPostPageSet: Decodable {
+struct DefaultPostPageSet: Codable {
     let next: URL
     @DefaultValueDynamicDecodingCollectionWrapper<PostSetCodingKey, Set<AnyPost<Post>>> var content: Set<AnyPost<Post>>
 }
 
-struct LossyPostPageSet: Decodable {
+struct LossyPostPageSet: Codable {
     let next: URL
     @LossyDynamicDecodingCollectionWrapper<PostSetCodingKey, Set<AnyPost<Post>>> var content: Set<AnyPost<Post>>
 }

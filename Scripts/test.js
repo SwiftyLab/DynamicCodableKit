@@ -9,7 +9,7 @@ const command = `swift test ${args} --verbose \
   --enable-test-discovery`;
 
 const testMsg = 'Running package tests'
-core.startGroup(args ? `${testMsg} with arguments \`${args}\``: testMsg);
+core.startGroup(args ? `${testMsg} with arguments \`${args}\`` : testMsg);
 execSync(command, {
     stdio: ['inherit', 'inherit', 'inherit'],
     encoding: 'utf-8'

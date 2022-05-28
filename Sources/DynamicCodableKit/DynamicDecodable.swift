@@ -137,11 +137,45 @@ public extension DynamicDecodable where Self: Sequence,
 
 extension Optional: DynamicDecodable where Wrapped: DynamicDecodable { }
 extension Array: DynamicDecodable where Element: DynamicDecodable { }
+extension ClosedRange: DynamicDecodable where Bound: Decodable {}
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+extension CollectionDifference: DynamicDecodable where ChangeElement: Codable {}
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+extension CollectionDifference.Change: DynamicDecodable where ChangeElement: Codable {}
+extension ContiguousArray: DynamicDecodable where Element: Decodable {}
+extension PartialRangeFrom: DynamicDecodable where Bound: Decodable {}
+extension PartialRangeThrough: DynamicDecodable where Bound: Decodable {}
+extension PartialRangeUpTo: DynamicDecodable where Bound: Decodable {}
+extension Range: DynamicDecodable where Bound: Decodable {}
 extension Set: DynamicDecodable where Element: DynamicDecodable { }
 
-/// A type that can be dynamically casted to multiple type,
+#if canImport(TabularData)
+import TabularData
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8, *)
+extension Column: DynamicDecodable where WrappedElement: Decodable {}
+#endif
+
+#if canImport(MusicKit)
+import MusicKit
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8, *)
+extension MusicCatalogResourceResponse: DynamicDecodable where MusicItemType: Decodable {}
+@available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8, *)
+extension MusicItemCollection: DynamicDecodable where MusicItemType: Decodable {}
+#endif
+
+#if canImport(Combine)
+import Combine
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+extension Record: DynamicDecodable where Output: Codable, Failure: Codable {}
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+extension Record.Recording: DynamicDecodable where Output: Codable, Failure: Codable {}
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+extension Subscribers.Completion: DynamicDecodable where Failure: Decodable {}
+#endif
+
+/// A type that can be dynamically casted to multiple type and can be dynamically converted to external representation,
 /// allowing dynamic decoding and encoding
 ///
-/// `DynamicCodable` is a type alias for the ``DynamicDecodable``
+/// `DynamicCodable` is a type alias for the ``DynamicDecodable``, ``DynamicEncodable``
 /// and `Encodable` protocols.
-public typealias DynamicCodable = DynamicDecodable & Codable
+public typealias DynamicCodable = DynamicDecodable & DynamicEncodable & Codable

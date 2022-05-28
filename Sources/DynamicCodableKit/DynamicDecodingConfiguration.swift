@@ -40,6 +40,8 @@ public protocol SequenceInitializable {
     /// - Parameters:
     ///   - sequence: The elements to use as members of the new instance.
     init<S>(_ sequence: S) where S: Sequence, Element == S.Element
+    /// A Boolean value indicating whether the collection is empty.
+    var isEmpty: Bool { get }
 }
 
 extension Array: SequenceInitializable {}
