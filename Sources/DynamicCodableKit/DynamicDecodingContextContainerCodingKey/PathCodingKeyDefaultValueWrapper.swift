@@ -11,7 +11,7 @@
 @propertyWrapper
 public struct PathCodingKeyDefaultValueWrapper<
     Value: DynamicDecodingDefaultValueProvider
->: Decodable where Value.Wrapped: CodingKey {
+>: PropertyWrapperDecodableEmptyCodable where Value.Wrapped: CodingKey {
     /// The underlying ``DynamicDecodingDefaultValueProvider``
     /// that wraps coding key value referenced.
     public var wrappedValue: Value

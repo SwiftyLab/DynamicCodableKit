@@ -11,7 +11,7 @@
 public struct DynamicDecodingDefaultValueWrapper<
     ContextCodingKey: DynamicDecodingContextCodingKey,
     Wrapped: DynamicDecodingDefaultValueProvider
->: Decodable where Wrapped.Wrapped == ContextCodingKey.Identified {
+>: PropertyWrapperCodable where Wrapped.Wrapped == ContextCodingKey.Identified {
     /// The underlying ``DynamicDecodingDefaultValueProvider``
     /// that wraps dynamic value value referenced.
     public var wrappedValue: Wrapped

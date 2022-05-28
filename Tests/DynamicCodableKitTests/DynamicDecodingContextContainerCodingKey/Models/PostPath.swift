@@ -68,3 +68,35 @@ struct OptionalPostData: Decodable {
         })
     }
 }
+
+struct ContainedPathCodingKeyWrapper: Decodable {
+    let text: [PathCodingKeyWrapper<CodingKeys>]
+
+    enum CodingKeys: String, CodingKey {
+        case text
+    }
+}
+
+struct ContainedInvalidPathCodingKeyWrapper: Decodable {
+    let text: [PathCodingKeyWrapper<ContainedPathCodingKeyWrapper.CodingKeys>]
+
+    enum CodingKeys: String, CodingKey {
+        case text
+    }
+}
+
+struct ContainedOptionalPathCodingKeyWrapper: Decodable {
+    let text: [OptionalPathCodingKeyWrapper<CodingKeys>]
+
+    enum CodingKeys: String, CodingKey {
+        case text
+    }
+}
+
+struct ContainedInvalidOptionalPathCodingKeyWrapper: Decodable {
+    let text: [OptionalPathCodingKeyWrapper<ContainedOptionalPathCodingKeyWrapper.CodingKeys>]
+
+    enum CodingKeys: String, CodingKey {
+        case text
+    }
+}

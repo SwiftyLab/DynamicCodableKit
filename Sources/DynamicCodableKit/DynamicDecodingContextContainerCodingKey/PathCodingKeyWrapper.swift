@@ -2,7 +2,9 @@
 /// from the path of coding keys taken to get to decoding this type.
 @frozen
 @propertyWrapper
-public struct PathCodingKeyWrapper<Key: CodingKey>: Decodable {
+public struct PathCodingKeyWrapper<
+    Key: CodingKey
+>: PropertyWrapperDecodableEmptyCodable {
     /// The underlying coding key value referenced.
     public var wrappedValue: Key
 

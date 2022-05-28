@@ -6,7 +6,8 @@ public struct DynamicDecodingCollectionContextBasedWrapper<
     Provider: DynamicDecodingContextProvider,
     DynamicCollection: SequenceInitializable,
     Config: DynamicDecodingCollectionConfigurationProvider
->: Decodable where DynamicCollection.Element == Provider.Identified {
+>: PropertyWrapperCodable
+   where DynamicCollection.Element == Provider.Identified {
     /// The underlying dynamic value collection referenced.
     public var wrappedValue: DynamicCollection
 
