@@ -165,10 +165,8 @@ jobs:
           branch: gh-pages
           folder: .docc-build
           target-folder: docs
+          clean: false
           commit-message: 'chore(GitHub Pages): release site for tag ${{ steps.conventional_changelog.outputs.tag }}'
-          clean-exclude: |
-            *.*.*
-            docs/*.*.*
 
     - name: Create GitHub Release
       if: steps.conventional_changelog.outputs.skipped == 'false'
