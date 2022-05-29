@@ -125,10 +125,18 @@ jobs:
       with:
         cocoapods: 'true'
 
-    - name: Build package documentation
+    - name: Generate xcode proj
       if:  steps.check_version_bump.outputs.release_type == ''
       run: |
         npm run generate
+
+    - name: Build package products and documentation
+      if: steps.conventional_changelog.outputs.skipped == 'false'
+      run: |
+        npm run build
+        npm run build-doc
+        npm run serve-doc
+        npm run archive
 
   ci:
     name: Check if release needed
