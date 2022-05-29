@@ -21,7 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		77F6267D94E54ABAC41BC3F2 /* DynamicCodableKit.docc in Sources */ = {isa = PBXBuildFile; fileRef = BE993BD2E6BEBFD55052375B /* DynamicCodableKit.docc */; };
+		C93FA09D290D1F866642543D /* DynamicCodableKit.docc in Sources */ = {isa = PBXBuildFile; fileRef = E00B738014737286CF910CAC /* DynamicCodableKit.docc */; };
 		OBJ_100 /* DynamicDecodingContextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* DynamicDecodingContextProvider.swift */; };
 		OBJ_101 /* DynamicDecodingDefaultValueContextBasedWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* DynamicDecodingDefaultValueContextBasedWrapper.swift */; };
 		OBJ_102 /* DynamicEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* DynamicEncodable.swift */; };
@@ -77,7 +77,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BE993BD2E6BEBFD55052375B /* DynamicCodableKit.docc */ = {isa = PBXFileReference; includeInIndex = 1; path = DynamicCodableKit.docc; sourceTree = "<group>"; };
+		E00B738014737286CF910CAC /* DynamicCodableKit.docc */ = {isa = PBXFileReference; includeInIndex = 1; path = DynamicCodableKit.docc; sourceTree = "<group>"; };
 		OBJ_11 /* DynamicDecodable.swift */ = {isa = PBXFileReference; path = DynamicDecodable.swift; sourceTree = "<group>"; };
 		OBJ_12 /* DynamicDecodingConfiguration.swift */ = {isa = PBXFileReference; path = DynamicDecodingConfiguration.swift; sourceTree = "<group>"; };
 		OBJ_13 /* DynamicDecodingContext.swift */ = {isa = PBXFileReference; path = DynamicDecodingContext.swift; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 				OBJ_25 /* DynamicDecodingContextProvider */,
 				OBJ_30 /* DynamicEncodable.swift */,
 				OBJ_31 /* Extensions */,
-				BE993BD2E6BEBFD55052375B /* DynamicCodableKit.docc */,
+				E00B738014737286CF910CAC /* DynamicCodableKit.docc */,
 			);
 			name = DynamicCodableKit;
 			path = Sources/DynamicCodableKit;
@@ -543,7 +543,7 @@
 				OBJ_104 /* DecodingError.swift in Sources */,
 				OBJ_105 /* KeyedDecodingContainerProtocol.swift in Sources */,
 				OBJ_106 /* UnkeyedDecodingContainer.swift in Sources */,
-				77F6267D94E54ABAC41BC3F2 /* DynamicCodableKit.docc in Sources */,
+				C93FA09D290D1F866642543D /* DynamicCodableKit.docc in Sources */,
 			);
 		};
 /* End PBXSourcesBuildPhase section */
