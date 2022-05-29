@@ -151,6 +151,9 @@ jobs:
       (always() &&
        github.event_name == 'workflow_dispatch' &&
        github.event.inputs.release == 'true' &&
+       needs.swift-package-test.result == 'success' &&
+       needs.xcode-test.result == 'success' &&
+       needs.cocoapods-test.result == 'success' &&
        (needs.analyze.result == 'success' || needs.analyze.result == 'skipped') &&
        (needs.ci.result == 'success' || needs.ci.result == 'skipped'))
     needs: [ci, analyze, swift-package-test, xcode-test, cocoapods-test]
