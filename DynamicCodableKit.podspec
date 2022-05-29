@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
 
   s.source            = {
     package.repository.type.to_sym => package.repository.url,
-    :tag => s.version
+    :tag => "v#{s.version}"
   }
 
   s.authors           = {
