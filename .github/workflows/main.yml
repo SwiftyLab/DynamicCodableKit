@@ -176,11 +176,13 @@ jobs:
       uses: TriPSs/conventional-changelog-action@v3
       with:
         github-token: ${{ github.token }}
-        git-message: 'chore(CHANGELOG): [skip ci]update for {version}'
+        git-message: 'chore(CHANGELOG): update for {version}'
         git-user-name: ${{ github.actor }}
         git-user-email: soumya.mahunt@gmail.com
-        skip-version-file: true
         release-count: 0
+        version-file: ./package.json'
+        version-path: version
+        fallback-version: '1.0.0'
         config-file-path: '.github/config/config.js'
         pre-commit: '.github/config/pre_commit_hook.js'
 
