@@ -124,6 +124,7 @@ jobs:
       uses: ./.github/actions/setup
       with:
         cocoapods: 'true'
+        xcode: '13.4'
 
     - name: Generate xcode proj
       if:  steps.check_version_bump.outputs.release_type == ''
