@@ -29,4 +29,10 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = '10.10'
 
   s.vendored_frameworks = "#{s.name}.xcframework"
+  # @todo: Enable when CocoaPods starts supporting docc
+  # s.source_files = "#{s.name}.docc"
+  # s.pod_target_xcconfig = {
+  #   'CLANG_WARN_DOCUMENTATION_COMMENTS' => 'YES',
+  #   'RUN_DOCUMENTATION_COMPILER' => 'YES'
+  # }
 end

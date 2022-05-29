@@ -2,7 +2,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const process = require('node:process');
-const semver = require('semver');
 const archiver = require('archiver');
 const readdirGlob = require('readdir-glob');
 const { execSync } = require('node:child_process');
