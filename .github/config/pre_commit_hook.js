@@ -1,4 +1,4 @@
-const { execSync } = require('node:child_process');
+const { execSync } = require('child_process');
 const core = require('@actions/core');
 
 exports.preCommit = (props) => {
