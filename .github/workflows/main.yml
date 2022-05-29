@@ -146,7 +146,13 @@ jobs:
 
   cd:
     name: Build and Publish
-    if: (github.event_name == 'push' && needs.ci.outputs.release == 'true') || (github.event_name == 'workflow_dispatch' && github.event.inputs.release == 'true')
+    if: |
+      (github.event_name == 'push' && needs.ci.outputs.release == 'true') ||
+      (always() &&
+       github.event_name == 'workflow_dispatch' &&
+       github.event.inputs.release == 'true' &&
+       (needs.analyze.result == 'success' || needs.analyze.result == 'skipped') &&
+       (needs.ci.result == 'success' || needs.ci.result == 'skipped'))
     needs: [ci, analyze, swift-package-test, xcode-test, cocoapods-test]
     runs-on: macos-12
 
@@ -167,7 +173,7 @@ jobs:
       uses: TriPSs/conventional-changelog-action@v3
       with:
         github-token: ${{ github.token }}
-        git-message: 'chore(CHANGELOG): update for {version}'
+        git-message: 'chore(CHANGELOG): [skip ci]update for {version}'
         git-user-name: ${{ github.actor }}
         git-user-email: soumya.mahunt@gmail.com
         skip-version-file: true
