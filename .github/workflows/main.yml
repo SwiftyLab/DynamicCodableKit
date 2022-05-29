@@ -109,7 +109,7 @@ jobs:
 
   test-proj-gen:
     name: Test xcode proj gen
-    runs-on: macos-latest
+    runs-on: macos-12
 
     steps:
     - name: Checkout repository
