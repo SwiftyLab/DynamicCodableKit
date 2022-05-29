@@ -33,6 +33,7 @@ jobs:
       contents: read
       security-events: write
 
+  # Test package with swift 5.2 1nd 5.6 on linux
   swift-package-test:
     name: Run Swift Package Tests with swift version ${{ matrix.swift }}
     runs-on: ubuntu-latest
@@ -69,6 +70,7 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         fail_ci_if_error: true
 
+  # Lint podspec with latest Xcode and Swift version
   cocoapods-test:
     name: Run CocoaPods Tests
     runs-on: macos-latest
@@ -85,6 +87,7 @@ jobs:
     - name: Run tests
       run: npm run pod-lint
 
+  # Test Xcode project with swift 5.1
   xcode-test:
     name: Run Xcode Build for platform ${{ matrix.platform }}
     runs-on: macos-10.15
@@ -101,7 +104,7 @@ jobs:
       with:
         xcode: '11.3.1'
         platform: ${{ matrix.platform }}
-        action: build
+        action: test
         configuration: debug
 
   test-proj-gen:
