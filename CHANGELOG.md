@@ -1,4 +1,16 @@
-## 1.1.0 (2022-05-29)
+### [1.1.1](https://github.com/SwiftyLab/DynamicCodableKit/compare/v1.1.0...v1.1.1) (2022-05-29)
+
+
+### 🐛 Fixes
+
+* **CocoaPods:** fix podspec source tag attribute ([e30b678](https://github.com/SwiftyLab/DynamicCodableKit/commit/e30b678e51bfa6cfb47b25ad0aa242aa47b193eb))
+
+
+### 📚 Documentation
+
+* add manual installation guides ([cfd40e1](https://github.com/SwiftyLab/DynamicCodableKit/commit/cfd40e191fde39556e6873618a4a8045ae3ed574))
+
+## [1.1.0](https://github.com/SwiftyLab/DynamicCodableKit/compare/63bab18f80d087d9538c17b4dd8189a7fef5a6c6...v1.1.0) (2022-05-29)
 
 
 ### 📚 Documentation
