@@ -7,7 +7,7 @@ const plist = require('plist');
 
 core.startGroup(`Generating LinuxMain for swift package`);
 execSync(
-  `swift test --generate-linuxmain`, {
+  `swift test --verbose --generate-linuxmain`, {
     stdio: ['inherit', 'inherit', 'inherit'],
     encoding: 'utf-8'
   }
@@ -16,7 +16,7 @@ core.endGroup();
 
 core.startGroup(`Generating Xcode project for swift package`);
 execSync(
-  `swift package generate-xcodeproj \
+  `swift package --verbose generate-xcodeproj \
     --xcconfig-overrides Helpers/DynamicCodableKit.xcconfig \
     --skip-extra-files`, {
     stdio: ['inherit', 'inherit', 'inherit'],

@@ -99,7 +99,7 @@ jobs:
     - name: Build with Xcode
       uses: mxcl/xcodebuild@v1
       with:
-        xcode: '12.4'
+        xcode: '11.7'
         platform: ${{ matrix.platform }}
         action: build
         configuration: debug
