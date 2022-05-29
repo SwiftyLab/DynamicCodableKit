@@ -1,35 +1,35 @@
 {
-    "name": "DynamicCodableKit",
-    "version": "0.9.0",
-    "summary": "DynamicCodableKit helps you to implement dynamic JSON decoding.",
-    "description": "DynamicCodableKit helps you to implement dynamic JSON decoding within the constraints of Swift's sound type system by working on top of Swift's Codable implementations.",
-    "homepage": "https://github.com/SwiftyLab/DynamicCodableKit",
-    "license": "MIT",
-    "author": {
-        "name": "Soumya Ranjan Mahunt",
-        "email": "soumya.mahunt@gmail.com",
-        "url": "https://twitter.com/soumya_mahunt"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/SwiftyLab/DynamicCodableKit.git"
-    },
-    "private": true,
-    "dependencies": {
-        "@actions/core": "^1.2.6",
-        "archiver": "^5.3.1",
-        "conventional-changelog-conventionalcommits": "^4.6.3",
-        "open": "^8.4.0",
-        "plist": "^3.0.5"
-    },
-    "scripts": {
-        "build": "Scripts/build.js",
-        "test": "Scripts/test.js",
-        "archive": "Scripts/archive.js",
-        "pod-lint": "Scripts/pod-lint.js",
-        "generate": "Scripts/generate.js",
-        "preview-doc": "Scripts/preview-doc.js",
-        "build-doc": "Scripts/build-doc.js",
-        "serve-doc": "Scripts/serve-doc.js"
-    }
+  "name": "DynamicCodableKit",
+  "version": "0.10.0",
+  "summary": "DynamicCodableKit helps you to implement dynamic JSON decoding.",
+  "description": "DynamicCodableKit helps you to implement dynamic JSON decoding within the constraints of Swift's sound type system by working on top of Swift's Codable implementations.",
+  "homepage": "https://github.com/SwiftyLab/DynamicCodableKit",
+  "license": "MIT",
+  "author": {
+    "name": "Soumya Ranjan Mahunt",
+    "email": "soumya.mahunt@gmail.com",
+    "url": "https://twitter.com/soumya_mahunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SwiftyLab/DynamicCodableKit.git"
+  },
+  "private": true,
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "archiver": "^5.3.1",
+    "conventional-changelog-conventionalcommits": "^4.6.3",
+    "open": "^8.4.0",
+    "plist": "^3.0.5"
+  },
+  "scripts": {
+    "build": "Scripts/build.js",
+    "test": "Scripts/test.js",
+    "archive": "Scripts/archive.js",
+    "pod-lint": "Scripts/pod-lint.js",
+    "generate": "Scripts/generate.js",
+    "preview-doc": "Scripts/preview-doc.js",
+    "build-doc": "Scripts/build-doc.js",
+    "serve-doc": "Scripts/serve-doc.js"
+  }
 }
