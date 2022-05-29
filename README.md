@@ -2,7 +2,7 @@
 
 [![API Docs](http://img.shields.io/badge/Read_the-docs-2196f3.svg)](https://swiftylab.github.io/DynamicCodableKit/documentation/dynamiccodablekit/)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/DynamicCodableKit.svg?label=CocoaPods&color=C90005)](https://badge.fury.io/co/DynamicCodableKit)
-[![Swift Package Manager Compatible](https://img.shields.io/github/v/tag/SwiftyLab/DynamicCodableKit?label=SPM&color=DE5D43)](https://badge.fury.io/gh/SwiftyLab%2FDynamicCodableKit)
+[![Swift Package Manager Compatible](https://img.shields.io/github/v/tag/SwiftyLab/DynamicCodableKit?label=SPM&color=orange)](https://badge.fury.io/gh/SwiftyLab%2FDynamicCodableKit)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/Carthage/Carthage)
 [![Swift](https://img.shields.io/badge/Swift-5-orange)](https://img.shields.io/badge/Swift-5-DE5D43)
 [![Platforms](https://img.shields.io/badge/Platforms-all-sucess)](https://img.shields.io/badge/Platforms-all-sucess)
@@ -26,7 +26,7 @@ The data types, protocols, and property wrappers defined by **DynamicCodableKit*
 
 | Platform | Minimum Swift Version | Installation | Status |
 | --- | --- | --- | --- |
-| iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+ | 5.1 | [CocoaPods](#cocoapods), [Carthage](#carthage), [Swift Package Manager](#swift-package-manager) | Fully Tested |
+| iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+ | 5.1 | [CocoaPods](#cocoapods), [Carthage](#carthage), [Swift Package Manager](#swift-package-manager), [Manual](#manually) | Fully Tested |
 | Linux | 5.1 | [Swift Package Manager](#swift-package-manager) | Fully Tested |
 | Windows | 5.1 | [Swift Package Manager](#swift-package-manager) | Not Tested but Supported |
 
@@ -38,6 +38,12 @@ The data types, protocols, and property wrappers defined by **DynamicCodableKit*
 
 ```ruby
 pod 'DynamicCodableKit'
+```
+
+Optionally, you can also use the pre built XCFramework from the GitHub releases page by replacing `{version}` with the required version you want to use:
+
+```ruby
+pod 'DynamicCodableKit', :http => 'https://github.com/SwiftyLab/DynamicCodableKit/releases/download/v{version}/DynamicCodableKit-{version}.xcframework.zip'
 ```
 
 ### Carthage
@@ -55,10 +61,55 @@ The [Swift Package Manager](https://swift.org/package-manager/) is a tool for au
 Once you have your Swift package set up, adding `DynamicCodableKit` as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
 
 ```swift
-dependencies: [
-    .package(url: "https://github.com/SwiftyLab/DynamicCodableKit.git", .upToNextMajor(from: "1.0.0"))
-]
+.package(url: "https://github.com/SwiftyLab/DynamicCodableKit.git", from: "1.0.0"),
 ```
+
+Optionally, you can also use the pre built XCFramework from the GitHub releases page by replacing `{version}` and `{checksum}` with the required version and checksum of artifact you want to use:
+
+```swift
+.binaryTarget(name: "DynamicCodableKit", url: "https://github.com/SwiftyLab/DynamicCodableKit/releases/download/v{version}/DynamicCodableKit-{version}.xcframework.zip", checksum: "{checksum}"),
+```
+
+### Manually
+
+If you prefer not to use any of the aforementioned dependency managers, you can integrate `DynamicCodableKit` into your project manually.
+
+#### Git Submodule
+
+- Open up Terminal, `cd` into your top-level project directory, and run the following command "if" your project is not initialized as a git repository:
+
+  ```bash
+  $ git init
+  ```
+
+- Add `DynamicCodableKit` as a git [submodule](https://git-scm.com/docs/git-submodule) by running the following command:
+
+  ```bash
+  $ git submodule add https://github.com/SwiftyLab/DynamicCodableKit.git
+  ```
+
+- Open the new `DynamicCodableKit` folder, and drag the `DynamicCodableKit.xcodeproj` into the Project Navigator of your application's Xcode project or existing workspace.
+
+    > It should appear nested underneath your application's blue project icon. Whether it is above or below all the other Xcode groups does not matter.
+
+- Select the `DynamicCodableKit.xcodeproj` in the Project Navigator and verify the deployment target satisfies that of your application target (should be less or equal).
+- Next, select your application project in the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the `Targets` heading in the sidebar.
+- In the tab bar at the top of that window, open the "General" panel.
+- Click on the `+` button under the `Frameworks and Libraries` section.
+- You will see `DynamicCodableKit.xcodeproj` folder with `DynamicCodableKit.framework` nested inside.
+- Select the `DynamicCodableKit.framework` and that's it!
+
+  > The `DynamicCodableKit.framework` is automagically added as a target dependency, linked framework and embedded framework in build phase which is all you need to build on the simulator and a device.
+
+#### XCFramework
+
+You can also directly download the pre-built artifact from the GitHub releases page:
+
+- Download the artifact from the GitHub releases page of the format `DynamicCodableKit-{version}.xcframework.zip` where `{version}` is the version you want to use.
+- Extract the XCFramework from the archive, and drag the `DynamicCodableKit.xcframework` into the Project Navigator of your application's target folder in your Xcode project.
+- Select `Copy items if needed` and that's it!
+
+  > The `DynamicCodableKit.xcframework` is automagically added in the embedded `Frameworks and Libraries` section, an in turn the linked framework in build phase.
 
 ## Usage
 
