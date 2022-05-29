@@ -5,10 +5,6 @@ inputs:
     description: Swift version to use
     required: false
     default: '5.6'
-  cocoapods:
-    description: Whether to setup for CocoaPods
-    required: false
-    default: 'false'
   xcode:
     description: Xcode version to use
     required: false
@@ -17,19 +13,19 @@ runs:
   using: composite
   steps:
     - name: Setup Xcode version
-      if: inputs.cocoapods == 'true'
+      if: runner.os == 'macOS'
       uses: maxim-lobanov/setup-xcode@v1.4.1
       with:
         xcode-version: ${{ inputs.xcode }}
 
     - name: Setup Cocoapods
-      if: inputs.cocoapods == 'true'
+      if: runner.os == 'macOS'
       uses: maxim-lobanov/setup-cocoapods@v1
       with:
         version: latest
 
     - name: Setup swift
-      if: inputs.cocoapods == 'false' || runner.os == 'Linux' || runner.os == 'Windows'
+      if: runner.os == 'Linux' || runner.os == 'Windows'
       uses: swift-actions/setup-swift@v1.15.0
       with:
         swift-version: ${{ inputs.swift }}
