@@ -31,7 +31,7 @@ doccGlobberer.on(
     const docc = path.basename(m.relative);
     const name = path.basename(docc, path.extname(docc));
     const archiveName = [name, package.version].join('-');
-    const output = fs.createWriteStream(`${archiveName}-doccarchive.zip`);
+    const output = fs.createWriteStream(`${archiveName}.doccarchive.zip`);
     const archive = archiver('zip');
     archive.directory(m.absolute, docc);
     archive.pipe(output);
