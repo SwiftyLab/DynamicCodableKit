@@ -81,8 +81,6 @@ jobs:
 
     - name: Setup repository
       uses: ./.github/actions/setup
-      with:
-        cocoapods: 'true'
 
     - name: Run tests
       run: npm run pod-lint
@@ -106,35 +104,6 @@ jobs:
         platform: ${{ matrix.platform }}
         action: build
         configuration: debug
-
-  test-proj-gen:
-    name: Test xcode proj gen
-    runs-on: macos-12
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Setup Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ env.RUBY_VER }}
-
-    - name: Setup repository
-      uses: ./.github/actions/setup
-      with:
-        cocoapods: 'true'
-
-    - name: Generate xcode proj
-      run: |
-        npm run generate
-
-    - name: Build package products and documentation
-      run: |
-        npm run build
-        npm run build-doc
-        npm run serve-doc
-        npm run archive
 
   ci:
     name: Check if release needed
@@ -192,8 +161,6 @@ jobs:
 
     - name: Setup repository
       uses: ./.github/actions/setup
-      with:
-        cocoapods: 'true'
 
     - name: Conventional Changelog Action
       id: conventional_changelog
