@@ -180,7 +180,7 @@ jobs:
         git-user-name: ${{ github.actor }}
         git-user-email: soumya.mahunt@gmail.com
         release-count: 0
-        version-file: ./package.json'
+        version-file: './package.json'
         version-path: version
         fallback-version: '1.0.0'
         config-file-path: '.github/config/config.js'
