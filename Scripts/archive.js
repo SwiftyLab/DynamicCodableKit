@@ -48,6 +48,7 @@ xcframeworkGlobberer.on(
     const output = fs.createWriteStream(`${archiveName}.xcframework.zip`);
     const archive = archiver('zip');
     archive.directory(m.absolute, xcframework);
+    archive.directory(`Sources/${name}/${name}.docc`, `${name}.docc`);
     archive.file('package.json');
     archive.file('LICENSE');
     archive.file(`Helpers/${name}.podspec`, { name: `${name}.podspec` });
