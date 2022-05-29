@@ -124,10 +124,8 @@ jobs:
       uses: ./.github/actions/setup
       with:
         cocoapods: 'true'
-        xcode: '13.4'
 
     - name: Generate xcode proj
-      if:  steps.check_version_bump.outputs.release_type == ''
       run: |
         npm run generate
 
@@ -181,7 +179,7 @@ jobs:
     name: Build and Publish
     if: (github.event_name == 'push' && needs.ci.outputs.release == 'true') || (github.event_name == 'workflow_dispatch' && github.event.inputs.release == 'true')
     needs: [ci, analyze, swift-package-test, xcode-test, cocoapods-test]
-    runs-on: macos-latest
+    runs-on: macos-12
 
     steps:
     - name: Checkout repository
