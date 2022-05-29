@@ -104,7 +104,7 @@ jobs:
       with:
         xcode: '11.3.1'
         platform: ${{ matrix.platform }}
-        action: test
+        action: build
         configuration: debug
 
   test-proj-gen:

@@ -12,7 +12,7 @@ inputs:
   xcode:
     description: Xcode version to use
     required: false
-    default: latest-stable
+    default: latest
 runs:
   using: composite
   steps:
@@ -29,6 +29,7 @@ runs:
         version: latest
 
     - name: Setup swift
+      if: inputs.cocoapods == 'false' || runner.os == 'Linux' || runner.os == 'Windows'
       uses: swift-actions/setup-swift@v1.15.0
       with:
         swift-version: ${{ inputs.swift }}
