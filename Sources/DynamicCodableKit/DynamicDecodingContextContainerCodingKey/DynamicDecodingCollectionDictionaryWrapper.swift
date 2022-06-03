@@ -7,8 +7,10 @@ public struct DynamicDecodingCollectionDictionaryWrapper<
     DynamicCollection: SequenceInitializable,
     Config: DynamicDecodingCollectionConfigurationProvider
 >: PropertyWrapperCodable
-   where ContainerCodingKey: Hashable,
-         DynamicCollection.Element == ContainerCodingKey.Contained {
+where
+    ContainerCodingKey: Hashable,
+    DynamicCollection.Element == ContainerCodingKey.Contained
+{
     /// The underlying dictionary of ``DynamicDecodingContextContainerCodingKey`` key and
     /// dynamic ``DynamicDecodingContextContainerCodingKey/Contained`` collection value.
     public var wrappedValue: [ContainerCodingKey: DynamicCollection]
@@ -31,10 +33,14 @@ public struct DynamicDecodingCollectionDictionaryWrapper<
     public init(from decoder: Decoder) throws {
         switch Config.failConfig {
         case .throw:
-            let container = try decoder.container(keyedBy: ContainerCodingKey.self)
+            let container = try decoder.container(
+                keyedBy: ContainerCodingKey.self
+            )
             self.wrappedValue = try container.decode()
         case .deafult:
-            let container = try? decoder.container(keyedBy: ContainerCodingKey.self)
+            let container = try? decoder.container(
+                keyedBy: ContainerCodingKey.self
+            )
             self.wrappedValue = container?.decodeValidContainers() ?? .init()
         default:
             guard
@@ -114,8 +120,10 @@ public typealias StrictDynamicDecodingCollectionDictionaryWrapper<
     ContainerCodingKey,
     DynamicCollection,
     StrictCollectionConfiguration
-> where ContainerCodingKey: Hashable,
-        DynamicCollection.Element == ContainerCodingKey.Contained
+>
+where
+    ContainerCodingKey: Hashable,
+    DynamicCollection.Element == ContainerCodingKey.Contained
 
 /// A property wrapper type that decodes valid data associated to key into a dictionary value of
 /// ``DynamicDecodingContextContainerCodingKey`` coding key and their dynamic
@@ -133,8 +141,10 @@ public typealias DefaultValueDynamicDecodingCollectionDictionaryWrapper<
     ContainerCodingKey,
     DynamicCollection,
     DefaultValueCollectionConfiguration
-> where ContainerCodingKey: Hashable,
-        DynamicCollection.Element == ContainerCodingKey.Contained
+>
+where
+    ContainerCodingKey: Hashable,
+    DynamicCollection.Element == ContainerCodingKey.Contained
 
 /// A property wrapper type that decodes valid data into a dictionary value of
 /// ``DynamicDecodingContextContainerCodingKey`` coding key and
@@ -152,5 +162,7 @@ public typealias LossyDynamicDecodingCollectionDictionaryWrapper<
     ContainerCodingKey,
     DynamicCollection,
     LossyCollectionConfiguration
-> where ContainerCodingKey: Hashable,
-        DynamicCollection.Element == ContainerCodingKey.Contained
+>
+where
+    ContainerCodingKey: Hashable,
+    DynamicCollection.Element == ContainerCodingKey.Contained

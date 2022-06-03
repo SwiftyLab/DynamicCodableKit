@@ -2,9 +2,10 @@ import XCTest
 @testable import DynamicCodableKit
 
 enum PostType: String,
-               Hashable,
-               DynamicDecodingContextIdentifierKey,
-               DynamicDecodingContextContainerCodingKey {
+    Hashable,
+    DynamicDecodingContextIdentifierKey,
+    DynamicDecodingContextContainerCodingKey
+{
     case text, picture, audio, video
 
     var associatedContext: DynamicDecodingContext<Post> {

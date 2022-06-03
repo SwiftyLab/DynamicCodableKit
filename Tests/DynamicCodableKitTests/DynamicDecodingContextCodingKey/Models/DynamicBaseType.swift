@@ -4,7 +4,9 @@ import XCTest
 extension Int: DynamicDecodable {}
 extension String: DynamicDecodable {}
 
-enum DynamicBaseDataTypeCodingKeys: String, CodingKey, DynamicDecodingContextCodingKey {
+enum DynamicBaseDataTypeCodingKeys: String, CodingKey,
+    DynamicDecodingContextCodingKey
+{
     typealias Identified = Decodable
     case value
 
@@ -15,7 +17,9 @@ enum DynamicBaseDataTypeCodingKeys: String, CodingKey, DynamicDecodingContextCod
     }
 }
 
-enum DynamicBaseDataTypeCollectionCodingKeys: String, CodingKey, DynamicDecodingContextCodingKey {
+enum DynamicBaseDataTypeCollectionCodingKeys: String, CodingKey,
+    DynamicDecodingContextCodingKey
+{
     typealias Identified = Decodable
     case values
 
@@ -32,7 +36,8 @@ struct VariableBaseDataTypeContainer: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self._value = try container.decode(DynamicDecodingWrapper<CodingKeys>.self, forKey: .value)
+        self._value = try container.decode(
+            DynamicDecodingWrapper<CodingKeys>.self, forKey: .value)
     }
 }
 
@@ -42,7 +47,8 @@ struct OptionalVariableBaseDataTypeContainer: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self._value = container.decode(OptionalDynamicDecodingWrapper<CodingKeys>.self, forKey: .value)
+        self._value = container.decode(
+            OptionalDynamicDecodingWrapper<CodingKeys>.self, forKey: .value)
     }
 }
 
@@ -52,7 +58,8 @@ struct StrictVariableBaseDataTypeContainer: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self._values = try container.decode(StrictDynamicDecodingArrayWrapper<CodingKeys>.self, forKey: .values)
+        self._values = try container.decode(
+            StrictDynamicDecodingArrayWrapper<CodingKeys>.self, forKey: .values)
     }
 }
 
@@ -62,7 +69,9 @@ struct DefaultVariableBaseDataTypeContainer: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self._values = try container.decode(DefaultValueDynamicDecodingArrayWrapper<CodingKeys>.self, forKey: .values)
+        self._values = try container.decode(
+            DefaultValueDynamicDecodingArrayWrapper<CodingKeys>.self,
+            forKey: .values)
     }
 }
 
@@ -72,6 +81,7 @@ struct LossyVariableBaseDataTypeContainer: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self._values = try container.decode(LossyDynamicDecodingArrayWrapper<CodingKeys>.self, forKey: .values)
+        self._values = try container.decode(
+            LossyDynamicDecodingArrayWrapper<CodingKeys>.self, forKey: .values)
     }
 }

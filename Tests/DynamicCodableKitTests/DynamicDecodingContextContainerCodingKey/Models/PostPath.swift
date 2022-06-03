@@ -47,9 +47,15 @@ struct PostData: Decodable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: PostType.self)
-        self.wrappedValue = try container.allKeys.reduce(into: [:], { values, key in
-            values[key] = try container.decode([CommonPost].self, forKey: key)
-        })
+        self.wrappedValue = try container.allKeys.reduce(
+            into: [:],
+            { values, key in
+                values[key] = try container.decode(
+                    [CommonPost].self,
+                    forKey: key
+                )
+            }
+        )
     }
 }
 
@@ -63,9 +69,15 @@ struct OptionalPostData: Decodable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: PostType.self)
-        self.wrappedValue = try container.allKeys.reduce(into: [:], { values, key in
-            values[key] = try container.decode([OptionalTypeCommonPost].self, forKey: key)
-        })
+        self.wrappedValue = try container.allKeys.reduce(
+            into: [:],
+            { values, key in
+                values[key] = try container.decode(
+                    [OptionalTypeCommonPost].self,
+                    forKey: key
+                )
+            }
+        )
     }
 }
 
@@ -74,7 +86,10 @@ struct ContainedPathCodingKeyWrapper: Decodable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.text = try container.decode([PathCodingKeyWrapper<CodingKeys>].self, forKey: .text)
+        self.text = try container.decode(
+            [PathCodingKeyWrapper<CodingKeys>].self,
+            forKey: .text
+        )
     }
 
     enum CodingKeys: String, CodingKey {
@@ -83,7 +98,9 @@ struct ContainedPathCodingKeyWrapper: Decodable {
 }
 
 struct ContainedInvalidPathCodingKeyWrapper: Decodable {
-    typealias Value = [PathCodingKeyWrapper<ContainedPathCodingKeyWrapper.CodingKeys>]
+    typealias Value = Array<
+        PathCodingKeyWrapper<ContainedPathCodingKeyWrapper.CodingKeys>
+    >
     let text: Value
 
     init(from decoder: Decoder) throws {
@@ -111,8 +128,17 @@ struct ContainedOptionalPathCodingKeyWrapper: Decodable {
 }
 
 struct ContainedInvalidOptionalPathCodingKeyWrapper: Decodable {
-    typealias Value = [OptionalPathCodingKeyWrapper<ContainedOptionalPathCodingKeyWrapper.CodingKeys>]
-    let text: [OptionalPathCodingKeyWrapper<ContainedOptionalPathCodingKeyWrapper.CodingKeys>]
+    typealias Value = Array<
+        OptionalPathCodingKeyWrapper<
+            ContainedOptionalPathCodingKeyWrapper.CodingKeys
+        >
+    >
+    let text:
+        Array<
+            OptionalPathCodingKeyWrapper<
+                ContainedOptionalPathCodingKeyWrapper.CodingKeys
+            >
+        >
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

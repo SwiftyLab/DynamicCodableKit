@@ -44,7 +44,7 @@ public struct DynamicDecodingDefaultValueWrapper<
 }
 
 public extension KeyedDecodingContainer
-  where K: DynamicDecodingContextCodingKey {
+where K: DynamicDecodingContextCodingKey {
     /// Decodes a value of dynamic ``DynamicDecodingDefaultValueWrapper``
     /// type for the given coding key.
     ///
@@ -71,7 +71,7 @@ public extension KeyedDecodingContainer
 }
 
 public extension KeyedDecodingContainerProtocol
-  where Key: DynamicDecodingContextCodingKey {
+where Key: DynamicDecodingContextCodingKey {
     /// Decodes a value of dynamic ``DynamicDecodingDefaultValueWrapper``
     /// type for the given coding key.
     ///

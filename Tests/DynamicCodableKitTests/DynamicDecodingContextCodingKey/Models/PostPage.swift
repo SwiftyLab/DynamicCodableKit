@@ -28,15 +28,20 @@ struct LossyPostPage: Codable {
 
 struct ThrowingPostPageSet: Codable {
     let next: URL
-    @StrictDynamicDecodingCollectionWrapper<PostSetCodingKey, Set<AnyPost<Post>>> var content: Set<AnyPost<Post>>
+    @StrictDynamicDecodingCollectionWrapper<
+        PostSetCodingKey, Set<AnyPost<Post>>
+    > var content: Set<AnyPost<Post>>
 }
 
 struct DefaultPostPageSet: Codable {
     let next: URL
-    @DefaultValueDynamicDecodingCollectionWrapper<PostSetCodingKey, Set<AnyPost<Post>>> var content: Set<AnyPost<Post>>
+    @DefaultValueDynamicDecodingCollectionWrapper<
+        PostSetCodingKey, Set<AnyPost<Post>>
+    > var content: Set<AnyPost<Post>>
 }
 
 struct LossyPostPageSet: Codable {
     let next: URL
-    @LossyDynamicDecodingCollectionWrapper<PostSetCodingKey, Set<AnyPost<Post>>> var content: Set<AnyPost<Post>>
+    @LossyDynamicDecodingCollectionWrapper<PostSetCodingKey, Set<AnyPost<Post>>>
+    var content: Set<AnyPost<Post>>
 }

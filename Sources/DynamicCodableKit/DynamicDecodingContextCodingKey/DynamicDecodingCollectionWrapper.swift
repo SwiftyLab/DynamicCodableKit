@@ -7,7 +7,7 @@ public struct DynamicDecodingCollectionWrapper<
     DynamicCollection: SequenceInitializable,
     Config: DynamicDecodingCollectionConfigurationProvider
 >: PropertyWrapperCodable
-   where DynamicCollection.Element == ContextCodingKey.Identified {
+where DynamicCollection.Element == ContextCodingKey.Identified {
     /// The underlying dynamic value collection referenced.
     public var wrappedValue: DynamicCollection
 
@@ -49,7 +49,7 @@ public struct DynamicDecodingCollectionWrapper<
 }
 
 public extension KeyedDecodingContainer
-  where K: DynamicDecodingContextCodingKey {
+where K: DynamicDecodingContextCodingKey {
     /// Decodes a value of dynamic ``DynamicDecodingCollectionWrapper``
     /// type for the given coding key.
     ///
@@ -62,7 +62,9 @@ public extension KeyedDecodingContainer
     /// - Throws: `DecodingError` if ``DynamicDecodingCollectionConfigurationProvider/failConfig``
     ///            is ``CollectionDecodeFailConfiguration/throw`` and data is invalid or corrupt.
     func decode<DynamicCollection, Config>(
-        _ type: DynamicDecodingCollectionWrapper<K, DynamicCollection, Config>.Type,
+        _ type: DynamicDecodingCollectionWrapper<
+            K, DynamicCollection, Config
+        >.Type,
         forKey key: K
     ) throws -> DynamicDecodingCollectionWrapper<K, DynamicCollection, Config> {
         switch Config.failConfig {
@@ -85,11 +87,9 @@ public extension KeyedDecodingContainer
             }
             return DynamicDecodingCollectionWrapper(
                 wrappedValue: .init(
-                    (
-                        try? K.context(
-                            forContainer: self
-                        ).decodeLossyArrayFrom(decoder)
-                    ) ?? .init()
+                    (try? K.context(
+                        forContainer: self
+                    ).decodeLossyArrayFrom(decoder)) ?? .init()
                 )
             )
         }
@@ -97,7 +97,7 @@ public extension KeyedDecodingContainer
 }
 
 public extension KeyedDecodingContainerProtocol
-  where Key: DynamicDecodingContextCodingKey {
+where Key: DynamicDecodingContextCodingKey {
     /// Decodes a value of dynamic ``DynamicDecodingCollectionWrapper``
     /// type for the given coding key.
     ///
@@ -110,9 +110,12 @@ public extension KeyedDecodingContainerProtocol
     /// - Throws: `DecodingError` if ``DynamicDecodingCollectionConfigurationProvider/failConfig``
     ///            is ``CollectionDecodeFailConfiguration/throw`` and data is invalid or corrupt.
     func decode<DynamicCollection, Config>(
-        _ type: DynamicDecodingCollectionWrapper<Key, DynamicCollection, Config>.Type,
+        _ type: DynamicDecodingCollectionWrapper<
+            Key, DynamicCollection, Config
+        >.Type,
         forKey key: Key
-    ) throws -> DynamicDecodingCollectionWrapper<Key, DynamicCollection, Config> {
+    ) throws -> DynamicDecodingCollectionWrapper<Key, DynamicCollection, Config>
+    {
         switch Config.failConfig {
         case .throw, .deafult:
             do {
@@ -133,11 +136,9 @@ public extension KeyedDecodingContainerProtocol
             }
             return DynamicDecodingCollectionWrapper(
                 wrappedValue: .init(
-                    (
-                        try? Key.context(
-                            forContainer: self
-                        ).decodeLossyArrayFrom(decoder)
-                    ) ?? .init()
+                    (try? Key.context(
+                        forContainer: self
+                    ).decodeLossyArrayFrom(decoder)) ?? .init()
                 )
             )
         }

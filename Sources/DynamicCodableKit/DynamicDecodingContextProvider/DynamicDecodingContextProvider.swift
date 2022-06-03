@@ -15,7 +15,9 @@ public protocol DynamicDecodingContextProvider {
 
 /// A ``DynamicDecodingContextProvider`` type that decides dynamic decoding context
 /// based on decoding context contained by ``infoKey``.
-public protocol UserInfoDynamicDecodingContextProvider: DynamicDecodingContextProvider {
+public protocol UserInfoDynamicDecodingContextProvider:
+    DynamicDecodingContextProvider
+{
     /// User info key that contains decoding context to use.
     static var infoKey: CodingUserInfoKey { get }
 }

@@ -8,14 +8,18 @@ public protocol DynamicDecodingContextContainerCodingKey: CodingKey {
 }
 
 public extension DynamicDecodingContextContainerCodingKey
-  where Self: DynamicDecodingContextIdentifierKey,
-        Self.Contained == Self.Identified {
+where
+    Self: DynamicDecodingContextIdentifierKey,
+    Self.Contained == Self.Identified
+{
     /// The associated dynamic decoding context.
-    var containedContext: DynamicDecodingContext<Contained> { associatedContext }
+    var containedContext: DynamicDecodingContext<Contained> {
+        return associatedContext
+    }
 }
 
 public extension KeyedDecodingContainerProtocol
-  where Key: DynamicDecodingContextContainerCodingKey {
+where Key: DynamicDecodingContextContainerCodingKey {
     /// Decodes a value of dynamic ``DynamicDecodingContextContainerCodingKey/Contained``
     /// type for the given ``DynamicDecodingContextContainerCodingKey`` coding key.
     ///
@@ -71,8 +75,10 @@ public extension KeyedDecodingContainerProtocol
 }
 
 public extension KeyedDecodingContainerProtocol
-  where Key: DynamicDecodingContextContainerCodingKey,
-        Key: Hashable {
+where
+    Key: DynamicDecodingContextContainerCodingKey,
+    Key: Hashable
+{
     /// Decodes a dictionary of ``DynamicDecodingContextContainerCodingKey`` key
     /// and dynamic ``DynamicDecodingContextContainerCodingKey/Contained`` value
     /// from the container.
@@ -109,7 +115,7 @@ public extension KeyedDecodingContainerProtocol
     ///
     /// - Throws: `DecodingError` if invalid or corrupt data.
     func decode<Value: SequenceInitializable>() throws -> [Key: Value]
-      where Value.Element == Key.Contained {
+    where Value.Element == Key.Contained {
         return try self.allKeys.reduce(into: [:]) { values, key in
             values[key] = try self.decode(Value.self, forKey: key)
         }
@@ -122,7 +128,7 @@ public extension KeyedDecodingContainerProtocol
     ///            and ``DynamicDecodingContextContainerCodingKey/Contained``
     ///            collection value.
     func decodeValidContainers<Value: SequenceInitializable>() -> [Key: Value]
-      where Value.Element == Key.Contained {
+    where Value.Element == Key.Contained {
         return self.allKeys.reduce(into: [:]) { values, key in
             guard
                 let items = try? self.decode(Value.self, forKey: key),
@@ -139,7 +145,7 @@ public extension KeyedDecodingContainerProtocol
     ///            and ``DynamicDecodingContextContainerCodingKey/Contained``
     ///            collection value.
     func lossyDecode<Value: SequenceInitializable>() -> [Key: Value]
-      where Value.Element == Key.Contained {
+    where Value.Element == Key.Contained {
         return self.allKeys.reduce(into: [:]) { values, key in
             guard
                 case let items = self.lossyDecode(Value.self, forKey: key),
