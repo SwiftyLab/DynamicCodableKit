@@ -15,6 +15,10 @@ on:
         description: Create release
         required: false
         type: boolean
+      version:
+        description: New version to release
+        required: false
+        type: string
 
 env:
   RUBY_VER: 2.7
@@ -185,6 +189,9 @@ jobs:
         fallback-version: '1.0.0'
         config-file-path: '.github/config/config.js'
         pre-commit: '.github/config/pre_commit_hook.js'
+        pre-changelog-generation: '.github/config/pre_changelog_hook.js'
+      env:
+        VERSION: ${{ github.event.inputs.version }}
 
     - name: Build package products and documentation
       if: steps.conventional_changelog.outputs.skipped == 'false'

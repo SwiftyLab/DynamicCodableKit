@@ -20,7 +20,8 @@
     "archiver": "^5.3.1",
     "conventional-changelog-conventionalcommits": "^4.6.3",
     "open": "^8.4.0",
-    "plist": "^3.0.5"
+    "plist": "^3.0.5",
+    "semver": "^7.3.7"
   },
   "scripts": {
     "build": "Scripts/build.js",
