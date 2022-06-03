@@ -103,8 +103,11 @@ public extension DynamicDecodable {
     }
 }
 
-public extension DynamicDecodable where Self: Sequence,
-                                        Element: DynamicDecodable {
+public extension DynamicDecodable
+where
+    Self: Sequence,
+    Element: DynamicDecodable
+{
     /// Cast self as collection type `T`.
     ///
     /// First tries dynamically casting `self` to collection type `T`,
@@ -135,19 +138,20 @@ public extension DynamicDecodable where Self: Sequence,
     }
 }
 
-extension Optional: DynamicDecodable where Wrapped: DynamicDecodable { }
-extension Array: DynamicDecodable where Element: DynamicDecodable { }
+extension Optional: DynamicDecodable where Wrapped: DynamicDecodable {}
+extension Array: DynamicDecodable where Element: DynamicDecodable {}
 extension ClosedRange: DynamicDecodable where Bound: Decodable {}
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 extension CollectionDifference: DynamicDecodable where ChangeElement: Codable {}
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
-extension CollectionDifference.Change: DynamicDecodable where ChangeElement: Codable {}
+extension CollectionDifference.Change: DynamicDecodable
+where ChangeElement: Codable {}
 extension ContiguousArray: DynamicDecodable where Element: Decodable {}
 extension PartialRangeFrom: DynamicDecodable where Bound: Decodable {}
 extension PartialRangeThrough: DynamicDecodable where Bound: Decodable {}
 extension PartialRangeUpTo: DynamicDecodable where Bound: Decodable {}
 extension Range: DynamicDecodable where Bound: Decodable {}
-extension Set: DynamicDecodable where Element: DynamicDecodable { }
+extension Set: DynamicDecodable where Element: DynamicDecodable {}
 
 #if canImport(TabularData)
 import TabularData
@@ -158,9 +162,11 @@ extension Column: DynamicDecodable where WrappedElement: Decodable {}
 #if canImport(MusicKit)
 import MusicKit
 @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8, *)
-extension MusicCatalogResourceResponse: DynamicDecodable where MusicItemType: Decodable {}
+extension MusicCatalogResourceResponse: DynamicDecodable
+where MusicItemType: Decodable {}
 @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8, *)
-extension MusicItemCollection: DynamicDecodable where MusicItemType: Decodable {}
+extension MusicItemCollection: DynamicDecodable
+where MusicItemType: Decodable {}
 #endif
 
 #if canImport(Combine)
@@ -168,7 +174,8 @@ import Combine
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 extension Record: DynamicDecodable where Output: Codable, Failure: Codable {}
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
-extension Record.Recording: DynamicDecodable where Output: Codable, Failure: Codable {}
+extension Record.Recording: DynamicDecodable
+where Output: Codable, Failure: Codable {}
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 extension Subscribers.Completion: DynamicDecodable where Failure: Decodable {}
 #endif

@@ -56,7 +56,9 @@ public protocol DynamicDecodingCollectionConfigurationProvider {
 /// Provides strict configuration for dynamic array decoding,
 /// throw error if decoding fails.
 @frozen
-public struct StrictCollectionConfiguration: DynamicDecodingCollectionConfigurationProvider {
+public struct StrictCollectionConfiguration:
+    DynamicDecodingCollectionConfigurationProvider
+{
     /// Use ``CollectionDecodeFailConfiguration/throw`` configuration to throw error if decoding fails.
     public static var failConfig: CollectionDecodeFailConfiguration { .throw }
 }
@@ -64,7 +66,9 @@ public struct StrictCollectionConfiguration: DynamicDecodingCollectionConfigurat
 /// Provides default configuration for dynamic array decoding,
 /// use default value if decoding fails.
 @frozen
-public struct DefaultValueCollectionConfiguration: DynamicDecodingCollectionConfigurationProvider {
+public struct DefaultValueCollectionConfiguration:
+    DynamicDecodingCollectionConfigurationProvider
+{
     /// Use ``CollectionDecodeFailConfiguration/deafult`` configuration
     /// to use default empty collection value if decoding fails.
     public static var failConfig: CollectionDecodeFailConfiguration { .deafult }
@@ -73,7 +77,9 @@ public struct DefaultValueCollectionConfiguration: DynamicDecodingCollectionConf
 /// Provides lossy configuration for dynamic array decoding,
 /// ignore elements with invalid or corrupt data.
 @frozen
-public struct LossyCollectionConfiguration: DynamicDecodingCollectionConfigurationProvider {
+public struct LossyCollectionConfiguration:
+    DynamicDecodingCollectionConfigurationProvider
+{
     /// Use ``CollectionDecodeFailConfiguration/lossy`` configuration
     /// to only decode items with valid data while ignoring the rest.
     public static var failConfig: CollectionDecodeFailConfiguration { .lossy }

@@ -16,21 +16,33 @@ struct ProviderBasedSinglePostPage: Decodable {
 }
 
 struct ProviderBasedOptionalSinglePostPage: Decodable {
+    typealias PostWrapper = OptionalDynamicDecodingContextBasedWrapper<
+        PostDecodingProvider
+    >
     let next: URL
-    @OptionalDynamicDecodingContextBasedWrapper<PostDecodingProvider> var content: Post?
+    @PostWrapper var content: Post?
 }
 
 struct ProviderBasedThrowingPostPage: Decodable {
+    typealias PostWrapper = StrictDynamicDecodingArrayContextBasedWrapper<
+        PostDecodingProvider
+    >
     let next: URL
-    @StrictDynamicDecodingArrayContextBasedWrapper<PostDecodingProvider> var content: [Post]
+    @PostWrapper var content: [Post]
 }
 
 struct ProviderBasedDefaultPostPage: Decodable {
+    typealias PostWrapper = DefaultValueDynamicDecodingArrayContextBasedWrapper<
+        PostDecodingProvider
+    >
     let next: URL
-    @DefaultValueDynamicDecodingArrayContextBasedWrapper<PostDecodingProvider> var content: [Post]
+    @PostWrapper var content: [Post]
 }
 
 struct ProviderBasedLossyPostPage: Decodable {
+    typealias PostWrapper = LossyDynamicDecodingArrayContextBasedWrapper<
+        PostDecodingProvider
+    >
     let next: URL
-    @LossyDynamicDecodingArrayContextBasedWrapper<PostDecodingProvider> var content: [Post]
+    @PostWrapper var content: [Post]
 }

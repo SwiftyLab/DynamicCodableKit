@@ -11,7 +11,9 @@ final class DynamicEncodableTests: XCTestCase {
             url: URL(string: "https://a.url.com/to/a/picture.png")!,
             caption: "Lorem Ipsium"
         )
-        let data = try JSONEncoder().encode(DynamicDecodingWrapper<PostCodingKey>(wrappedValue: post))
+        let data = try JSONEncoder().encode(
+            DynamicDecodingWrapper<PostCodingKey>(wrappedValue: post)
+        )
         let decodedPost = try JSONDecoder().decode(PicturePost.self, from: data)
         XCTAssertEqual(post, decodedPost)
     }
@@ -29,10 +31,18 @@ final class DynamicEncodableTests: XCTestCase {
         )
         let data = try JSONEncoder().encode(page)
         let decoder = JSONDecoder()
-        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: TextPost.self)
-        let decodedPage = try decoder.decode(ProviderBasedSinglePostPage.self, from: data)
+        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(
+            decoding: TextPost.self
+        )
+        let decodedPage = try decoder.decode(
+            ProviderBasedSinglePostPage.self,
+            from: data
+        )
         XCTAssertEqual(page.next, decodedPage.next)
-        XCTAssertEqual(page.content as! TextPost, decodedPage.content as! TextPost)
+        XCTAssertEqual(
+            page.content as! TextPost,
+            decodedPage.content as! TextPost
+        )
     }
 
     func testEncodingFailure() throws {
@@ -44,7 +54,11 @@ final class DynamicEncodableTests: XCTestCase {
             url: URL(string: "https://a.url.com/to/a/audio.aac")!,
             duration: 240
         )
-        XCTAssertThrowsError(try JSONEncoder().encode(DynamicDecodingWrapper<PostCodingKey>(wrappedValue: posts)))
+        XCTAssertThrowsError(
+            try JSONEncoder().encode(
+                DynamicDecodingWrapper<PostCodingKey>(wrappedValue: posts)
+            )
+        )
     }
 
     func testOptionalEncoding() throws {
@@ -56,7 +70,9 @@ final class DynamicEncodableTests: XCTestCase {
             url: URL(string: "https://a.url.com/to/a/picture.png")!,
             caption: "Lorem Ipsium"
         )
-        let data = try JSONEncoder().encode(OptionalDynamicDecodingWrapper<PostCodingKey>(wrappedValue: post))
+        let data = try JSONEncoder().encode(
+            OptionalDynamicDecodingWrapper<PostCodingKey>(wrappedValue: post)
+        )
         let decodedPost = try JSONDecoder().decode(PicturePost.self, from: data)
         XCTAssertEqual(post, decodedPost)
     }
@@ -74,11 +90,19 @@ final class DynamicEncodableTests: XCTestCase {
         )
         let data = try JSONEncoder().encode(page)
         let decoder = JSONDecoder()
-        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: TextPost.self)
-        let decodedPage = try decoder.decode(ProviderBasedOptionalSinglePostPage.self, from: data)
+        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(
+            decoding: TextPost.self
+        )
+        let decodedPage = try decoder.decode(
+            ProviderBasedOptionalSinglePostPage.self,
+            from: data
+        )
         XCTAssertEqual(page.next, decodedPage.next)
         XCTAssertNotNil(decodedPage.content)
-        XCTAssertEqual(page.content as! TextPost, decodedPage.content as! TextPost)
+        XCTAssertEqual(
+            page.content as! TextPost,
+            decodedPage.content as! TextPost
+        )
     }
 
     func testOptionalEncodingFailure() throws {
@@ -90,7 +114,13 @@ final class DynamicEncodableTests: XCTestCase {
             url: URL(string: "https://a.url.com/to/a/audio.aac")!,
             duration: 240
         )
-        XCTAssertThrowsError(try JSONEncoder().encode(OptionalDynamicDecodingWrapper<PostCodingKey>(wrappedValue: posts)))
+        XCTAssertThrowsError(
+            try JSONEncoder().encode(
+                OptionalDynamicDecodingWrapper<PostCodingKey>(
+                    wrappedValue: posts
+                )
+            )
+        )
     }
 
     func testArrayEncoding() throws {
@@ -105,8 +135,15 @@ final class DynamicEncodableTests: XCTestCase {
             ),
             count: 3
         )
-        let data = try JSONEncoder().encode(StrictDynamicDecodingArrayWrapper<PostCodingKey>(wrappedValue: posts))
-        let decodedPosts = try JSONDecoder().decode([PicturePost].self, from: data)
+        let data = try JSONEncoder().encode(
+            StrictDynamicDecodingArrayWrapper<PostCodingKey>(
+                wrappedValue: posts
+            )
+        )
+        let decodedPosts = try JSONDecoder().decode(
+            [PicturePost].self,
+            from: data
+        )
         XCTAssertEqual(posts, decodedPosts)
     }
 
@@ -126,10 +163,18 @@ final class DynamicEncodableTests: XCTestCase {
         )
         let data = try JSONEncoder().encode(page)
         let decoder = JSONDecoder()
-        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: TextPost.self)
-        let decodedPage = try decoder.decode(ProviderBasedDefaultPostPage.self, from: data)
+        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(
+            decoding: TextPost.self
+        )
+        let decodedPage = try decoder.decode(
+            ProviderBasedDefaultPostPage.self,
+            from: data
+        )
         XCTAssertEqual(page.next, decodedPage.next)
-        XCTAssertEqual(page.content as? [TextPost], decodedPage.content as? [TextPost])
+        XCTAssertEqual(
+            page.content as? [TextPost],
+            decodedPage.content as? [TextPost]
+        )
     }
 
     func testArrayEncodingFailure() throws {
@@ -144,8 +189,15 @@ final class DynamicEncodableTests: XCTestCase {
             ),
             count: 3
         )
-        let data = try JSONEncoder().encode(StrictDynamicDecodingArrayWrapper<PostCodingKey>(wrappedValue: posts))
-        let decodedPosts = try JSONDecoder().decode([AudioPost].self, from: data)
+        let data = try JSONEncoder().encode(
+            StrictDynamicDecodingArrayWrapper<PostCodingKey>(
+                wrappedValue: posts
+            )
+        )
+        let decodedPosts = try JSONDecoder().decode(
+            [AudioPost].self,
+            from: data
+        )
         XCTAssertEqual(0, decodedPosts.count)
         XCTAssertNotEqual(posts.count, decodedPosts.count)
     }
@@ -162,21 +214,42 @@ final class DynamicEncodableTests: XCTestCase {
 
     func testDynamicDictionaryEncoding() throws {
         typealias Wrapper = StrictDynamicDecodingDictionaryWrapper<PostType>
-        let postPage = try JSONDecoder().decode(ThrowingKeyedPostPage.self, from: containerDecode)
-        let data = try JSONEncoder().encode(Wrapper(wrappedValue: postPage.content))
+        let postPage = try JSONDecoder().decode(
+            ThrowingKeyedPostPage.self,
+            from: containerDecode
+        )
+        let data = try JSONEncoder().encode(
+            Wrapper(wrappedValue: postPage.content)
+        )
         let decodedWrapper = try JSONDecoder().decode(Wrapper.self, from: data)
-        XCTAssertNotEqual(postPage.content.count, decodedWrapper.wrappedValue.count)
+        XCTAssertNotEqual(
+            postPage.content.count,
+            decodedWrapper.wrappedValue.count
+        )
         XCTAssertEqual(decodedWrapper.wrappedValue.count, 2)
-        XCTAssertEqual(Set(decodedWrapper.wrappedValue.keys), [.text, .picture])
+        XCTAssertEqual(
+            Set(decodedWrapper.wrappedValue.keys),
+            [.text, .picture]
+        )
     }
 
     func testDynamicCollectionDictionaryEncoding() throws {
-        typealias Wrapper = StrictDynamicDecodingArrayDictionaryWrapper<PostType>
-        let postPage = try JSONDecoder().decode(ThrowingKeyedPostPageCollection.self, from: containerCollectionDecode)
-        let data = try JSONEncoder().encode(Wrapper(wrappedValue: postPage.content))
+        typealias Wrapper = StrictDynamicDecodingArrayDictionaryWrapper<
+            PostType
+        >
+        let postPage = try JSONDecoder().decode(
+            ThrowingKeyedPostPageCollection.self,
+            from: containerCollectionDecode
+        )
+        let data = try JSONEncoder().encode(
+            Wrapper(wrappedValue: postPage.content)
+        )
         let decodedWrapper = try JSONDecoder().decode(Wrapper.self, from: data)
         XCTAssertEqual(decodedWrapper.wrappedValue.count, 4)
-        XCTAssertEqual(Set(decodedWrapper.wrappedValue.filter(\.value.isEmpty).keys), [.audio, .video])
+        XCTAssertEqual(
+            Set(decodedWrapper.wrappedValue.filter(\.value.isEmpty).keys),
+            [.audio, .video]
+        )
     }
 
     func testProviderEncoding() throws {
@@ -188,7 +261,11 @@ final class DynamicEncodableTests: XCTestCase {
             url: URL(string: "https://a.url.com/to/a/picture.png")!,
             caption: "Lorem Ipsium"
         )
-        let data = try JSONEncoder().encode(DynamicDecodingContextBasedWrapper<PostDecodingProvider>(wrappedValue: post))
+        let data = try JSONEncoder().encode(
+            DynamicDecodingContextBasedWrapper<PostDecodingProvider>(
+                wrappedValue: post
+            )
+        )
         let decodedPost = try JSONDecoder().decode(PicturePost.self, from: data)
         XCTAssertEqual(post, decodedPost)
     }
@@ -202,7 +279,11 @@ final class DynamicEncodableTests: XCTestCase {
             url: URL(string: "https://a.url.com/to/a/picture.png")!,
             caption: "Lorem Ipsium"
         )
-        let data = try JSONEncoder().encode(OptionalDynamicDecodingContextBasedWrapper<PostDecodingProvider>(wrappedValue: post))
+        let data = try JSONEncoder().encode(
+            OptionalDynamicDecodingContextBasedWrapper<PostDecodingProvider>(
+                wrappedValue: post
+            )
+        )
         let decodedPost = try JSONDecoder().decode(PicturePost.self, from: data)
         XCTAssertEqual(post, decodedPost)
     }
@@ -219,8 +300,15 @@ final class DynamicEncodableTests: XCTestCase {
             ),
             count: 3
         )
-        let data = try JSONEncoder().encode(StrictDynamicDecodingArrayContextBasedWrapper<PostDecodingProvider>(wrappedValue: posts))
-        let decodedPosts = try JSONDecoder().decode([PicturePost].self, from: data)
+        let data = try JSONEncoder().encode(
+            StrictDynamicDecodingArrayContextBasedWrapper<PostDecodingProvider>(
+                wrappedValue: posts
+            )
+        )
+        let decodedPosts = try JSONDecoder().decode(
+            [PicturePost].self,
+            from: data
+        )
         XCTAssertEqual(posts, decodedPosts)
     }
 }

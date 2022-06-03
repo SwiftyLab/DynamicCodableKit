@@ -147,7 +147,7 @@ extension PropertyWrapperCodable {
 ///
 /// The value itself doesn't have external representation
 /// but can be associated with an external representation.
-protocol PropertyWrapperDecodableEmptyCodable: PropertyWrapperCodable { }
+protocol PropertyWrapperDecodableEmptyCodable: PropertyWrapperCodable {}
 extension PropertyWrapperDecodableEmptyCodable {
     /// Encodes an empty keyed container into the given encoder.
     ///
@@ -163,7 +163,8 @@ extension ClosedRange: DynamicEncodable where Bound: Encodable {}
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 extension CollectionDifference: DynamicEncodable {}
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
-extension CollectionDifference.Change: DynamicEncodable where ChangeElement: Codable {}
+extension CollectionDifference.Change: DynamicEncodable
+where ChangeElement: Codable {}
 extension ContiguousArray: DynamicEncodable {}
 extension PartialRangeFrom: DynamicEncodable where Bound: Encodable {}
 extension PartialRangeThrough: DynamicEncodable where Bound: Encodable {}
@@ -180,7 +181,8 @@ extension Column: DynamicEncodable {}
 #if canImport(MusicKit)
 import MusicKit
 @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8, *)
-extension MusicCatalogResourceResponse: DynamicEncodable where MusicItemType: Encodable {}
+extension MusicCatalogResourceResponse: DynamicEncodable
+where MusicItemType: Encodable {}
 @available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8, *)
 extension MusicItemCollection: DynamicEncodable {}
 #endif
@@ -190,7 +192,8 @@ import Combine
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 extension Record: DynamicEncodable where Output: Codable, Failure: Codable {}
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
-extension Record.Recording: DynamicEncodable where Output: Codable, Failure: Codable {}
+extension Record.Recording: DynamicEncodable
+where Output: Codable, Failure: Codable {}
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 extension Subscribers.Completion: DynamicEncodable where Failure: Encodable {}
 #endif

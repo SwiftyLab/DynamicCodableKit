@@ -3,7 +3,10 @@ import XCTest
 
 final class DynamicDecodableTests: XCTestCase {
     func testDefaultDownCasting() throws {
-        let value: Decodable = try 5.castAs(type: Decodable.self, codingPath: [])
+        let value: Decodable = try 5.castAs(
+            type: Decodable.self,
+            codingPath: []
+        )
         XCTAssertEqual(value as? Int, 5)
     }
 
@@ -22,16 +25,28 @@ final class DynamicDecodableTests: XCTestCase {
     }
 
     func testDefaultCollectionDownCasting() throws {
-        let value: [Decodable] = try [5, 6, 7].castAs(type: [Decodable].self, codingPath: [])
+        let value: [Decodable] = try [5, 6, 7].castAs(
+            type: [Decodable].self,
+            codingPath: []
+        )
         XCTAssertEqual(value as! Array<Int>, [5, 6, 7])
-        let set: Set<AnyHashable> = try ([5, 6, 7] as Set).castAs(type: Set<AnyHashable>.self, codingPath: [])
+        let set: Set<AnyHashable> = try ([5, 6, 7] as Set).castAs(
+            type: Set<AnyHashable>.self,
+            codingPath: []
+        )
         XCTAssertEqual(set, [5, 6, 7] as Set)
     }
 
     func testDefaultCollectionCastingForSingleValue() throws {
-        let value: [Decodable] = try 5.castAs(type: [Decodable].self, codingPath: [])
+        let value: [Decodable] = try 5.castAs(
+            type: [Decodable].self,
+            codingPath: []
+        )
         XCTAssertEqual(value as! Array<Int>, [5])
-        let set: Set<AnyHashable> = try 5.castAs(type: Set<AnyHashable>.self, codingPath: [])
+        let set: Set<AnyHashable> = try 5.castAs(
+            type: Set<AnyHashable>.self,
+            codingPath: []
+        )
         XCTAssertEqual(set, [5] as Set)
     }
 
@@ -40,7 +55,9 @@ final class DynamicDecodableTests: XCTestCase {
     }
 
     func testDefaultCollectionDownCastingFailure() throws {
-        XCTAssertThrowsError(try [5, 6, 7].castAs(type: [String].self, codingPath: []))
+        XCTAssertThrowsError(
+            try [5, 6, 7].castAs(type: [String].self, codingPath: [])
+        )
     }
 
     func testCastingToExistential() throws {
@@ -117,7 +134,10 @@ final class DynamicDecodableTests: XCTestCase {
             ),
             count: 10
         )
-        let posts = try textPosts.castAs(type: [AnyPost<Post>].self, codingPath: [])
+        let posts = try textPosts.castAs(
+            type: [AnyPost<Post>].self,
+            codingPath: []
+        )
         posts.forEach { XCTAssertEqual($0.type, .text) }
     }
 
@@ -143,11 +163,17 @@ final class DynamicDecodableTests: XCTestCase {
                 likes: 887,
                 createdAt: "2021-06-28T07:36:43Z",
                 text: "Lorem Ipsium"
-            )
+            ),
         ]
-        let posts = try textPosts.castAs(type: [AnyPost<Post>].self, codingPath: [])
+        let posts = try textPosts.castAs(
+            type: [AnyPost<Post>].self,
+            codingPath: []
+        )
         posts.forEach { XCTAssertEqual($0.type, .text) }
-        let postSet = try textPosts.castAs(type: Set<AnyPost<Post>>.self, codingPath: [])
+        let postSet = try textPosts.castAs(
+            type: Set<AnyPost<Post>>.self,
+            codingPath: []
+        )
         postSet.forEach { XCTAssertEqual($0.type, .text) }
     }
 }

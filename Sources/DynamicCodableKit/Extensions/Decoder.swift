@@ -6,7 +6,7 @@ extension Decoder {
     ///
     /// - Returns: The type mismatch decoding error.
     func typeMismatch<T>(_ type: T.Type) -> DecodingError {
-       .typeMismatch(type, codingPath: codingPath)
+        .typeMismatch(type, codingPath: codingPath)
     }
     /// Returns decoding error for coding key not found in `codingPath`.
     ///
@@ -19,7 +19,8 @@ extension Decoder {
             type,
             .init(
                 codingPath: self.codingPath,
-                debugDescription: "CodingKey of type \(type) not found in coding path"
+                debugDescription:
+                    "CodingKey of type \(type) not found in coding path"
             )
         )
     }

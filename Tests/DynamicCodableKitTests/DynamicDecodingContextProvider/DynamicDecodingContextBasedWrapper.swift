@@ -5,8 +5,13 @@ final class DynamicDecodingContextBasedWrapperTests: XCTestCase {
     func testDecoding() throws {
         let data = identifierDecode
         let decoder = JSONDecoder()
-        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: VideoPost.self)
-        let postPage = try decoder.decode(ProviderBasedSinglePostPage.self, from: data)
+        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(
+            decoding: VideoPost.self
+        )
+        let postPage = try decoder.decode(
+            ProviderBasedSinglePostPage.self,
+            from: data
+        )
         XCTAssertEqual(postPage.content.type, .video)
         XCTAssertEqual(postPage.content.likes, 2345)
     }
@@ -14,8 +19,13 @@ final class DynamicDecodingContextBasedWrapperTests: XCTestCase {
     func testOptionalDecoding() throws {
         let data = identifierDecode
         let decoder = JSONDecoder()
-        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(decoding: VideoPost.self)
-        let postPage = try decoder.decode(ProviderBasedOptionalSinglePostPage.self, from: data)
+        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(
+            decoding: VideoPost.self
+        )
+        let postPage = try decoder.decode(
+            ProviderBasedOptionalSinglePostPage.self,
+            from: data
+        )
         XCTAssertEqual(postPage.content?.type, .video)
         XCTAssertEqual(postPage.content?.likes, 2345)
     }
@@ -23,21 +33,31 @@ final class DynamicDecodingContextBasedWrapperTests: XCTestCase {
     func testInvalidDataDecodingWithThrowConfig() throws {
         let data = identifierDecodeWithInvalidData
         let decoder = JSONDecoder()
-        XCTAssertThrowsError(try decoder.decode(ProviderBasedSinglePostPage.self, from: data))
+        XCTAssertThrowsError(
+            try decoder.decode(ProviderBasedSinglePostPage.self, from: data)
+        )
     }
 
     func testInvalidDataDecodingWithDefaultConfig() throws {
         let data = identifierDecodeWithInvalidData
         let decoder = JSONDecoder()
-        let postPage = try decoder.decode(ProviderBasedOptionalSinglePostPage.self, from: data)
+        let postPage = try decoder.decode(
+            ProviderBasedOptionalSinglePostPage.self,
+            from: data
+        )
         XCTAssertNil(postPage.content)
     }
 
     func testIdentifierKeyContextDecoding() throws {
         let data = identifierDecode
         let decoder = JSONDecoder()
-        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(withKey: PostCodingKey.self)
-        let postPage = try decoder.decode(ProviderBasedSinglePostPage.self, from: data)
+        decoder.userInfo[.postKey] = DynamicDecodingContext<Post>(
+            withKey: PostCodingKey.self
+        )
+        let postPage = try decoder.decode(
+            ProviderBasedSinglePostPage.self,
+            from: data
+        )
         XCTAssertEqual(postPage.content.type, .video)
         XCTAssertEqual(postPage.content.likes, 2345)
     }

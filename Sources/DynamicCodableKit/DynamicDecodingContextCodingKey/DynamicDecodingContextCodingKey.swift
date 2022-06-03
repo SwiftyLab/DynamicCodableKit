@@ -23,10 +23,12 @@ public protocol DynamicDecodingContextCodingKey: CodingKey {
 
 /// A ``DynamicDecodingContextCodingKey`` type that decides dynamic decoding context based on its associated
 /// ``DynamicDecodingContextIdentifierKey`` contained by ``identifierCodingKey``.
-public protocol DynamicDecodingContextIdentifierCodingKey: DynamicDecodingContextCodingKey {
+public protocol DynamicDecodingContextIdentifierCodingKey:
+    DynamicDecodingContextCodingKey
+{
     /// The ``DynamicDecodingContextIdentifierKey`` type that ``identifierCodingKey`` contains.
     associatedtype Identifier: DynamicDecodingContextIdentifierKey
-      where Identifier.Identified == Identified
+    where Identifier.Identified == Identified
 
     /// The coding key value that contains ``DynamicDecodingContextIdentifierKey``.
     static var identifierCodingKey: Self { get }

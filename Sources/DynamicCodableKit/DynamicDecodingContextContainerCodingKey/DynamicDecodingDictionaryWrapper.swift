@@ -15,7 +15,9 @@ public struct DynamicDecodingDictionaryWrapper<
     /// - Parameters:
     ///   - wrappedValue: A dictionary ``DynamicDecodingContextContainerCodingKey`` key and
     ///                   dynamic ``DynamicDecodingContextContainerCodingKey/Contained`` value.
-    public init(wrappedValue: [ContainerCodingKey: ContainerCodingKey.Contained]) {
+    public init(
+        wrappedValue: [ContainerCodingKey: ContainerCodingKey.Contained]
+    ) {
         self.wrappedValue = wrappedValue
     }
     /// Creates a new instance by decoding from the given decoder.
@@ -28,7 +30,9 @@ public struct DynamicDecodingDictionaryWrapper<
     public init(from decoder: Decoder) throws {
         switch Config.failConfig {
         case .throw:
-            let container = try decoder.container(keyedBy: ContainerCodingKey.self)
+            let container = try decoder.container(
+                keyedBy: ContainerCodingKey.self
+            )
             self.wrappedValue = try container.decode()
         default:
             guard

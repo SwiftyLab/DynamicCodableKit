@@ -29,12 +29,14 @@ extension DynamicDecodable where Self: Post {
             throw DecodingError.typeMismatch(T.self, codingPath: codingPath)
         }
     }
-    func castAs<T: ExpressibleByNilLiteral>(type: T.Type, codingPath: [CodingKey]) -> T {
+    func castAs<T: ExpressibleByNilLiteral>(
+        type: T.Type, codingPath: [CodingKey]
+    ) -> T {
         return self as? T ?? AnyPost(withValue: self as Post) as? T ?? nil
     }
-//    func castAs(type: AnyPost<Post>.Type, codingPath: [CodingKey]) throws -> AnyPost<Post> {
-//        return AnyPost(withValue: self as Post)
-//    }
+    //    func castAs(type: AnyPost<Post>.Type, codingPath: [CodingKey]) throws -> AnyPost<Post> {
+    //        return AnyPost(withValue: self as Post)
+    //    }
 }
 
 @dynamicMemberLookup
@@ -53,7 +55,7 @@ struct AnyPost<P>: Hashable {
         (value as! AnyHashable).hash(into: &hasher)
     }
 
-    subscript<T>(dynamicMember path: KeyPath<P,T>) -> T {
+    subscript<T>(dynamicMember path: KeyPath<P, T>) -> T {
         return value[keyPath: path]
     }
 }

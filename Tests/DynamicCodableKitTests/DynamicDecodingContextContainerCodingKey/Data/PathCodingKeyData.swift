@@ -1,8 +1,8 @@
 let pathCodingKeyData =
-"""
-{
-  "text": [
-    {}
-  ]
-}
-""".data(using: .utf8)!
+    """
+    {
+      "text": [
+        {}
+      ]
+    }
+    """.data(using: .utf8)!

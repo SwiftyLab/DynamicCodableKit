@@ -87,5 +87,5 @@ public extension KeyedDecodingContainerProtocol {
 /// `OptionalPathCodingKeyWrapper` is a type alias for ``PathCodingKeyDefaultValueWrapper``,
 /// with `Value` generic type as `Optional<CodingKey>`. If coding key value of provided type is not found,
 /// `nil` is used as underlying value instead of throwing error.
-public typealias OptionalPathCodingKeyWrapper<Key: CodingKey>
-= PathCodingKeyDefaultValueWrapper<Optional<Key>>
+public typealias OptionalPathCodingKeyWrapper<Key: CodingKey> =
+    PathCodingKeyDefaultValueWrapper<Optional<Key>>

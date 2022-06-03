@@ -116,8 +116,7 @@ public extension DynamicDecodingContext {
                     type: B.self,
                     codingPath: decoder.codingPath
                 )
-            }
-            catch {
+            } catch {
                 return try fallbackType.init(from: decoder).castAs(
                     type: B.self,
                     codingPath: decoder.codingPath
@@ -131,8 +130,7 @@ public extension DynamicDecodingContext {
                     type: [B].self,
                     codingPath: decoder.codingPath
                 )
-            }
-            catch {
+            } catch {
                 return try array(for: fallbackType).init(from: decoder).castAs(
                     type: [B].self,
                     codingPath: decoder.codingPath

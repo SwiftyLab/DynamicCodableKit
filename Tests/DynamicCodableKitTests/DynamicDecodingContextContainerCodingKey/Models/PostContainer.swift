@@ -2,26 +2,35 @@ import XCTest
 @testable import DynamicCodableKit
 
 struct ThrowingKeyedPostPage: Codable {
+    typealias PostWrapper = StrictDynamicDecodingDictionaryWrapper<PostType>
     let next: URL
-    @StrictDynamicDecodingDictionaryWrapper<PostType> var content: [PostType: Post]
+    @PostWrapper var content: [PostType: Post]
 }
 
 struct LossyKeyedPostPage: Codable {
+    typealias PostWrapper = LossyDynamicDecodingDictionaryWrapper<PostType>
     let next: URL
-    @LossyDynamicDecodingDictionaryWrapper<PostType> var content: [PostType: Post]
+    @PostWrapper var content: [PostType: Post]
 }
 
 struct ThrowingKeyedPostPageCollection: Codable {
+    typealias PostWrapper = StrictDynamicDecodingArrayDictionaryWrapper<
+        PostType
+    >
     let next: URL
-    @StrictDynamicDecodingArrayDictionaryWrapper<PostType> var content: [PostType: [Post]]
+    @PostWrapper var content: [PostType: [Post]]
 }
 
 struct DefaultValueKeyedPostPageCollection: Codable {
+    typealias PostWrapper = DefaultValueDynamicDecodingArrayDictionaryWrapper<
+        PostType
+    >
     let next: URL
-    @DefaultValueDynamicDecodingArrayDictionaryWrapper<PostType> var content: [PostType: [Post]]
+    @PostWrapper var content: [PostType: [Post]]
 }
 
 struct LossyKeyedPostPageCollection: Codable {
+    typealias PostWrapper = LossyDynamicDecodingArrayDictionaryWrapper<PostType>
     let next: URL
-    @LossyDynamicDecodingArrayDictionaryWrapper<PostType> var content: [PostType: [Post]]
+    @PostWrapper var content: [PostType: [Post]]
 }
