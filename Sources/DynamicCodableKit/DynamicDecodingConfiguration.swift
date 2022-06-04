@@ -24,7 +24,7 @@ public enum CollectionDecodeFailConfiguration {
     /// Throw error if decoding fails.
     case `throw`
     /// Use default value if decoding fails.
-    case `deafult`
+    case `default`
     /// Ignore elements with invalid or corrupt data.
     case lossy
 }
@@ -69,9 +69,9 @@ public struct StrictCollectionConfiguration:
 public struct DefaultValueCollectionConfiguration:
     DynamicDecodingCollectionConfigurationProvider
 {
-    /// Use ``CollectionDecodeFailConfiguration/deafult`` configuration
+    /// Use ``CollectionDecodeFailConfiguration/default`` configuration
     /// to use default empty collection value if decoding fails.
-    public static var failConfig: CollectionDecodeFailConfiguration { .deafult }
+    public static var failConfig: CollectionDecodeFailConfiguration { .`default` }
 }
 
 /// Provides lossy configuration for dynamic array decoding,

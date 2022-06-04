@@ -1,6 +1,6 @@
 # Decoding with Type Identifiers
 
-Decode dynamic JSON objects based on single or mutiple identifiers that indicates the actual type to decode.
+Decode dynamic JSON objects based on single or multiple identifiers that indicates the actual type to decode.
 
 ## Overview
 

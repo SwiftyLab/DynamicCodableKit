@@ -3,12 +3,8 @@ name: CI/CD
 on:
   push:
     branches: [ main ]
-    paths-ignore:
-      - '*.md'
   pull_request:
     branches: [ main ]
-    paths-ignore:
-      - '*.md'
   workflow_dispatch:
     inputs:
       release:
@@ -37,158 +33,24 @@ jobs:
       contents: read
       security-events: write
 
-  # Test package with swift 5.2 1nd 5.6 on linux
   swift-package-test:
-    name: Run Swift Package Tests with swift version ${{ matrix.swift }}
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        swift: ['5.2', '5.6']
-        # TODO: Enable windows when `swift-actions/setup-swift`
-        # supports windows
-        # os: [ubuntu-latest, windows-latest]
+    name: Run Swift Package Tests
+    uses: ./.github/workflows/swift-package.yml
+    secrets: inherit
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Check change in source files
-      id: changed_source
-      uses: tj-actions/changed-files@v22.2
-      with:
-        files: |
-          Sources/**/*
-          Tests/**/*
-          Package*.swift
-          .github/actions/setup/action.yml
-          .github/workflows/main.yml
-
-    - name: Setup repository
-      if: steps.changed_source.outputs.any_changed == 'true'
-      uses: ./.github/actions/setup
-      with:
-        swift: ${{ matrix.swift }}
-
-    - name: Run tests
-      if: steps.changed_source.outputs.any_changed == 'true'
-      run: npm run test
-
-    - name: Swift Coverage Report
-      if: |
-        steps.changed_source.outputs.any_changed == 'true' &&
-        matrix.swift == '5.6' &&
-        github.event_name == 'push'
-      uses: maxep/spm-lcov-action@0.3.1
-      with:
-        file-format: lcov
-        output-file: ./coverage.lcov
-
-    - name: Codecov upload
-      if: |
-        steps.changed_source.outputs.any_changed == 'true' &&
-        matrix.swift == '5.6' &&
-        github.event_name == 'push'
-      uses: codecov/codecov-action@v3.1.0
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        fail_ci_if_error: true
-
-  # Lint podspec with latest Xcode and Swift version
   cocoapods-test:
     name: Run CocoaPods Tests
-    runs-on: macos-latest
+    uses: ./.github/workflows/cocoapods.yml
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Check change in source files
-      id: changed_source
-      uses: tj-actions/changed-files@v22.2
-      with:
-        files: |
-          Sources/**/*
-          Tests/**/*
-          *.podspec
-          .github/actions/setup/action.yml
-          .github/workflows/main.yml
-
-    - name: Setup repository
-      if: steps.changed_source.outputs.any_changed == 'true'
-      uses: ./.github/actions/setup
-
-    - name: Run tests
-      if: steps.changed_source.outputs.any_changed == 'true'
-      run: npm run pod-lint
-
-  # Test Xcode project with swift 5.1
   xcode-test:
-    name: Run Xcode Build for platform ${{ matrix.platform }}
-    runs-on: macos-10.15
-    strategy:
-      matrix:
-        platform: [macOS, watchOS, tvOS, iOS, mac-catalyst]
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Build with Xcode
-      uses: mxcl/xcodebuild@v1
-      with:
-        xcode: '11.3.1'
-        platform: ${{ matrix.platform }}
-        action: build
-        configuration: debug
+    name: Run Xcode Build with swift 5.1
+    uses: ./.github/workflows/xcode.yml
 
   ci:
     name: Check if release needed
     if: github.event_name == 'push'
     needs: [analyze, swift-package-test, xcode-test, cocoapods-test]
-    runs-on: ubuntu-latest
-    outputs:
-      release: ${{ steps.check_version_bump.outputs.release_type != '' }}
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Check version bump
-      id: check_version_bump
-      uses: mathieudutour/github-tag-action@v6.0
-      with:
-        github_token: ${{ github.token }}
-        default_bump: false
-        dry_run: true
-
-    - name: Check change in documentation
-      id: changed_doc
-      if: steps.check_version_bump.outputs.release_type == ''
-      uses: tj-actions/changed-files@v22.2
-      with:
-        files: |
-          Sources/**/*
-          Package*.swift
-
-    - name: Setup repository
-      if: steps.changed_doc.outputs.any_changed == 'true'
-      uses: ./.github/actions/setup
-
-    - name: Build package documentation
-      if: steps.changed_doc.outputs.any_changed == 'true'
-      run: |
-        npm run build
-        npm run serve-doc
-
-    - name: Update GitHub Pages
-      if: steps.changed_doc.outputs.any_changed == 'true'
-      uses: JamesIves/github-pages-deploy-action@v4.3.3
-      with:
-          branch: gh-pages
-          folder: .docc-build
-          target-folder: docs
-          clean: false
-          commit-message: 'chore(GitHub Pages): update site for commit ${{ github.sha }}'
+    uses: ./.github/workflows/ci.yml
 
   cd:
     name: Build and Publish
@@ -203,77 +65,5 @@ jobs:
        (needs.analyze.result == 'success' || needs.analyze.result == 'skipped') &&
        (needs.ci.result == 'success' || needs.ci.result == 'skipped'))
     needs: [ci, analyze, swift-package-test, xcode-test, cocoapods-test]
-    runs-on: macos-12
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Setup Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ env.RUBY_VER }}
-
-    - name: Setup repository
-      uses: ./.github/actions/setup
-
-    - name: Conventional Changelog Action
-      id: conventional_changelog
-      uses: TriPSs/conventional-changelog-action@v3
-      with:
-        github-token: ${{ github.token }}
-        git-message: 'chore(CHANGELOG): update for {version}'
-        git-user-name: ${{ github.actor }}
-        git-user-email: soumya.mahunt@gmail.com
-        release-count: 0
-        version-file: './package.json'
-        version-path: version
-        fallback-version: '1.0.0'
-        config-file-path: '.github/config/config.js'
-        pre-commit: '.github/config/pre_commit_hook.js'
-        pre-changelog-generation: '.github/config/pre_changelog_hook.js'
-      env:
-        VERSION: ${{ github.event.inputs.version }}
-
-    - name: Build package products and documentation
-      if: steps.conventional_changelog.outputs.skipped == 'false'
-      run: |
-        npm run build
-        npm run build-doc
-        npm run serve-doc
-        npm run archive
-
-    - name: Release GitHub Pages
-      if: steps.conventional_changelog.outputs.skipped == 'false'
-      continue-on-error: true
-      uses: JamesIves/github-pages-deploy-action@v4.3.3
-      with:
-          branch: gh-pages
-          folder: .docc-build
-          target-folder: docs
-          clean: false
-          commit-message: 'chore(GitHub Pages): release site for tag ${{ steps.conventional_changelog.outputs.tag }}'
-
-    - name: Create GitHub Release
-      if: steps.conventional_changelog.outputs.skipped == 'false'
-      continue-on-error: true
-      uses: ncipollo/release-action@v1
-      with:
-        token: ${{ github.token }}
-        tag: ${{ steps.conventional_changelog.outputs.tag }}
-        body: ${{ steps.conventional_changelog.outputs.changelog }}
-        artifacts: '*.zip'
-
-    - name: Publish to CocoaPods trunk
-      if: steps.conventional_changelog.outputs.skipped == 'false'
-      continue-on-error: true
-      run: |
-        set -eo pipefail
-        pod trunk push --skip-import-validation --skip-tests --allow-warnings
-      env:
-        COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
-
-    - name: Publish to Swift Package Registry
-      if: steps.conventional_changelog.outputs.skipped == 'false'
-      continue-on-error: true
-      uses: twodayslate/swift-package-registry@v0.0.2
+    uses: ./.github/workflows/cd.yml
+    secrets: inherit

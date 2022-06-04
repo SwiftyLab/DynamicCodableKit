@@ -22,7 +22,7 @@ You can contribute by fixing bugs or adding new features. For larger code change
 
 GitHub action is already setup to run tests on pull requests targeting `main` branch. However, to reduce heavy usage of GitHub runners, run the following commands in your terminal to test:
 
-| Test category | With [Node] | Maually |
+| Test category | With [Node] | Manually |
 | --- | --- | --- |
 | SPM integration | Run `npm run test` | Run `swift test` |
 | [CocoaPods] integration (Requires Xcode) | Run `npm run pod-lint` | Run `pod lib lint --no-clean --allow-warnings` |

@@ -27,7 +27,7 @@ where DynamicCollection.Element == ContextCodingKey.Identified {
     ///            is ``CollectionDecodeFailConfiguration/throw`` and data is invalid or corrupt.
     public init(from decoder: Decoder) throws {
         switch Config.failConfig {
-        case .throw, .deafult:
+        case .throw, .`default`:
             do {
                 self.wrappedValue = try .init(
                     DynamicDecodingContext(
@@ -68,7 +68,7 @@ where K: DynamicDecodingContextCodingKey {
         forKey key: K
     ) throws -> DynamicDecodingCollectionWrapper<K, DynamicCollection, Config> {
         switch Config.failConfig {
-        case .throw, .deafult:
+        case .throw, .`default`:
             do {
                 let decoder = try self.superDecoder(forKey: key)
                 let value = try DynamicCollection.init(
@@ -117,7 +117,7 @@ where Key: DynamicDecodingContextCodingKey {
     ) throws -> DynamicDecodingCollectionWrapper<Key, DynamicCollection, Config>
     {
         switch Config.failConfig {
-        case .throw, .deafult:
+        case .throw, .`default`:
             do {
                 let decoder = try self.superDecoder(forKey: key)
                 let value = try DynamicCollection.init(

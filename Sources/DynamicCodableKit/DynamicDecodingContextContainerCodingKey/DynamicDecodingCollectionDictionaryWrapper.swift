@@ -37,7 +37,7 @@ where
                 keyedBy: ContainerCodingKey.self
             )
             self.wrappedValue = try container.decode()
-        case .deafult:
+        case .`default`:
             let container = try? decoder.container(
                 keyedBy: ContainerCodingKey.self
             )

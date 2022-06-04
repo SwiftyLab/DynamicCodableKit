@@ -45,7 +45,7 @@ public extension DynamicEncodable where Self: Sequence {
 }
 
 extension Optional: DynamicEncodable {
-    /// Encodes wrapped dynamic value or the arapped value into the given encoder.
+    /// Encodes wrapped dynamic value or the wrapped value into the given encoder.
     ///
     /// - Parameters:
     ///   - encoder: The encoder to write data to.

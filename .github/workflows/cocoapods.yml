@@ -1,0 +1,33 @@
+name: "Run CocoaPods Linting"
+
+on:
+  workflow_call:
+
+jobs:
+  # Lint podspec with latest Xcode and Swift version
+  cocoapods:
+    name: Run CocoaPods Linting on latest macos
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Check change in source files
+      id: changed_source
+      uses: tj-actions/changed-files@v22.2
+      with:
+        files: |
+          Sources/**/*
+          Tests/**/*
+          *.podspec
+          .github/actions/setup/action.yml
+          .github/workflows/cocoapods.yml
+
+    - name: Setup repository
+      if: steps.changed_source.outputs.any_changed == 'true'
+      uses: ./.github/actions/setup
+
+    - name: Run tests
+      if: steps.changed_source.outputs.any_changed == 'true'
+      run: npm run pod-lint

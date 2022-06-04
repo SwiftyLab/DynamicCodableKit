@@ -27,7 +27,7 @@ where DynamicCollection.Element == Provider.Identified {
     ///            is ``CollectionDecodeFailConfiguration/throw`` and data is invalid or corrupt.
     public init(from decoder: Decoder) throws {
         switch Config.failConfig {
-        case .throw, .deafult:
+        case .throw, .`default`:
             do {
                 let context = try Provider.context(from: decoder)
                 self.wrappedValue = try .init(context.decodeArrayFrom(decoder))

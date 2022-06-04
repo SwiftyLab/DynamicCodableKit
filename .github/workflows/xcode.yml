@@ -1,0 +1,36 @@
+name: "Run Xcode Build"
+
+on:
+  workflow_call:
+
+jobs:
+  # Test Xcode project with swift 5.1
+  xcode-test:
+    name: Run Xcode Build for platform ${{ matrix.platform }}
+    runs-on: macos-10.15
+    strategy:
+      matrix:
+        platform: [macOS, watchOS, tvOS, iOS, mac-catalyst]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Check change in source files
+      id: changed_source
+      uses: tj-actions/changed-files@v22.2
+      with:
+        files: |
+          Sources/**/*
+          Tests/**/*
+          *.xcodeproj/**/*
+          .github/workflows/xcode.yml
+
+    - name: Build with Xcode
+      if: steps.changed_source.outputs.any_changed == 'true'
+      uses: mxcl/xcodebuild@v1
+      with:
+        xcode: '11.3.1'
+        platform: ${{ matrix.platform }}
+        action: build
+        configuration: debug

@@ -1,0 +1,57 @@
+name: "Check if release needed"
+
+on:
+  workflow_call:
+    outputs:
+      release:
+        description: "Whether release is needed or not"
+        value: ${{ jobs.ci.outputs.release }}
+
+jobs:
+  ci:
+    name: Check if release needed
+    runs-on: ubuntu-latest
+    outputs:
+      release: ${{ steps.check_version_bump.outputs.release_type != '' }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Check version bump
+      id: check_version_bump
+      uses: mathieudutour/github-tag-action@v6.0
+      with:
+        github_token: ${{ github.token }}
+        default_bump: false
+        dry_run: true
+
+    - name: Check change in documentation
+      id: changed_doc
+      if: steps.check_version_bump.outputs.release_type == ''
+      uses: tj-actions/changed-files@v22.2
+      with:
+        files: |
+          Sources/**/*
+          Package*.swift
+          .github/workflows/ci.yml
+
+    - name: Setup repository
+      if: steps.changed_doc.outputs.any_changed == 'true'
+      uses: ./.github/actions/setup
+
+    - name: Build package documentation
+      if: steps.changed_doc.outputs.any_changed == 'true'
+      run: |
+        npm run build
+        npm run serve-doc
+
+    - name: Update GitHub Pages
+      if: steps.changed_doc.outputs.any_changed == 'true'
+      uses: JamesIves/github-pages-deploy-action@v4.3.3
+      with:
+          branch: gh-pages
+          folder: .docc-build
+          target-folder: docs
+          clean: false
+          commit-message: 'chore(GitHub Pages): update site for commit ${{ github.sha }}'
