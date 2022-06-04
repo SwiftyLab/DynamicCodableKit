@@ -64,13 +64,13 @@ jobs:
           .github/workflows/main.yml
 
     - name: Setup repository
-      if:  steps.changed_source.outputs.any_changed == 'true'
+      if: steps.changed_source.outputs.any_changed == 'true'
       uses: ./.github/actions/setup
       with:
         swift: ${{ matrix.swift }}
 
     - name: Run tests
-      if:  steps.changed_source.outputs.any_changed == 'true'
+      if: steps.changed_source.outputs.any_changed == 'true'
       run: npm run test
 
     - name: Swift Coverage Report
@@ -102,10 +102,23 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    - name: Check change in source files
+      id: changed_source
+      uses: tj-actions/changed-files@v22.2
+      with:
+        files: |
+          Sources/**/*
+          Tests/**/*
+          *.podspec
+          .github/actions/setup/action.yml
+          .github/workflows/main.yml
+
     - name: Setup repository
+      if: steps.changed_source.outputs.any_changed == 'true'
       uses: ./.github/actions/setup
 
     - name: Run tests
+      if: steps.changed_source.outputs.any_changed == 'true'
       run: npm run pod-lint
 
   # Test Xcode project with swift 5.1
@@ -150,7 +163,7 @@ jobs:
 
     - name: Check change in documentation
       id: changed_doc
-      if:  steps.check_version_bump.outputs.release_type == ''
+      if: steps.check_version_bump.outputs.release_type == ''
       uses: tj-actions/changed-files@v22.2
       with:
         files: |
@@ -158,17 +171,17 @@ jobs:
           Package*.swift
 
     - name: Setup repository
-      if:  steps.changed_doc.outputs.any_changed == 'true'
+      if: steps.changed_doc.outputs.any_changed == 'true'
       uses: ./.github/actions/setup
 
     - name: Build package documentation
-      if:  steps.changed_doc.outputs.any_changed == 'true'
+      if: steps.changed_doc.outputs.any_changed == 'true'
       run: |
         npm run build
         npm run serve-doc
 
     - name: Update GitHub Pages
-      if:  steps.changed_doc.outputs.any_changed == 'true'
+      if: steps.changed_doc.outputs.any_changed == 'true'
       uses: JamesIves/github-pages-deploy-action@v4.3.3
       with:
           branch: gh-pages
