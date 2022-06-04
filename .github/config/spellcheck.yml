@@ -6,7 +6,7 @@ matrix:
   dictionary:
     encoding: utf-8
     wordlists:
-    - .github/config/swift-custom.txt
+    - .github/config/custom-words.txt
     output: .build/dictionary/custom-words.dic
   pipeline:
   - pyspelling.filters.markdown:

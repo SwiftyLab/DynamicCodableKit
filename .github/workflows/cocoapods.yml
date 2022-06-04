@@ -18,7 +18,7 @@ jobs:
       uses: tj-actions/changed-files@v22.2
       with:
         files: |
-          Sources/**/*
+          Sources/**/*.swift
           Tests/**/*
           *.podspec
           .github/actions/setup/action.yml

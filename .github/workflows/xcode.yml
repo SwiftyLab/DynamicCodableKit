@@ -21,7 +21,7 @@ jobs:
       uses: tj-actions/changed-files@v22.2
       with:
         files: |
-          Sources/**/*
+          Sources/**/*.swift
           Tests/**/*
           *.xcodeproj/**/*
           .github/workflows/xcode.yml
