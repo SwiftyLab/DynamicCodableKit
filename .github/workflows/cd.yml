@@ -2,6 +2,11 @@ name: "Check if release needed"
 
 on:
   workflow_call:
+    inputs:
+      version:
+        description: New version to release
+        required: false
+        type: string
 
 jobs:
   cd:
@@ -36,7 +41,7 @@ jobs:
         pre-commit: '.github/config/pre_commit_hook.js'
         pre-changelog-generation: '.github/config/pre_changelog_hook.js'
       env:
-        VERSION: ${{ github.event.inputs.version }}
+        VERSION: ${{ inputs.version }}
 
     - name: Build package products and documentation
       if: steps.conventional_changelog.outputs.skipped == 'false'

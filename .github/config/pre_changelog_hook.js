@@ -6,7 +6,7 @@ exports.preVersionGeneration = (version) => {
   core.info(`Computed version bump: ${version}`);
 
   const newVersion = semver.valid(VERSION);
-  if (newVersion && semver.gte(newVersion, version)) {
+  if (newVersion) {
     version = newVersion;
     core.info(`Using provided version: ${version}`);
   }

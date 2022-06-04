@@ -75,4 +75,6 @@ jobs:
        (needs.ci.result == 'success' || needs.ci.result == 'skipped'))
     needs: [ci, analyze, swift-package-test, xcode-test, cocoapods-test]
     uses: ./.github/workflows/cd.yml
+    with:
+      version: ${{ github.event.inputs.version }}
     secrets: inherit
