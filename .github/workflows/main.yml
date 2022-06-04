@@ -40,7 +40,7 @@ jobs:
       - name: Spellcheck Action
         uses: rojopolis/spellcheck-github-actions@0.24.0
         with:
-          config_path: .github/config/spellcheck.yml
+          config_path: '.github/config/spellcheck.yml'
 
   swift-package-test:
     name: Run Swift Package Tests
