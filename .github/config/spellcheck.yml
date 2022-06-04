@@ -5,6 +5,9 @@ matrix:
     d: en_US
   dictionary:
     encoding: utf-8
+    wordlists:
+    - .github/config/swift-custom.txt
+    output: .build/dictionary/custom-words.dic
   pipeline:
   - pyspelling.filters.markdown:
   - pyspelling.filters.html:

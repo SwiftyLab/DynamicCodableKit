@@ -10,9 +10,9 @@ These wrappers accept ``DynamicDecodingCollectionConfigurationProvider`` that pr
 
 Implementation for all the configuration scenarios are provided with type aliases, depending upon following naming convention.
 
-- Alases starting with `Strict..` indicate the if decoding fails then error is thrown.
-- Alases starting with `DefaultValue..` indicate that in the event of decoding fail, empty collection is used.
-- Alases starting with `Lossy..` provide safest decoding configuration. Each item in collection is decoded one by one, if the data for item is intact and valid item is added to collection, otherwise item is ignored.
+- Aliases starting with `Strict..` indicate the if decoding fails then error is thrown.
+- Aliases starting with `DefaultValue..` indicate that in the event of decoding fail, empty collection is used.
+- Aliases starting with `Lossy..` provide safest decoding configuration. Each item in collection is decoded one by one, if the data for item is intact and valid item is added to collection, otherwise item is ignored.
 
 In the <doc:TypeIdentifier> topic, ``StrictDynamicDecodingArrayWrapper`` will throw error decoding following response, while, ``DefaultValueDynamicDecodingArrayWrapper`` will decode an empty array and ``LossyDynamicDecodingArrayWrapper`` will ignore first two items and only decode the last item.
 ```json
@@ -33,7 +33,7 @@ In the <doc:TypeIdentifier> topic, ``StrictDynamicDecodingArrayWrapper`` will th
       "createdAt": "2021-07-23T09:36:38Z",
       "url": "https://a.url.com/to/a/video.mp4",
       "duration": 460,
-      "thumbnail": "https://a.url.com/to/a/thmbnail.png"
+      "thumbnail": "https://a.url.com/to/a/thumbnail.png"
     },
     {
       "id": "98765432-abcd-efab-0123-456789abcdef",
@@ -43,7 +43,7 @@ In the <doc:TypeIdentifier> topic, ``StrictDynamicDecodingArrayWrapper`` will th
       "createdAt": "2021-07-23T09:36:38Z",
       "url": "https://a.url.com/to/a/video.mp4",
       "duration": 460,
-      "thumbnail": "https://a.url.com/to/a/thmbnail.png"
+      "thumbnail": "https://a.url.com/to/a/thumbnail.png"
     }
   ],
   "next": "https://a.url.com/to/next/page"

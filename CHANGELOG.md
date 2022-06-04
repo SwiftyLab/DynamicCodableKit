@@ -37,5 +37,5 @@
 * add dynamic JSON decoding with type identifiers ([63bab18](https://github.com/SwiftyLab/DynamicCodableKit/commit/63bab18f80d087d9538c17b4dd8189a7fef5a6c6))
 * add dynamic JSON decoding with type(s) parent coding key ([5c5bf0a](https://github.com/SwiftyLab/DynamicCodableKit/commit/5c5bf0a2567ad21927ea7a6a2cb4bfa1ab5ed2da))
 * add dynamic JSON decoding with user context provider ([8a61ceb](https://github.com/SwiftyLab/DynamicCodableKit/commit/8a61cebe6727159e88829e0b2f41bc521d3614ce))
-* add ingrore key with invalid data for parent coding key based dynamic decoding ([b9dc92f](https://github.com/SwiftyLab/DynamicCodableKit/commit/b9dc92f90ed10287e712aed09c192b8fea7ab54e))
+* add ignore key with invalid data for parent coding key based dynamic decoding ([b9dc92f](https://github.com/SwiftyLab/DynamicCodableKit/commit/b9dc92f90ed10287e712aed09c192b8fea7ab54e))
 

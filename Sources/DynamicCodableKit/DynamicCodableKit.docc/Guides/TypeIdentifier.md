@@ -42,7 +42,7 @@ It is quite common in JSON responses to have objects that have some common field
       "createdAt": "2021-07-23T09:36:38Z",
       "url": "https://a.url.com/to/a/video.mp4",
       "duration": 460,
-      "thumbnail": "https://a.url.com/to/a/thmbnail.png"
+      "thumbnail": "https://a.url.com/to/a/thumbnail.png"
     }
   ],
   "next": "https://a.url.com/to/next/page"
@@ -59,7 +59,7 @@ Decoding dynamically can be handled by creating types representing every post ty
 
 ### Implement Dynamic Decoding Contexts
 
-Now `Post` type can be dynamically decoded to its concrete type based on value of `PostType` identiifier. `PostType` can be created as an `Enum` confirming to ``DynamicDecodingContextIdentifierKey`` while implementing the decoding context to use with ``DynamicDecodingContextIdentifierKey/associatedContext``. To allow `Decoder` to decode `PostType` and get dynamic decoding context, additional `CodingKey` type `PostCodingKey` need to be defined confirming to ``DynamicDecodingContextCodingKey``. Since current example only has one itentifier to decode confirming to ``DynamicDecodingContextIdentifierCodingKey`` and providing key that contains the identifier in ``DynamicDecodingContextIdentifierCodingKey/identifierCodingKey`` will suffice.
+Now `Post` type can be dynamically decoded to its concrete type based on value of `PostType` identifier. `PostType` can be created as an `Enum` confirming to ``DynamicDecodingContextIdentifierKey`` while implementing the decoding context to use with ``DynamicDecodingContextIdentifierKey/associatedContext``. To allow `Decoder` to decode `PostType` and get dynamic decoding context, additional `CodingKey` type `PostCodingKey` need to be defined confirming to ``DynamicDecodingContextCodingKey``. Since current example only has one identifier to decode confirming to ``DynamicDecodingContextIdentifierCodingKey`` and providing key that contains the identifier in ``DynamicDecodingContextIdentifierCodingKey/identifierCodingKey`` will suffice.
 ```swift
 enum PostCodingKey: String, DynamicDecodingContextIdentifierCodingKey {
     typealias Identifier = PostType

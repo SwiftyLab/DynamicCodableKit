@@ -4,7 +4,7 @@
     @DocumentationExtension(mergeBehavior: append)
 }
 
-Provides `castAs` methods to customise dynamic casting to a provided type where provided type can be optional type or collection type as well. Default implementations are provided to work well with down casting, however custom types can provide their own casting behavior.
+Provides `castAs` methods to customize dynamic casting to a provided type where provided type can be optional type or collection type as well. Default implementations are provided to work well with down casting, however custom types can provide their own casting behavior.
 
 For example, in <doc:TypeIdentifier>, to use `Set` of `Post` type instead of `Array`, a box type for `Post` type can be created that will confirm `Hashable`:
 ```swift

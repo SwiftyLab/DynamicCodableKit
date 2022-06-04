@@ -4,7 +4,7 @@ Decode dynamic JSON objects based on previous responses or actions by providing 
 
 ## Overview
 
-In certain scenarios, the data type present in JSON response will be dependant on previous JSON reponses or a specific action performed. For example, in a social media post detail response, the data present will be indicated by the post type the detail is for, i.e. text based post, picture, audio or video post:
+In certain scenarios, the data type present in JSON response will be dependant on previous JSON responses or a specific action performed. For example, in a social media post detail response, the data present will be indicated by the post type the detail is for, i.e. text based post, picture, audio or video post:
 ```json
 {
   "id": "00005678-abcd-efab-0123-456789abcdef",
@@ -49,7 +49,7 @@ In certain scenarios, the data type present in JSON response will be dependant o
   "createdAt": "2021-07-23T09:36:38Z",
   "url": "https://a.url.com/to/a/video.mp4",
   "duration": 460,
-  "thumbnail": "https://a.url.com/to/a/thmbnail.png",
+  "thumbnail": "https://a.url.com/to/a/thumbnail.png",
   "subTitles": "https://a.url.com/to/a/subTitles.srt",
   "aspectRatio": {
     "hight": 9,
@@ -58,7 +58,7 @@ In certain scenarios, the data type present in JSON response will be dependant o
 }
 ```
 
-To decode post detail JSON dynamically, type repesenting every post type: `TextPostDetail`, `PicturePostDetail`, `AudioPostDetail`, `VideoPostDetail` can be created, each confirming to ``DynamicDecodable`` and to protocol `PostDetail` which represents common post detail type.
+To decode post detail JSON dynamically, type representing every post type: `TextPostDetail`, `PicturePostDetail`, `AudioPostDetail`, `VideoPostDetail` can be created, each confirming to ``DynamicDecodable`` and to protocol `PostDetail` which represents common post detail type.
 ![Decoded models hierarchy.](context-provider-class)
 
 A ``DynamicDecodingContextProvider`` can be created to provide dynamic decoding context. For the current example, a type confirming ``UserInfoDynamicDecodingContextProvider`` can be created that provides the decoding context present in `Decoder`'s `userInfo` property associated to ``UserInfoDynamicDecodingContextProvider/infoKey``.
