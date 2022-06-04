@@ -5,9 +5,9 @@ matrix:
     d: en_US
   dictionary:
     encoding: utf-8
-    wordlists:
-    - .github/config/custom-words.txt
-    output: .build/dictionary/custom-words.dic
+    # wordlists:
+    # - .github/config/custom-words.txt
+    # output: .build/dictionary/custom-words.dic
   pipeline:
   - pyspelling.filters.markdown:
   - pyspelling.filters.html:

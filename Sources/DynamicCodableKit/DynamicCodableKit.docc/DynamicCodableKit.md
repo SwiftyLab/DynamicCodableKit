@@ -27,7 +27,7 @@ The data types, protocols, and property wrappers defined by `DynamicCodableKit` 
 pod 'DynamicCodableKit'
 ```
 
-Optionally, you can also use the pre built XCFramework from the GitHub releases page by replacing `{version}` with the required version you want to use:
+Optionally, you can also use the pre-built XCFramework from the GitHub releases page by replacing `{version}` with the required version you want to use:
 
 ```ruby
 pod 'DynamicCodableKit', :http => 'https://github.com/SwiftyLab/DynamicCodableKit/releases/download/v{version}/DynamicCodableKit-{version}.xcframework.zip'
@@ -51,7 +51,7 @@ Once you have your Swift package set up, adding `DynamicCodableKit` as a depende
 .package(url: "https://github.com/SwiftyLab/DynamicCodableKit.git", from: "1.0.0"),
 ```
 
-Optionally, you can also use the pre built XCFramework from the GitHub releases page by replacing `{version}` and `{checksum}` with the required version and checksum of artifact you want to use:
+Optionally, you can also use the pre-built XCFramework from the GitHub releases page by replacing `{version}` and `{checksum}` with the required version and checksum of artifact you want to use:
 
 ```swift
 .binaryTarget(name: "DynamicCodableKit", url: "https://github.com/SwiftyLab/DynamicCodableKit/releases/download/v{version}/DynamicCodableKit-{version}.xcframework.zip", checksum: "{checksum}"),
