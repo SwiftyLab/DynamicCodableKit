@@ -15,7 +15,7 @@ jobs:
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: ${{ env.RUBY_VER }}
+        ruby-version: 2.7
 
     - name: Setup repository
       uses: ./.github/actions/setup
