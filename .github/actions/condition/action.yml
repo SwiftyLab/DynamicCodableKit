@@ -42,6 +42,7 @@ runs:
           });
           core.info(JSON.stringify(result));
           core.endGroup();
-          const success = (result.data.workflow_runs[0]?.status === 'completed') ||
-            (result.data.workflow_runs[1]?.status === 'completed');
+          const currentConclusion = result.data.workflow_runs[0]?.conclusion;
+          const success = (currentConclusion ? (currentConclusion === 'success') : true) ||
+            (result.data.workflow_runs[1]?.conclusion === 'success');
           return success;
