@@ -25,6 +25,8 @@ runs:
       if: steps.changed_files.outputs.any_changed != 'true'
       id: last_status
       uses: actions/github-script@v6.1.0
+      env:
+        WORKFLOW: ${{ inputs.workflow }}
       with:
         result-encoding: json
         script: |
@@ -43,5 +45,3 @@ runs:
           const success = (result.data.workflow_runs[0]?.status === 'completed') ||
             (result.data.workflow_runs[1]?.status === 'completed');
           return success;
-        env:
-          WORKFLOW: ${{ inputs.workflow }}
