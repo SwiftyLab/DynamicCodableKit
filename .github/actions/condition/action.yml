@@ -43,6 +43,7 @@ runs:
           core.info(JSON.stringify(result));
           core.endGroup();
           const currentConclusion = result.data.workflow_runs[0]?.conclusion;
-          const success = (currentConclusion ? (currentConclusion === 'success') : true) ||
+          const success = (currentConclusion ? (currentConclusion === 'success') : true) &&
             (result.data.workflow_runs[1]?.conclusion === 'success');
+          throw `test error`;
           return success;
