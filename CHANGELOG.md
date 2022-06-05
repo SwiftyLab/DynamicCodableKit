@@ -1,41 +1,45 @@
-### [1.1.1](https://github.com/SwiftyLab/DynamicCodableKit/compare/v1.1.0...v1.1.1) (2022-05-29)
+## 1.0.0 (2022-06-05)
+
+
+### ✅ Tests
+
+* add `DynamicDecodable` unit tests ([96d4ba6](https://github.com/SwiftyLab/DynamicCodableKit/commit/96d4ba6a2cadf6dfad141316632feada67537fcc))
+* add tests for dynamic JSON decoding with type identifiers ([9fc73b7](https://github.com/SwiftyLab/DynamicCodableKit/commit/9fc73b71f9fd1541e59a53ffce2137ef0491906c))
+* add tests for dynamic JSON decoding with type(s) parent coding key ([c222eb1](https://github.com/SwiftyLab/DynamicCodableKit/commit/c222eb1835a8f461a6ade1f02d1968b097df54c1))
+* add tests for dynamic JSON decoding with user context provider ([74fd0b4](https://github.com/SwiftyLab/DynamicCodableKit/commit/74fd0b4664cfd383617160d26f9700c8557a97db))
+* add type identifier decoding tests ([3ae17b3](https://github.com/SwiftyLab/DynamicCodableKit/commit/3ae17b37997167ec03bc64868a50c6d676fca83e))
+
+
+### 🚀 Features
+
+* add Carthage prebuilt frameworks support ([c0f6918](https://github.com/SwiftyLab/DynamicCodableKit/commit/c0f6918d252c187a21aac2566e9e02dcfdf8ef77))
+* add Carthage support ([107a5c7](https://github.com/SwiftyLab/DynamicCodableKit/commit/107a5c77e86cfc8d2865209b36d64ddd3b12a724))
+* add CocoaPods support ([4e53ceb](https://github.com/SwiftyLab/DynamicCodableKit/commit/4e53ceb853542deae30446fc48ed29a6d134ed4c))
+* add dynamic encoding ([ac18636](https://github.com/SwiftyLab/DynamicCodableKit/commit/ac1863697b82923ed6e488e5bd7dd3560a8e89ed))
+* add dynamic JSON decoding with type identifiers ([63bab18](https://github.com/SwiftyLab/DynamicCodableKit/commit/63bab18f80d087d9538c17b4dd8189a7fef5a6c6))
+* add dynamic JSON decoding with type(s) parent coding key ([5c5bf0a](https://github.com/SwiftyLab/DynamicCodableKit/commit/5c5bf0a2567ad21927ea7a6a2cb4bfa1ab5ed2da))
+* add dynamic JSON decoding with user context provider ([8a61ceb](https://github.com/SwiftyLab/DynamicCodableKit/commit/8a61cebe6727159e88829e0b2f41bc521d3614ce))
+* add ignoring key with invalid data for parent coding key based dynamic decoding ([79935b4](https://github.com/SwiftyLab/DynamicCodableKit/commit/79935b448af7465b8fded0b23cce1367919dab15))
 
 
 ### 🐛 Fixes
 
-* **CocoaPods:** fix podspec source tag attribute ([e30b678](https://github.com/SwiftyLab/DynamicCodableKit/commit/e30b678e51bfa6cfb47b25ad0aa242aa47b193eb))
-
-
-### 📚 Documentation
-
-* add manual installation guides ([cfd40e1](https://github.com/SwiftyLab/DynamicCodableKit/commit/cfd40e191fde39556e6873618a4a8045ae3ed574))
-
-## [1.1.0](https://github.com/SwiftyLab/DynamicCodableKit/compare/63bab18f80d087d9538c17b4dd8189a7fef5a6c6...v1.1.0) (2022-05-29)
+* **CocoaPods:** fix podspec source tag attribute ([9072d1e](https://github.com/SwiftyLab/DynamicCodableKit/commit/9072d1e675f4f23a1930eb5101b21b13af2f369b))
 
 
 ### 📚 Documentation
 
 * add about and contributing guidelines ([1c3f7d1](https://github.com/SwiftyLab/DynamicCodableKit/commit/1c3f7d12132eaa634b44076118f9989e0c7d144a))
 * add DocC documentation with articles ([9575dd3](https://github.com/SwiftyLab/DynamicCodableKit/commit/9575dd32f56bae8b2e5a6bb6c02fc4555fb654b0))
+* add manual installation guides ([c51c8c9](https://github.com/SwiftyLab/DynamicCodableKit/commit/c51c8c974a81dce9a0307c96677a6a79ca8ace19))
 
 
-### ✅ Tests
+### 💄 Styles
 
-* add `DynamicDecodable` unit tests ([1b8645f](https://github.com/SwiftyLab/DynamicCodableKit/commit/1b8645f1f2118b875d6a815b540fcab372f067fa))
-* add tests for dynamic JSON decoding with type identifiers ([886b22b](https://github.com/SwiftyLab/DynamicCodableKit/commit/886b22b209abbdcd939a3a919169bc0b468ee7f4))
-* add tests for dynamic JSON decoding with type(s) parent coding key ([87cc501](https://github.com/SwiftyLab/DynamicCodableKit/commit/87cc5019a899306183412e95e7c7dd336274508f))
-* add tests for dynamic JSON decoding with user context provider ([0b47865](https://github.com/SwiftyLab/DynamicCodableKit/commit/0b47865ce927ba5979a40d4eb1ea3cadedc137f4))
-* add type identifier decoding tests ([3ae17b3](https://github.com/SwiftyLab/DynamicCodableKit/commit/3ae17b37997167ec03bc64868a50c6d676fca83e))
+* add swift-format for code formatting ([0a719fe](https://github.com/SwiftyLab/DynamicCodableKit/commit/0a719fee49c725afc352278eb0129c16d739e693))
 
 
-### 🚀 Features
+### ⏪ Reverts
 
-* add Carthage prebuilt frameworks support ([e74517c](https://github.com/SwiftyLab/DynamicCodableKit/commit/e74517c0b5cdbd3cdfc82f70efdcd65afac85445))
-* add Carthage support ([81d18dc](https://github.com/SwiftyLab/DynamicCodableKit/commit/81d18dcb0a8dcbc18469cb3527ad834c8b17d5a0))
-* add CocoaPods support ([4e53ceb](https://github.com/SwiftyLab/DynamicCodableKit/commit/4e53ceb853542deae30446fc48ed29a6d134ed4c))
-* add dynamic encoding ([27f4d41](https://github.com/SwiftyLab/DynamicCodableKit/commit/27f4d418d117fea6f50e494a8e138fd97854bed4))
-* add dynamic JSON decoding with type identifiers ([63bab18](https://github.com/SwiftyLab/DynamicCodableKit/commit/63bab18f80d087d9538c17b4dd8189a7fef5a6c6))
-* add dynamic JSON decoding with type(s) parent coding key ([5c5bf0a](https://github.com/SwiftyLab/DynamicCodableKit/commit/5c5bf0a2567ad21927ea7a6a2cb4bfa1ab5ed2da))
-* add dynamic JSON decoding with user context provider ([8a61ceb](https://github.com/SwiftyLab/DynamicCodableKit/commit/8a61cebe6727159e88829e0b2f41bc521d3614ce))
-* add ignore key with invalid data for parent coding key based dynamic decoding ([b9dc92f](https://github.com/SwiftyLab/DynamicCodableKit/commit/b9dc92f90ed10287e712aed09c192b8fea7ab54e))
+* Revert "chore: add single major swift tool package manifest" ([19044fd](https://github.com/SwiftyLab/DynamicCodableKit/commit/19044fd8c2f5092f44e77d7143ee62ebb769853d))
 
