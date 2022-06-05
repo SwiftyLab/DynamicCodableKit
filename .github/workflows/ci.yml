@@ -26,10 +26,10 @@ jobs:
         default_bump: false
         dry_run: true
 
-    - name: Check change in documentation
-      id: changed_doc
+    - name: Check should proceed running steps
       if: steps.check_version_bump.outputs.release_type == ''
-      uses: tj-actions/changed-files@v22.2
+      id: precondition
+      uses: ./.github/actions/condition
       with:
         files: |
           Sources/**/*
@@ -37,17 +37,17 @@ jobs:
           .github/workflows/ci.yml
 
     - name: Setup repository
-      if: steps.changed_doc.outputs.any_changed == 'true'
+      if: steps.precondition.outputs.proceed == 'true'
       uses: ./.github/actions/setup
 
     - name: Build package documentation
-      if: steps.changed_doc.outputs.any_changed == 'true'
+      if: steps.precondition.outputs.proceed == 'true'
       run: |
         npm run build
         npm run serve-doc
 
     - name: Update GitHub Pages
-      if: steps.changed_doc.outputs.any_changed == 'true'
+      if: steps.precondition.outputs.proceed == 'true'
       uses: JamesIves/github-pages-deploy-action@v4.3.3
       with:
           branch: gh-pages

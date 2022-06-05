@@ -19,9 +19,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Check change in source files
-      id: changed_source
-      uses: tj-actions/changed-files@v22.2
+    - name: Check should proceed running steps
+      id: precondition
+      uses: ./.github/actions/condition
       with:
         files: |
           Sources/**/*.swift
@@ -31,18 +31,18 @@ jobs:
           .github/workflows/swift-package.yml
 
     - name: Setup repository
-      if: steps.changed_source.outputs.any_changed == 'true'
+      if: steps.precondition.outputs.proceed == 'true'
       uses: ./.github/actions/setup
       with:
         swift: ${{ matrix.swift }}
 
     - name: Run tests
-      if: steps.changed_source.outputs.any_changed == 'true'
+      if: steps.precondition.outputs.proceed == 'true'
       run: npm run test
 
     - name: Swift Coverage Report
       if: |
-        steps.changed_source.outputs.any_changed == 'true' &&
+        steps.precondition.outputs.proceed == 'true' &&
         matrix.swift == '5.6' &&
         github.event_name == 'push'
       uses: maxep/spm-lcov-action@0.3.1
@@ -52,7 +52,7 @@ jobs:
 
     - name: Codecov upload
       if: |
-        steps.changed_source.outputs.any_changed == 'true' &&
+        steps.precondition.outputs.proceed == 'true' &&
         matrix.swift == '5.6' &&
         github.event_name == 'push'
       uses: codecov/codecov-action@v3.1.0
