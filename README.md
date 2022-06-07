@@ -28,7 +28,7 @@ The data types, protocols, and property wrappers defined by **DynamicCodableKit*
 | --- | --- | --- | --- |
 | iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+ | 5.1 | [CocoaPods](#cocoapods), [Carthage](#carthage), [Swift Package Manager](#swift-package-manager), [Manual](#manually) | Fully Tested |
 | Linux | 5.1 | [Swift Package Manager](#swift-package-manager) | Fully Tested |
-| Windows | 5.1 | [Swift Package Manager](#swift-package-manager) | Not Tested but Supported |
+| Windows | 5.3 | [Swift Package Manager](#swift-package-manager) | Not Tested but Supported |
 
 ## Installation
 

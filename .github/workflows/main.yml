@@ -43,26 +43,26 @@ jobs:
   #       config_path: .github/config/spellcheck.yml
 
   swift-package-test:
-    name: Run Swift Package Tests
+    name: Swift Package
     uses: ./.github/workflows/swift-package.yml
     secrets: inherit
 
   cocoapods-test:
-    name: Run CocoaPods Tests
+    name: CocoaPods
     uses: ./.github/workflows/cocoapods.yml
 
   xcode-test:
-    name: Run Xcode Build with swift 5.1
+    name: Xcode
     uses: ./.github/workflows/xcode.yml
 
   ci:
-    name: Check if release needed
+    name: CI
     if: github.event_name == 'push'
     needs: [analyze, swift-package-test, xcode-test, cocoapods-test]
     uses: ./.github/workflows/ci.yml
 
   cd:
-    name: Build and Publish
+    name: CD
     if: |
       (github.event_name == 'push' && needs.ci.outputs.release == 'true') ||
       (always() &&
