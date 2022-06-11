@@ -3,20 +3,40 @@ import XCTest
 
 struct SocialMediaPost: Codable {
     typealias CodingKeys = SocialMediaPostCodingKey
+    typealias MetaData = DynamicDecodingWrapper<CodingKeys>
     let id: UUID
     let author: UUID
     let likes: Int
     let createdAt: String
-    @DynamicDecodingWrapper<CodingKeys> var metadata: PostMetaData
+    @MetaData var metadata: PostMetaData
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(UUID.self, forKey: .id)
+        self.author = try container.decode(UUID.self, forKey: .author)
+        self.likes = try container.decode(Int.self, forKey: .likes)
+        self.createdAt = try container.decode(String.self, forKey: .createdAt)
+        self._metadata = try container.decode(MetaData.self, forKey: .metadata)
+    }
 }
 
 struct OptionalMetadataPost: Codable {
     typealias CodingKeys = SocialMediaPostCodingKey
+    typealias MetaData = OptionalDynamicDecodingWrapper<CodingKeys>
     let id: UUID
     let author: UUID
     let likes: Int
     let createdAt: String
-    @OptionalDynamicDecodingWrapper<CodingKeys> var metadata: PostMetaData?
+    @MetaData var metadata: PostMetaData?
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(UUID.self, forKey: .id)
+        self.author = try container.decode(UUID.self, forKey: .author)
+        self.likes = try container.decode(Int.self, forKey: .likes)
+        self.createdAt = try container.decode(String.self, forKey: .createdAt)
+        self._metadata = container.decode(MetaData.self, forKey: .metadata)
+    }
 }
 
 enum PostMetaDataType: String,
