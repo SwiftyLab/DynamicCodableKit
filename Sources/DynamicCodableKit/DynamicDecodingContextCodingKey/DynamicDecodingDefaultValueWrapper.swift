@@ -43,6 +43,36 @@ public struct DynamicDecodingDefaultValueWrapper<
     }
 }
 
+/// Decodes a value of dynamic ``DynamicDecodingDefaultValueWrapper``
+/// type for the given keyed container and coding key.
+///
+/// - Parameters:
+///   - container: The keyed container to cdecode from.
+///   - type: The type of value to decode.
+///   - key: The coding key.
+///
+/// - Returns: A dynamic value wrapped in ``DynamicDecodingDefaultValueWrapper``
+///            or a default value provided by ``DynamicDecodingDefaultValueProvider``
+///            if decoding fails.
+fileprivate func decode<Container, Wrapped>(
+    from container: Container,
+    ofType type: DynamicDecodingDefaultValueWrapper<
+        Container.Key, Wrapped
+    >.Type,
+    forKey key: Container.Key
+) -> DynamicDecodingDefaultValueWrapper<Container.Key, Wrapped>
+where Container: KeyedDecodingContainerProtocol {
+    typealias Key = Container.Key
+    guard
+        let context = try? Key.context(forContainer: container),
+        let decoder = try? container.superDecoder(forKey: key),
+        let value = try? context.decodeFrom(decoder)
+    else {
+        return DynamicDecodingDefaultValueWrapper(wrappedValue: .default)
+    }
+    return DynamicDecodingDefaultValueWrapper(wrappedValue: .init(value))
+}
+
 public extension KeyedDecodingContainer
 where K: DynamicDecodingContextCodingKey {
     /// Decodes a value of dynamic ``DynamicDecodingDefaultValueWrapper``
@@ -59,14 +89,7 @@ where K: DynamicDecodingContextCodingKey {
         _ type: DynamicDecodingDefaultValueWrapper<K, Wrapped>.Type,
         forKey key: K
     ) -> DynamicDecodingDefaultValueWrapper<K, Wrapped> {
-        guard
-            let context = try? K.context(forContainer: self),
-            let decoder = try? self.superDecoder(forKey: key),
-            let value = try? context.decodeFrom(decoder)
-        else {
-            return DynamicDecodingDefaultValueWrapper(wrappedValue: .default)
-        }
-        return DynamicDecodingDefaultValueWrapper(wrappedValue: .init(value))
+        return DynamicCodableKit.decode(from: self, ofType: type, forKey: key)
     }
 }
 
@@ -86,14 +109,7 @@ where Key: DynamicDecodingContextCodingKey {
         _ type: DynamicDecodingDefaultValueWrapper<Key, Wrapped>.Type,
         forKey key: Key
     ) -> DynamicDecodingDefaultValueWrapper<Key, Wrapped> {
-        guard
-            let context = try? Key.context(forContainer: self),
-            let decoder = try? self.superDecoder(forKey: key),
-            let value = try? context.decodeFrom(decoder)
-        else {
-            return DynamicDecodingDefaultValueWrapper(wrappedValue: .default)
-        }
-        return DynamicDecodingDefaultValueWrapper(wrappedValue: .init(value))
+        return DynamicCodableKit.decode(from: self, ofType: type, forKey: key)
     }
 }
 

@@ -41,43 +41,53 @@ public struct PathCodingKeyDefaultValueWrapper<
 
 public extension KeyedDecodingContainer {
     /// Decodes a value of the type ``DynamicDecodingDefaultValueProvider``
-    /// for the given ``DynamicDecodingDefaultValueProvider`` type.
+    /// for the wrapped value type provided.
     ///
     /// - Parameters:
     ///   - type: The type of value to decode.
     ///   - key: The coding key.
     ///
     /// - Returns: A value of the type ``DynamicDecodingDefaultValueProvider``
-    ///            for the given ``DynamicDecodingDefaultValueProvider`` type.
+    ///            for the wrapped value type provided.
     func decode<Value: DynamicDecodingDefaultValueProvider>(
         _ type: PathCodingKeyDefaultValueWrapper<Value>.Type,
         forKey key: K
+    ) -> PathCodingKeyDefaultValueWrapper<Value> {
+        return self.decode(type)
+    }
+}
+
+public extension KeyedDecodingContainerProtocol {
+    /// Decodes a value of the type ``DynamicDecodingDefaultValueProvider`` from coding key path.
+    ///
+    /// - Parameters:
+    ///   - type: The type of value to decode.
+    ///   - key: The coding key.
+    ///
+    /// - Returns: A value of the type ``DynamicDecodingDefaultValueProvider``
+    ///            from coding key path.
+    fileprivate func decode<Value>(
+        _ type: PathCodingKeyDefaultValueWrapper<Value>.Type
     ) -> PathCodingKeyDefaultValueWrapper<Value> {
         guard
             let value = self.codingKeyFromPath(ofType: Value.Wrapped.self)
         else { return .init(wrappedValue: .default) }
         return .init(wrappedValue: .init(value))
     }
-}
-
-public extension KeyedDecodingContainerProtocol {
     /// Decodes a value of the type ``DynamicDecodingDefaultValueProvider``
-    /// for the given ``DynamicDecodingDefaultValueProvider`` type.
+    /// for the wrapped value type provided.
     ///
     /// - Parameters:
     ///   - type: The type of value to decode.
     ///   - key: The coding key.
     ///
     /// - Returns: A value of the type ``DynamicDecodingDefaultValueProvider``
-    ///            for the given ``DynamicDecodingDefaultValueProvider`` type.
+    ///            for the wrapped value type provided.
     func decode<Value: DynamicDecodingDefaultValueProvider>(
         _ type: PathCodingKeyDefaultValueWrapper<Value>.Type,
         forKey key: Key
     ) -> PathCodingKeyDefaultValueWrapper<Value> {
-        guard
-            let value = self.codingKeyFromPath(ofType: Value.Wrapped.self)
-        else { return .init(wrappedValue: .default) }
-        return .init(wrappedValue: .init(value))
+        return self.decode(type)
     }
 }
 

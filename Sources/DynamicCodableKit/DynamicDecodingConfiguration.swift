@@ -71,7 +71,9 @@ public struct DefaultValueCollectionConfiguration:
 {
     /// Use ``CollectionDecodeFailConfiguration/default`` configuration
     /// to use default empty collection value if decoding fails.
-    public static var failConfig: CollectionDecodeFailConfiguration { .`default` }
+    public static var failConfig: CollectionDecodeFailConfiguration {
+        .`default`
+    }
 }
 
 /// Provides lossy configuration for dynamic array decoding,

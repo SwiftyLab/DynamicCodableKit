@@ -41,13 +41,24 @@ public extension KeyedDecodingContainer {
         _ type: PathCodingKeyWrapper<PathKey>.Type,
         forKey key: K
     ) throws -> PathCodingKeyWrapper<PathKey> {
-        return try .init(
-            wrappedValue: self.codingKeyFromPath(ofType: PathKey.self)
-        )
+        return try self.decode(type)
     }
 }
 
 public extension KeyedDecodingContainerProtocol {
+    /// Decodes a value of the type ``PathCodingKeyWrapper`` from coding key path.
+    ///
+    /// - Parameters:
+    ///   - type: The type of value to decode.
+    ///
+    /// - Returns: A value of the type ``PathCodingKeyWrapper`` from coding key path.
+    fileprivate func decode<PathKey>(
+        _ type: PathCodingKeyWrapper<PathKey>.Type
+    ) throws -> PathCodingKeyWrapper<PathKey> {
+        return try .init(
+            wrappedValue: self.codingKeyFromPath(ofType: PathKey.self)
+        )
+    }
     /// Decodes a value of the type ``PathCodingKeyWrapper``
     /// for the given `PathKey` coding key.
     ///
@@ -61,8 +72,6 @@ public extension KeyedDecodingContainerProtocol {
         _ type: PathCodingKeyWrapper<PathKey>.Type,
         forKey key: Key
     ) throws -> PathCodingKeyWrapper<PathKey> {
-        return try .init(
-            wrappedValue: self.codingKeyFromPath(ofType: PathKey.self)
-        )
+        return try self.decode(type)
     }
 }

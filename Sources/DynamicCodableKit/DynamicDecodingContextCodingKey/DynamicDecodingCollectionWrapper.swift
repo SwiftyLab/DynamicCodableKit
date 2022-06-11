@@ -26,13 +26,12 @@ where DynamicCollection.Element == ContextCodingKey.Identified {
     /// - Throws: `DecodingError` if ``DynamicDecodingCollectionConfigurationProvider/failConfig``
     ///            is ``CollectionDecodeFailConfiguration/throw`` and data is invalid or corrupt.
     public init(from decoder: Decoder) throws {
+        let context = DynamicDecodingContext(withKey: ContextCodingKey.self)
         switch Config.failConfig {
         case .throw, .`default`:
             do {
                 self.wrappedValue = try .init(
-                    DynamicDecodingContext(
-                        withKey: ContextCodingKey.self
-                    ).decodeArrayFrom(decoder)
+                    context.decodeArrayFrom(decoder)
                 )
             } catch {
                 if Config.failConfig == .throw { throw error }
@@ -40,11 +39,61 @@ where DynamicCollection.Element == ContextCodingKey.Identified {
             }
         case .lossy:
             self.wrappedValue = .init(
-                DynamicDecodingContext(
-                    withKey: ContextCodingKey.self
-                ).decodeLossyArrayFrom(decoder)
+                context.decodeLossyArrayFrom(decoder)
             )
         }
+    }
+}
+
+/// Decodes a value of dynamic ``DynamicDecodingCollectionWrapper``
+/// type for the given keyed container and coding key.
+///
+/// - Parameters:
+///   - container: The keyed container to cdecode from.
+///   - type: The type of value to decode.
+///   - key: The coding key.
+///
+/// - Returns: A dynamic collection value wrapped in ``DynamicDecodingCollectionWrapper``.
+///
+/// - Throws: `DecodingError` if ``DynamicDecodingCollectionConfigurationProvider/failConfig``
+///            is ``CollectionDecodeFailConfiguration/throw`` and data is invalid or corrupt.
+fileprivate func decode<Container, DynamicCollection, Config>(
+    from container: Container,
+    ofType type: DynamicDecodingCollectionWrapper<
+        Container.Key,
+        DynamicCollection,
+        Config
+    >.Type,
+    forKey key: Container.Key
+) throws -> DynamicDecodingCollectionWrapper<
+    Container.Key, DynamicCollection, Config
+> where Container: KeyedDecodingContainerProtocol {
+    typealias Key = Container.Key
+    switch Config.failConfig {
+    case .throw, .`default`:
+        do {
+            let decoder = try container.superDecoder(forKey: key)
+            let value = try DynamicCollection.init(
+                Key.context(forContainer: container).decodeArrayFrom(decoder)
+            )
+            return DynamicDecodingCollectionWrapper(wrappedValue: value)
+        } catch {
+            if Config.failConfig == .throw { throw error }
+            return DynamicDecodingCollectionWrapper(wrappedValue: .init())
+        }
+    case .lossy:
+        guard
+            let decoder = try? container.superDecoder(forKey: key)
+        else {
+            return DynamicDecodingCollectionWrapper(wrappedValue: .init())
+        }
+        return DynamicDecodingCollectionWrapper(
+            wrappedValue: .init(
+                (try? Key.context(
+                    forContainer: container
+                ).decodeLossyArrayFrom(decoder)) ?? .init()
+            )
+        )
     }
 }
 
@@ -67,32 +116,11 @@ where K: DynamicDecodingContextCodingKey {
         >.Type,
         forKey key: K
     ) throws -> DynamicDecodingCollectionWrapper<K, DynamicCollection, Config> {
-        switch Config.failConfig {
-        case .throw, .`default`:
-            do {
-                let decoder = try self.superDecoder(forKey: key)
-                let value = try DynamicCollection.init(
-                    K.context(forContainer: self).decodeArrayFrom(decoder)
-                )
-                return DynamicDecodingCollectionWrapper(wrappedValue: value)
-            } catch {
-                if Config.failConfig == .throw { throw error }
-                return DynamicDecodingCollectionWrapper(wrappedValue: .init())
-            }
-        case .lossy:
-            guard
-                let decoder = try? self.superDecoder(forKey: key)
-            else {
-                return DynamicDecodingCollectionWrapper(wrappedValue: .init())
-            }
-            return DynamicDecodingCollectionWrapper(
-                wrappedValue: .init(
-                    (try? K.context(
-                        forContainer: self
-                    ).decodeLossyArrayFrom(decoder)) ?? .init()
-                )
-            )
-        }
+        return try DynamicCodableKit.decode(
+            from: self,
+            ofType: type,
+            forKey: key
+        )
     }
 }
 
@@ -116,32 +144,11 @@ where Key: DynamicDecodingContextCodingKey {
         forKey key: Key
     ) throws -> DynamicDecodingCollectionWrapper<Key, DynamicCollection, Config>
     {
-        switch Config.failConfig {
-        case .throw, .`default`:
-            do {
-                let decoder = try self.superDecoder(forKey: key)
-                let value = try DynamicCollection.init(
-                    Key.context(forContainer: self).decodeArrayFrom(decoder)
-                )
-                return DynamicDecodingCollectionWrapper(wrappedValue: value)
-            } catch {
-                if Config.failConfig == .throw { throw error }
-                return DynamicDecodingCollectionWrapper(wrappedValue: .init())
-            }
-        case .lossy:
-            guard
-                let decoder = try? self.superDecoder(forKey: key)
-            else {
-                return DynamicDecodingCollectionWrapper(wrappedValue: .init())
-            }
-            return DynamicDecodingCollectionWrapper(
-                wrappedValue: .init(
-                    (try? Key.context(
-                        forContainer: self
-                    ).decodeLossyArrayFrom(decoder)) ?? .init()
-                )
-            )
-        }
+        return try DynamicCodableKit.decode(
+            from: self,
+            ofType: type,
+            forKey: key
+        )
     }
 }
 
