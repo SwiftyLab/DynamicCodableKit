@@ -9,8 +9,10 @@ Pod::Spec.new do |s|
   s.summary           = package.summary
   s.description       = package.description
   s.license           = { :type => package.license, :file => 'LICENSE' }
-  s.documentation_url = "https://swiftylab.github.io/DynamicCodableKit/#{s.version}/documentation/#{s.name.downcase}/"
   s.social_media_url  = package.author.url
+  s.readme            = "#{s.homepage}/blob/main/README.md"
+  s.changelog         = "#{s.homepage}/blob/main/CHANGELOG.md"
+  s.documentation_url = "https://swiftylab.github.io/DynamicCodableKit/#{s.version}/documentation/#{s.name.downcase}/"
 
   s.source            = {
     package.repository.type.to_sym => package.repository.url,
