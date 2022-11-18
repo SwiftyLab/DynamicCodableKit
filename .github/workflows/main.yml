@@ -26,7 +26,7 @@ jobs:
   # analyze:
   #   name: Analyze
   #   if: github.event_name != 'workflow_dispatch'
-  #   uses: SwiftyLab/ci/.github/workflows/codeql-analysis.yml@main
+  #   uses: SwiftyLab/ci/.github/workflows/codeql-analysis.yml@parallel
   #   permissions:
   #     actions: read
   #     contents: read
@@ -46,7 +46,7 @@ jobs:
 
   swift-package-test:
     name: Swift Package
-    uses: SwiftyLab/ci/.github/workflows/swift-package.yml@main
+    uses: SwiftyLab/ci/.github/workflows/swift-package.yml@parallel
     secrets: inherit
     with:
       codecov-swift: '5.6'
@@ -75,49 +75,21 @@ jobs:
 
   cocoapods-test:
     name: CocoaPods
-    uses: SwiftyLab/ci/.github/workflows/cocoapods.yml@main
+    uses: SwiftyLab/ci/.github/workflows/cocoapods.yml@parallel
 
   xcode-test:
     name: Xcode
-    uses: SwiftyLab/ci/.github/workflows/xcode.yml@main
+    uses: SwiftyLab/ci/.github/workflows/xcode.yml@parallel
     with:
-      matrix: >
-        {
-          "include": [
-            {
-              "os": "macos-10.15",
-              "xcode": "11.3.1",
-              "platform": "macOS"
-            },
-            {
-              "os": "macos-10.15",
-              "xcode": "11.3.1",
-              "platform": "watchOS"
-            },
-            {
-              "os": "macos-10.15",
-              "xcode": "11.3.1",
-              "platform": "tvOS"
-            },
-            {
-              "os": "macos-10.15",
-              "xcode": "11.3.1",
-              "platform": "iOS"
-            },
-            {
-              "os": "macos-10.15",
-              "xcode": "11.3.1",
-              "platform": "mac-catalyst"
-            }
-          ]
-        }
+      os: macos-10.15
+      xcode: '11.3.1'
 
   ci:
     name: CI
     if: github.event_name == 'push'
     needs: [swift-package-test, xcode-test, cocoapods-test]
     # needs: [analyze, swift-package-test, xcode-test, cocoapods-test]
-    uses: SwiftyLab/ci/.github/workflows/ci.yml@main
+    uses: SwiftyLab/ci/.github/workflows/ci.yml@parallel
 
   cd:
     name: CD
@@ -133,7 +105,7 @@ jobs:
     # (needs.analyze.result == 'success' || needs.analyze.result == 'skipped')
     needs: [ci, swift-package-test, xcode-test, cocoapods-test]
     # needs: [ci, analyze, swift-package-test, xcode-test, cocoapods-test]
-    uses: SwiftyLab/ci/.github/workflows/cd.yml@main
+    uses: SwiftyLab/ci/.github/workflows/cd.yml@parallel
     with:
       version: ${{ github.event.inputs.version }}
     secrets:
