@@ -7,9 +7,9 @@
 [![Swift](https://img.shields.io/badge/Swift-5-orange)](https://img.shields.io/badge/Swift-5-DE5D43)
 [![Platforms](https://img.shields.io/badge/Platforms-all-sucess)](https://img.shields.io/badge/Platforms-all-sucess)
 [![CI/CD](https://github.com/SwiftyLab/DynamicCodableKit/actions/workflows/main.yml/badge.svg?event=push)](https://github.com/SwiftyLab/DynamicCodableKit/actions/workflows/main.yml)
-[![CodeQL](https://github.com/SwiftyLab/DynamicCodableKit/actions/workflows/codeql-analysis.yml/badge.svg?event=schedule)](https://github.com/SwiftyLab/DynamicCodableKit/actions/workflows/codeql-analysis.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/fabcc4219bbc49b29751/maintainability)](https://codeclimate.com/github/SwiftyLab/DynamicCodableKit/maintainability)
+[![CodeFactor](https://www.codefactor.io/repository/github/swiftylab/dynamiccodablekit/badge)](https://www.codefactor.io/repository/github/swiftylab/dynamiccodablekit)
 [![codecov](https://codecov.io/gh/SwiftyLab/DynamicCodableKit/branch/main/graph/badge.svg?token=QIM4SKWNCS)](https://codecov.io/gh/SwiftyLab/DynamicCodableKit)
+<!-- [![CodeQL](https://github.com/SwiftyLab/DynamicCodableKit/actions/workflows/codeql-analysis.yml/badge.svg?event=schedule)](https://github.com/SwiftyLab/DynamicCodableKit/actions/workflows/codeql-analysis.yml) -->
 
 **DynamicCodableKit** helps you to implement dynamic JSON decoding within the constraints of Swift's sound type system by working on top of Swift's Codable implementations.
 
