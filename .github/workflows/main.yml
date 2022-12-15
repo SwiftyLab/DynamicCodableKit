@@ -49,7 +49,7 @@ jobs:
     uses: SwiftyLab/ci/.github/workflows/swift-package.yml@main
     secrets: inherit
     with:
-      codecov-swift: '5.6'
+      codecov-swift: '5.7'
       codecov-os: ubuntu-latest
       matrix: >
         {
@@ -66,7 +66,7 @@ jobs:
         }
       # {
       #   "os": "windows-latest",
-      #   "swift": "5.6"
+      #   "swift": "5.7"
       # },
       # {
       #   "os": "windows-latest",
