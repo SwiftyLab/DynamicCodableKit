@@ -49,24 +49,24 @@ jobs:
     uses: SwiftyLab/ci/.github/workflows/swift-package.yml@main
     secrets: inherit
     with:
-      codecov-swift: '5.6'
+      codecov-swift: '5.7'
       codecov-os: ubuntu-latest
       matrix: >
         {
           "include": [
             {
               "os": "ubuntu-latest",
-              "swift": "5.6"
+              "swift": "5.7"
             },
             {
-              "os": "ubuntu-latest",
+              "os": "ubuntu-20.04",
               "swift": "5.2"
             }
           ]
         }
       # {
       #   "os": "windows-latest",
-      #   "swift": "5.6"
+      #   "swift": "5.7"
       # },
       # {
       #   "os": "windows-latest",
@@ -81,36 +81,8 @@ jobs:
     name: Xcode
     uses: SwiftyLab/ci/.github/workflows/xcode.yml@main
     with:
-      matrix: >
-        {
-          "include": [
-            {
-              "os": "macos-10.15",
-              "xcode": "11.3.1",
-              "platform": "macOS"
-            },
-            {
-              "os": "macos-10.15",
-              "xcode": "11.3.1",
-              "platform": "watchOS"
-            },
-            {
-              "os": "macos-10.15",
-              "xcode": "11.3.1",
-              "platform": "tvOS"
-            },
-            {
-              "os": "macos-10.15",
-              "xcode": "11.3.1",
-              "platform": "iOS"
-            },
-            {
-              "os": "macos-10.15",
-              "xcode": "11.3.1",
-              "platform": "mac-catalyst"
-            }
-          ]
-        }
+      os: macos-11
+      xcode: '11.7'
 
   ci:
     name: CI
