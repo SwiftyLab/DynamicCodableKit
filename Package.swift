@@ -11,20 +11,11 @@ let package = Package(
         .watchOS(.v2)
     ],
     products: [
-        .library(
-            name: "DynamicCodableKit",
-            targets: ["DynamicCodableKit"]
-        ),
+        .library(name: "DynamicCodableKit", targets: ["DynamicCodableKit"]),
     ],
     targets: [
-        .target(
-            name: "DynamicCodableKit",
-            dependencies: []
-        ),
-        .testTarget(
-            name: "DynamicCodableKitTests",
-            dependencies: ["DynamicCodableKit"]
-        ),
+        .target(name: "DynamicCodableKit", dependencies: []),
+        .testTarget(name: "DynamicCodableKitTests", dependencies: ["DynamicCodableKit"]),
     ],
     swiftLanguageVersions: [.v5]
 )
