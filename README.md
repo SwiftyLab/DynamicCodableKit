@@ -11,6 +11,9 @@
 [![codecov](https://codecov.io/gh/SwiftyLab/DynamicCodableKit/branch/main/graph/badge.svg?token=QIM4SKWNCS)](https://codecov.io/gh/SwiftyLab/DynamicCodableKit)
 <!-- [![CodeQL](https://github.com/SwiftyLab/DynamicCodableKit/actions/workflows/codeql-analysis.yml/badge.svg?event=schedule)](https://github.com/SwiftyLab/DynamicCodableKit/actions/workflows/codeql-analysis.yml) -->
 
+> [!IMPORTANT]  
+**DynamicCodableKit** no longer actively developped, migrate to [**MetaCodable**](https://github.com/SwiftyLab/MetaCodable) instead
+
 **DynamicCodableKit** helps you to implement dynamic JSON decoding within the constraints of Swift's sound type system by working on top of Swift's Codable implementations.
 
 The data types, protocols, and property wrappers defined by **DynamicCodableKit** can be used to provide dynamic decoding functionality to swift's `Decodable` types.
